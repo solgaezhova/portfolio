@@ -199,6 +199,74 @@ function Reveal({
   );
 }
 
+function TypewriterPhilosophy({
+  intro,
+  emphasis,
+  className,
+  speed = 22,
+}: {
+  intro: string;
+  emphasis: string;
+  className?: string;
+  speed?: number;
+}) {
+  const reduceMotion = useReducedMotion();
+  const ref = useRef<HTMLParagraphElement | null>(null);
+  const [startTyping, setStartTyping] = useState(reduceMotion);
+  const totalLength = intro.length + emphasis.length;
+  const [visibleChars, setVisibleChars] = useState(reduceMotion ? totalLength : 0);
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setStartTyping(true);
+      setVisibleChars(totalLength);
+      return;
+    }
+
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStartTyping(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [reduceMotion, totalLength]);
+
+  useEffect(() => {
+    if (!startTyping || reduceMotion || visibleChars >= totalLength) return;
+
+    const timer = window.setInterval(() => {
+      setVisibleChars((prev) => Math.min(prev + 1, totalLength));
+    }, speed);
+
+    return () => window.clearInterval(timer);
+  }, [startTyping, reduceMotion, visibleChars, totalLength, speed]);
+
+  const introVisible = intro.slice(0, Math.min(visibleChars, intro.length));
+  const emphasisVisible = emphasis.slice(
+    0,
+    Math.max(0, Math.min(visibleChars - intro.length, emphasis.length)),
+  );
+
+  return (
+    <p ref={ref} className={className}>
+      {introVisible}
+      <span className="font-semibold">{emphasisVisible}</span>
+      {startTyping && !reduceMotion && visibleChars < totalLength && (
+        <span className="ml-0.5 text-primary/70 animate-pulse">|</span>
+      )}
+    </p>
+  );
+}
+
 // ─── HERO ─────────────────────────────────────────────────────────────────────
 
 function Hero() {
@@ -225,7 +293,7 @@ function Hero() {
               initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
               animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
               transition={{ duration: 0.34, delay: 0.08 }}
-              className="text-[clamp(2.8rem,8vw,6rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground mb-8"
+              className="text-[clamp(2.8rem,8vw,6rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-black mb-8"
             >
               Olya Ezhova
             </motion.h1>
@@ -235,7 +303,15 @@ function Hero() {
               transition={{ duration: 0.32, delay: 0.12 }}
               className="text-xl font-medium text-muted-foreground mb-5 tracking-tight"
             >
-              Senior Frontend Engineer · UI/UX Designer · Healthcare · SaaS
+              <span className="inline-flex items-center px-3.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-800">
+                Senior Frontend Engineer
+              </span>
+              <span className="mx-2 text-muted-foreground/60">·</span>
+              <span className="text-teal-700">UI/UX Designer</span>
+              <span className="mx-2 text-muted-foreground/60">·</span>
+              <span className="text-sky-700">Healthcare</span>
+              <span className="mx-2 text-muted-foreground/60">·</span>
+              <span className="text-cyan-700">SaaS</span>
             </motion.p>
             <motion.p
               initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
@@ -297,13 +373,57 @@ function Hero() {
           </motion.div>
         </div>
 
-        <div className="mt-20 pt-10 border-t border-border grid grid-cols-2 md:grid-cols-5 gap-8">
+        <div className="mt-20">
+          <div className="relative h-px w-full overflow-hidden">
+            <motion.div
+              className="absolute inset-y-0 w-[220%] bg-gradient-to-r from-cyan-300/55 via-sky-300/45 to-teal-300/55"
+              initial={{ x: "-55%" }}
+              animate={reduceMotion ? { x: "-55%" } : { x: ["-55%", "0%"] }}
+              transition={{ duration: 5, ease: "linear", repeat: Infinity }}
+            />
+          </div>
+          <div className="pt-6 grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
           {[
-            { number: "5+", label: "Years of Frontend Engineering" },
-            { number: "20+", label: "Large-scale applications" },
-            { number: "5,000+", label: "Daily users" },
-            { number: "330+", label: "Healthcare clinics supported" },
-            { number: "30%", label: "Processing time reduced" },
+            {
+              number: "5+",
+              label: "Years of Frontend Engineering",
+              glow: "from-cyan-400/30 via-cyan-300/10 to-transparent",
+              accent: "bg-cyan-500/65",
+              ring: "group-hover:border-cyan-400/40",
+              numberTone: "group-hover:text-cyan-700",
+            },
+            {
+              number: "20+",
+              label: "Large-scale applications",
+              glow: "from-teal-400/28 via-teal-300/10 to-transparent",
+              accent: "bg-teal-500/65",
+              ring: "group-hover:border-teal-400/40",
+              numberTone: "group-hover:text-teal-700",
+            },
+            {
+              number: "5,000+",
+              label: "Daily users",
+              glow: "from-sky-400/28 via-sky-300/10 to-transparent",
+              accent: "bg-sky-500/65",
+              ring: "group-hover:border-sky-400/40",
+              numberTone: "group-hover:text-sky-700",
+            },
+            {
+              number: "330+",
+              label: "Healthcare clinics supported",
+              glow: "from-blue-400/28 via-blue-300/10 to-transparent",
+              accent: "bg-blue-500/65",
+              ring: "group-hover:border-blue-400/40",
+              numberTone: "group-hover:text-blue-700",
+            },
+            {
+              number: "30%",
+              label: "Processing time reduced",
+              glow: "from-emerald-400/26 via-emerald-300/10 to-transparent",
+              accent: "bg-emerald-500/65",
+              ring: "group-hover:border-emerald-400/40",
+              numberTone: "group-hover:text-emerald-700",
+            },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -311,13 +431,22 @@ function Hero() {
               whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.35 }}
               transition={{ duration: 0.28, delay: 0.035 * i }}
+              className="group"
             >
-              <div className="text-3xl font-semibold tracking-tight text-foreground mb-1">
-                {stat.number}
+              <div className={`relative overflow-hidden rounded-2xl border border-border/80 bg-card/70 backdrop-blur-sm px-5 py-5 md:px-6 md:py-6 min-h-[138px] md:min-h-[150px] shadow-[0_1px_0_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-200 h-full ${stat.ring}`}>
+                <div className={`absolute inset-0 bg-gradient-to-br ${stat.glow} opacity-60`} />
+                <div className="absolute -top-10 -right-8 w-24 h-24 rounded-full bg-white/30 blur-2xl" />
+                <div className="relative">
+                <div className={`h-1.5 w-11 rounded-full mb-3 ${stat.accent}`} />
+                <div className={`text-3xl font-semibold tracking-tight text-foreground mb-1 transition-colors ${stat.numberTone}`}>
+                  {stat.number}
+                </div>
+                <div className="text-sm text-muted-foreground leading-snug">{stat.label}</div>
+                </div>
               </div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
             </motion.div>
           ))}
+          </div>
         </div>
       </div>
     </section>
@@ -424,13 +553,25 @@ function About() {
                 <h3 className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-3">
                   Industries
                 </h3>
-                {["Healthcare", "Legal Technology", "SaaS"].map((i) => (
+                {[
+                  {
+                    label: "Healthcare",
+                    tone: "text-sky-800",
+                  },
+                  {
+                    label: "Legal Technology",
+                    tone: "text-cyan-800",
+                  },
+                  {
+                    label: "SaaS",
+                    tone: "text-teal-800",
+                  },
+                ].map((item) => (
                   <div
-                    key={i}
-                    className="flex items-center gap-2 py-2.5 border-b border-border text-sm text-foreground"
+                    key={item.label}
+                    className={`py-3.5 border-b border-border text-lg font-semibold tracking-tight ${item.tone}`}
                   >
-                    <ChevronRight size={12} className="text-primary" />
-                    {i}
+                    {item.label}
                   </div>
                 ))}
               </div>
@@ -459,20 +600,29 @@ function About() {
             Core Strengths
           </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {CORE_STRENGTHS.map((s) => (
+            {CORE_STRENGTHS.map((s, i) => (
               <div
                 key={s.label}
-                className="p-5 bg-card border border-border rounded-xl hover:border-primary/30 hover:shadow-sm transition-all duration-200 group"
+                className="relative overflow-hidden p-5 bg-card/75 backdrop-blur-sm border border-border rounded-xl hover:border-primary/30 hover:shadow-md transition-all duration-200 group"
               >
-                <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-                  {s.icon}
+                <div className={`absolute inset-0 bg-gradient-to-br ${[
+                  "from-cyan-400/22 via-cyan-200/8 to-transparent",
+                  "from-teal-400/22 via-teal-200/8 to-transparent",
+                  "from-sky-400/22 via-sky-200/8 to-transparent",
+                  "from-emerald-400/22 via-emerald-200/8 to-transparent",
+                ][i % 4]} opacity-70`} />
+                <div className="absolute -top-8 -right-8 w-20 h-20 rounded-full bg-white/35 blur-2xl" />
+                <div className="relative">
+                  <div className="w-8 h-8 rounded-lg bg-white/65 border border-white/60 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                    {s.icon}
+                  </div>
+                  <h4 className="text-sm font-semibold text-foreground mb-2">
+                    {s.label}
+                  </h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {s.description}
+                  </p>
                 </div>
-                <h4 className="text-sm font-semibold text-foreground mb-2">
-                  {s.label}
-                </h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {s.description}
-                </p>
               </div>
             ))}
           </div>
@@ -550,18 +700,21 @@ function About() {
         </div>
 
         {/* Philosophy */}
-        <div className="p-8 bg-card border border-border rounded-2xl grid lg:grid-cols-[auto_1fr] gap-6 items-start">
-          <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-primary shrink-0">
+        <div className="relative overflow-hidden p-8 bg-card border border-cyan-200/70 rounded-2xl grid lg:grid-cols-[auto_1fr] gap-6 items-start shadow-[0_10px_30px_-18px_rgba(8,145,178,0.45)]">
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/14 via-sky-300/8 to-transparent" />
+          <div className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-cyan-200/25 blur-3xl" />
+          <div className="relative w-10 h-10 rounded-xl bg-white/80 border border-cyan-100 flex items-center justify-center text-cyan-700 shrink-0">
             <Quote size={18} />
           </div>
-          <div>
+          <div className="relative">
             <h3 className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-3">
               Personal Philosophy
             </h3>
-            <p className="text-base text-foreground leading-relaxed mb-3">
-              Great frontend engineers {"don't"} just build interfaces.{" "}
-              <span className="font-semibold">They understand the people, processes, and workflows behind them.</span>
-            </p>
+            <TypewriterPhilosophy
+              intro="Great frontend engineers don't just build interfaces. "
+              emphasis="They understand the people, processes, and workflows behind them."
+              className="text-base text-foreground leading-relaxed mb-3"
+            />
            
           </div>
         </div>
@@ -684,19 +837,35 @@ function Skills() {
               whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.25 }}
               transition={{ duration: 0.3, delay: i * 0.025 }}
-              className="p-5 border border-border rounded-xl bg-card hover:border-primary/30 hover:shadow-sm transition-all duration-200 group"
+              className="relative overflow-hidden p-5 border border-border rounded-xl bg-card hover:border-primary/30 hover:shadow-md transition-all duration-200 group"
             >
+              <div
+                className={`absolute inset-0 opacity-40 pointer-events-none bg-gradient-to-br ${[
+                  "from-cyan-200/45 via-transparent to-transparent",
+                  "from-sky-200/45 via-transparent to-transparent",
+                  "from-teal-200/45 via-transparent to-transparent",
+                  "from-blue-200/45 via-transparent to-transparent",
+                ][i % 4]}`}
+              />
+              <div
+                className={`relative mb-3 h-1.5 w-11 rounded-full ${[
+                  "bg-cyan-500/65",
+                  "bg-sky-500/65",
+                  "bg-teal-500/65",
+                  "bg-blue-500/65",
+                ][i % 4]}`}
+              />
               <div className="w-9 h-9 rounded-lg bg-accent flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
                 {cat.icon}
               </div>
               <h3 className="text-sm font-semibold text-foreground mb-3">
                 {cat.label}
               </h3>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="relative flex flex-wrap gap-1.5">
                 {cat.skills.map((s) => (
                   <span
                     key={s}
-                    className="text-xs px-2 py-0.5 bg-secondary text-muted-foreground rounded-full"
+                    className="text-xs px-2 py-0.5 bg-secondary/90 border border-border/60 text-muted-foreground rounded-full"
                   >
                     {s}
                   </span>
@@ -911,37 +1080,57 @@ function ScreenshotGallery({ screenshots, title }: { screenshots: Screenshot[]; 
   const current = screenshots[safeIdx];
   return (
     <div className="space-y-3">
-      <div className="rounded-xl overflow-hidden border border-border bg-secondary/30 shadow-sm">
+      <div className="md:hidden overflow-x-auto snap-x snap-mandatory -mx-1 px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex gap-3">
+          {screenshots.map((shot) => (
+            <div key={shot.caption} className="min-w-full snap-center space-y-2">
+              <div className="rounded-xl overflow-hidden border border-border bg-secondary/30 shadow-sm">
+                <ImageWithFallback
+                  src={shot.src}
+                  alt={shot.alt}
+                  className="w-full object-cover"
+                />
+              </div>
+              <p className="text-xs text-muted-foreground text-center px-2">{shot.caption}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="hidden md:block">
+        <div className="rounded-xl overflow-hidden border border-border bg-secondary/30 shadow-sm">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={`${title}-${safeIdx}`}
+              initial={reduceMotion ? { opacity: 1 } : { opacity: 0, x: 10 }}
+              animate={reduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
+              exit={reduceMotion ? { opacity: 1 } : { opacity: 0, x: -10 }}
+              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <ImageWithFallback
+                src={current.src}
+                alt={current.alt}
+                className="w-full object-cover"
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={`${title}-${safeIdx}`}
-            initial={reduceMotion ? { opacity: 1 } : { opacity: 0, x: 10 }}
-            animate={reduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
-            exit={reduceMotion ? { opacity: 1 } : { opacity: 0, x: -10 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          <motion.p
+            key={`${title}-caption-${safeIdx}`}
+            initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 5 }}
+            animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            exit={reduceMotion ? { opacity: 1 } : { opacity: 0, y: -5 }}
+            transition={{ duration: 0.16 }}
+            className="text-xs text-muted-foreground text-center mt-3"
           >
-            <ImageWithFallback
-              src={current.src}
-              alt={current.alt}
-              className="w-full object-cover"
-            />
-          </motion.div>
+            {current.caption}
+          </motion.p>
         </AnimatePresence>
       </div>
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.p
-          key={`${title}-caption-${safeIdx}`}
-          initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 5 }}
-          animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          exit={reduceMotion ? { opacity: 1 } : { opacity: 0, y: -5 }}
-          transition={{ duration: 0.16 }}
-          className="text-xs text-muted-foreground text-center"
-        >
-          {current.caption}
-        </motion.p>
-      </AnimatePresence>
+
       {screenshots.length > 1 && (
-        <div className="flex items-center justify-center gap-2">
+        <div className="hidden md:flex items-center justify-center gap-2">
           <button
             onClick={() => setActiveIdx((i) => Math.max(0, i - 1))}
             disabled={activeIdx === 0}
@@ -1331,17 +1520,22 @@ function AIWorkflow() {
               every pixel that ships. AI handles the mechanical parts so I can
               focus on the hard parts.
             </p>
-            <div className="p-5 bg-card border border-border rounded-xl">
-              <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                Overall productivity lift
-              </div>
-              <div className="text-4xl font-semibold text-foreground tracking-tight mb-1">
-                2–3×
-              </div>
-              <div className="text-sm text-muted-foreground">
-                Estimated output multiplier on greenfield features when AI tools
-                are paired with clear requirements and strong architectural
-                judgment.
+            <div className="relative overflow-hidden rounded-xl border border-border/80 bg-card/70 backdrop-blur-sm px-5 py-5 min-h-[150px] shadow-[0_1px_0_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-200">
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/28 via-sky-300/10 to-transparent opacity-60" />
+              <div className="absolute -top-10 -right-8 w-24 h-24 rounded-full bg-white/30 blur-2xl" />
+              <div className="relative">
+                <div className="h-1.5 w-11 rounded-full mb-3 bg-cyan-500/65" />
+                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                  Overall productivity lift
+                </div>
+                <div className="text-4xl font-semibold text-foreground tracking-tight mb-1">
+                  2–3×
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Estimated output multiplier on greenfield features when AI tools
+                  are paired with clear requirements and strong architectural
+                  judgment.
+                </div>
               </div>
             </div>
           </div>
