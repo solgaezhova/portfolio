@@ -293,7 +293,7 @@ function Hero() {
               initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
               animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
               transition={{ duration: 0.34, delay: 0.08 }}
-              className="text-[clamp(2.8rem,8vw,6rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-black mb-8"
+              className="text-[clamp(2.8rem,8vw,6rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-black mb-0 md:mb-8"
             >
               Olya Ezhova
             </motion.h1>
@@ -301,17 +301,17 @@ function Hero() {
               initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
               animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
               transition={{ duration: 0.32, delay: 0.12 }}
-              className="text-xl font-medium text-muted-foreground mb-5 tracking-tight"
+              className="text-xl font-medium text-muted-foreground mt-3 mb-5 md:mt-0 md:mb-5 tracking-tight flex flex-wrap items-center gap-y-3 gap-x-2 sm:gap-x-0"
             >
-              <span className="inline-flex items-center px-3.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-800">
+              <span className="inline-flex w-full sm:w-auto h-10 justify-start items-center px-3.5 rounded-full bg-slate-100 border border-slate-200 text-slate-800 leading-none">
                 Senior Frontend Engineer
               </span>
-              <span className="mx-2 text-muted-foreground/60">·</span>
-              <span className="text-teal-700">UI/UX Designer</span>
-              <span className="mx-2 text-muted-foreground/60">·</span>
-              <span className="text-sky-700">Healthcare</span>
-              <span className="mx-2 text-muted-foreground/60">·</span>
-              <span className="text-cyan-700">SaaS</span>
+              <span className="mx-2 text-muted-foreground/60 hidden sm:inline">·</span>
+              <span className="text-teal-700 inline-flex">UI/UX Designer</span>
+              <span className="mx-2 text-muted-foreground/60 hidden sm:inline">·</span>
+              <span className="text-sky-700 inline-flex">Healthcare</span>
+              <span className="mx-2 text-muted-foreground/60 hidden sm:inline">·</span>
+              <span className="text-cyan-700 inline-flex">SaaS</span>
             </motion.p>
             <motion.p
               initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
@@ -373,7 +373,7 @@ function Hero() {
           </motion.div>
         </div>
 
-        <div className="mt-20">
+        <div className="mt-20 relative left-1/2 right-1/2 w-screen -translate-x-1/2">
           <div className="relative h-px w-full overflow-hidden">
             <motion.div
               className="absolute inset-y-0 w-[220%] bg-gradient-to-r from-cyan-300/55 via-sky-300/45 to-teal-300/55"
@@ -382,16 +382,9 @@ function Hero() {
               transition={{ duration: 5, ease: "linear", repeat: Infinity }}
             />
           </div>
-          <div className="pt-6 grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
+          <div className="pt-6 pl-[max(1.5rem,calc((100vw-72rem)/2))] pr-6">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
           {[
-            {
-              number: "5+",
-              label: "Years of Frontend Engineering",
-              glow: "from-cyan-400/30 via-cyan-300/10 to-transparent",
-              accent: "bg-cyan-500/65",
-              ring: "group-hover:border-cyan-400/40",
-              numberTone: "group-hover:text-cyan-700",
-            },
             {
               number: "20+",
               label: "Large-scale applications",
@@ -446,6 +439,7 @@ function Hero() {
               </div>
             </motion.div>
           ))}
+          </div>
           </div>
         </div>
       </div>
@@ -557,10 +551,6 @@ function About() {
                   {
                     label: "Healthcare",
                     tone: "text-sky-800",
-                  },
-                  {
-                    label: "Legal Technology",
-                    tone: "text-cyan-800",
                   },
                   {
                     label: "SaaS",
@@ -1551,7 +1541,7 @@ function AIWorkflow() {
                     <div className="font-semibold text-sm text-foreground">
                       {t.tool}
                     </div>
-                    <div className="text-xs text-muted-foreground">
+                    <div className="text-xs text-muted-foreground mt-1.5 sm:mt-1">
                       {t.category}
                     </div>
                   </div>
