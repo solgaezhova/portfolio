@@ -24,6 +24,7 @@ import {
   Monitor,
   Smartphone,
   ChevronLeft,
+  ChevronDown,
 } from "lucide-react";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import ss1 from "@/imports/Screenshot_2026-06-29_at_16.52.46.png";
@@ -906,7 +907,7 @@ const PROJECTS = [
       "Authored technical documentation for the full app architecture - wiki and onboarding reference",
     ],
     challenge:
-      "Call center staff and clinical coordinators had no fast way to identify which nearby urgent care clinics offered a specific service on a given day. The existing process required phone calls and manual lookups across disconnected systems, causing delays in patient routing and staff scheduling. The app needed to work reliably at scale across 330+ clinics while remaining fast, accessible, and easy to use on shared workstations.",
+      "Call center teams needed a faster way to find nearby clinics by service and day without phone-based manual lookups. The solution had to stay reliable and easy to use at scale across 330+ clinics.",
     architecture:
       "Single-page React 18 + TypeScript app built with Vite, integrated into an ASP.NET Core backend - the React build outputs directly into the .NET app's wwwroot folder. State is managed locally in DashboardPage (no Redux/Context) and passed to stateless child components via props and callbacks. The UI renders in three progressive states: initial search → selected clinic results → nearby clinics panel. API calls hit three endpoints: /api/certifications, /api/clinics, and /api/servicesdashboard. Dashboard data is cached in-memory per clinic/certification/date with a 5-minute expiration to reduce redundant API calls. The Neutron UI SDK (HCA's design system) provides WCAG 2.1 AA-compliant components; Bootstrap handles responsive layout; Azure Maps renders nearby clinic locations with token-cached auth.",
     technicalChallenges: [
@@ -947,20 +948,20 @@ const PROJECTS = [
       "Produced a written before/after evaluation with specific improvement rationale per surface",
     ],
     challenge:
-      "The existing Practice Information Card app had significant usability problems: no real-time search suggestions, a bulky table for results, no back navigation, no direct provider access, excessive white space with no guidance, dense tables with poor scanability, and multiple accessibility failures. Crucial practice information-address, hours, website-was hard to find.",
+      "The existing Practice Information Card experience was hard to scan, inaccessible in key flows, and slow for finding provider and practice details. Users needed clearer navigation, faster search, and easier access to critical information.",
     architecture:
       "The redesign covered four surfaces: (1) Home - clear subtitle, search bar with helper text and descriptive placeholder, 'Recently Viewed' section, card-based help resources. (2) Search - autosuggest dropdown after 3 characters with results categorized into Clinics, Providers, and COID, plus quick filter chips (All / Clinic Only / Provider Only / COID Only). (3) Practice page - tabbed navigation (Providers / Sites / Practice Details), card layout for contact and location details, insurance chips, and breadcrumb navigation. (4) Provider page - dedicated page with specialty chips, status badges, quick action buttons (Contact Provider, Schedule Appointment, Send Message), and organized card sections for professional info, practice affiliation, and practice policies. The prototype was built with Figma Make.",
     technicalChallenges: [
-      "Identifying and documenting WCAG failures in production: color contrast, broken ARIA, missing keyboard navigation",
+      "Identifying and documenting WCAG failures: color contrast, broken ARIA, missing keyboard navigation",
       "Designing real-time autosuggest search with multi-category results (Clinics, Providers, COID) and filter chips",
       "Restructuring dense tables into scannable card layouts without losing information density",
       "Designing for variable-length provider and practice data across specialty lists, service tables, and multi-site practices",
     ],
     impact: [
-      { metric: "4 surfaces", label: "redesigned: home, search, practice, provider" },
       { metric: "WCAG AA", label: "accessibility target across all surfaces" },
+      { metric: "50% faster", label: "search time reduced through direct provider search" },
       { metric: "Real-time", label: "autosuggest search with categorized results" },
-      { metric: "Figma Make", label: "AI-assisted interactive prototype" },
+      { metric: "Direct provider search", label: "find providers without opening a practice page first" },
     ],
     screenshots: [
       { src: picHomepage, alt: "Practice Information Card home page with search", caption: "Home - autosuggest search with categorized Clinics & Providers results and filter chips" },
@@ -989,7 +990,7 @@ const PROJECTS = [
       "Responsive UI optimized for clinical workstations, tablets, and mobile devices",
     ],
     challenge:
-      "Healthcare clinics needed a unified dashboard to monitor real-time operations and patient flow. The interface had to be intuitive for busy medical staff, fully accessible (WCAG compliant), and work reliably across different devices in clinical settings. The critical design challenge was making data series visually distinct through an accessible color palette that works for all users, including those with color blindness.",
+      "Clinics needed one accessible dashboard to monitor patient flow and daily operations across devices. The key challenge was presenting dense data with clear visual hierarchy and color-blind-safe chart distinction.",
     architecture:
       "Next.js 16 app with static export deployed via GitHub Pages and automated GitHub Actions workflow. React component hierarchy built with shadcn/ui providing WCAG 2.1 AA-compliant components. Global CSS variables define an oklch-based color system ensuring perceptual uniformity across all surfaces. Patient metrics displayed via Recharts with interactive area charts, time range selectors (Last 3 months / Last 30 days / Last 7 days), and tooltips. Advanced data table uses TanStack React Table for column visibility, sorting, filtering, and pagination. Sidebar navigation with active state indicators. Mock data simulates real clinic operations: patient count, average wait time, open exam rooms, staff status, and triage levels.",
     technicalChallenges: [
@@ -1032,7 +1033,7 @@ const PROJECTS = [
       "Satisfaction vs. Utilization scatter plot and Visit Reason donut chart for operational insights",
     ],
     challenge:
-      "Urgent care market leaders had no single view of performance across all clinics. Monitoring required switching between individual clinic dashboards, making it difficult to spot underperforming locations, staffing risks, or market-wide trends quickly. Leaders needed a tool to manage by exception - surfacing problems rather than requiring active investigation.",
+      "Market leaders lacked a single view of multi-clinic performance and had to jump between dashboards. They needed an exception-driven interface that highlights risk clinics and trends immediately.",
     architecture:
       "Designed in Figma Make as a high-fidelity interactive prototype (desktop only). The layout is structured around a management-by-exception model: a Market Health Score at top-left anchors the view, followed by six executive KPI cards, then a full-width clinic performance ranking table. The lower section splits into three panels - an Exception Panel flagging critical and watch clinics, a Satisfaction vs. Utilization scatter plot positioning all clinics on a 2x2 performance grid, and a Visit Reason donut chart. A Today / Monthly toggle switches the entire dashboard between daily operational data and rolling monthly performance.",
     technicalChallenges: [
@@ -1152,10 +1153,40 @@ function ScreenshotGallery({ screenshots, title }: { screenshots: Screenshot[]; 
 
 function Projects() {
   const [active, setActive] = useState(0);
+  const [expandedSections, setExpandedSections] = useState({
+    architecture: false,
+    technical: false,
+  });
   const reduceMotion = useReducedMotion();
   const projectCardRef = useRef<HTMLDivElement | null>(null);
   const totalProjects = PROJECTS.length;
   const project = PROJECTS[active];
+
+  useEffect(() => {
+    setExpandedSections({
+      architecture: false,
+      technical: false,
+    });
+  }, [active]);
+
+  const splitPreview = (text: string, maxLength: number) => {
+    if (text.length <= maxLength) {
+      return { preview: text, rest: "" };
+    }
+
+    const candidate = text.slice(0, maxLength);
+    const lastSpace = candidate.lastIndexOf(" ");
+    const cutPoint = lastSpace > Math.floor(maxLength * 0.6) ? lastSpace : maxLength;
+
+    return {
+      preview: `${text.slice(0, cutPoint).trim()}...`,
+      rest: text.slice(cutPoint).trim(),
+    };
+  };
+
+  const architectureSplit = splitPreview(project.architecture, 170);
+  const previewChallenges = project.technicalChallenges.slice(0, 2);
+  const extraChallenges = project.technicalChallenges.slice(2);
 
   const goToProject = (index: number) => {
     setActive(index);
@@ -1286,32 +1317,70 @@ function Projects() {
             {/* Details grid */}
             <div className="grid lg:grid-cols-2 gap-10">
               <div className="space-y-6">
-                <div>
+                <div className="border border-border rounded-xl p-4 bg-card/50">
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
                     Challenge
                   </h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">{project.challenge}</p>
                 </div>
 
-                <div>
+                <div className="border border-border rounded-xl p-4 bg-card/50">
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
                     Architecture & Implementation
                   </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{project.architecture}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {expandedSections.architecture ? project.architecture : architectureSplit.preview}
+                  </p>
+                  {architectureSplit.rest && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setExpandedSections((prev) => ({
+                          ...prev,
+                          architecture: !prev.architecture,
+                        }))
+                      }
+                      className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
+                    >
+                      {expandedSections.architecture ? "Read less" : "Read more"}
+                      <ChevronRight
+                        size={12}
+                        className={`transition-transform ${expandedSections.architecture ? "rotate-90" : ""}`}
+                      />
+                    </button>
+                  )}
                 </div>
 
-                <div>
+                <div className="border border-border rounded-xl p-4 bg-card/50">
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
                     Technical Challenges
                   </h4>
                   <ul className="space-y-2">
-                    {project.technicalChallenges.map((c) => (
+                    {(expandedSections.technical ? project.technicalChallenges : previewChallenges).map((c) => (
                       <li key={c} className="text-sm text-muted-foreground flex items-start gap-2">
                         <div className="w-1 h-1 rounded-full bg-primary mt-2 shrink-0" />
                         {c}
                       </li>
                     ))}
                   </ul>
+                  {extraChallenges.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setExpandedSections((prev) => ({
+                          ...prev,
+                          technical: !prev.technical,
+                        }))
+                      }
+                      className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
+                    >
+                      {expandedSections.technical ? "Read less" : "Read more"}
+                      <ChevronRight
+                        size={12}
+                        className={`transition-transform ${expandedSections.technical ? "rotate-90" : ""}`}
+                      />
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -1612,6 +1681,31 @@ const ARTICLES = [
       "My biggest takeaway: AI is most effective when you know which tool creates the most value at each stage of the product lifecycle - and where human expertise must take over.",
     ],
   },
+  {
+    id: 4,
+    title: "Every healthcare interface should follow one simple rule: CCS - Clean. Consistent. Simple.",
+    tags: ["#HealthcareUX", "#DesignPhilosophy", "#ProductDesign", "#HealthTech"],
+    preview:
+      "I call it CCS: Clean. Consistent. Simple. It guides almost every design decision I make in healthcare products, where success is measured by how confidently someone completes a task.",
+    body: [
+      "Every healthcare interface should follow one simple rule. I call it CCS: Clean. Consistent. Simple.",
+      "It is my personal design philosophy, shaped by building healthcare applications, and today it guides almost every design decision I make.",
+      "I did not always think this way. When I moved from a SaaS company to healthcare, I wanted every interface to feel polished and visually impressive.",
+      "I still appreciate beautiful design, and I still catch myself wanting to introduce a more creative interaction or visual pattern.",
+      "But healthcare changed the way I measure success. Success is not measured by how beautiful an interface is. It is measured by how confidently someone completes a task.",
+      "That is what CCS means to me.",
+      "Clean: Remove anything that distracts users from the task.",
+      "Consistent: Make layouts and interactions predictable so users do not have to stop and think, 'How does this work?'",
+      "Simple: Reduce unnecessary choices. Every extra click, field, or decision adds cognitive load.",
+      "When you are designing internal healthcare applications, people are not there to admire the UI. They are checking in patients, managing clinic operations, reviewing schedules, or making decisions that affect patient care.",
+      "The interface should support those workflows, not compete for attention.",
+      "The more I design, the more I realize CCS extends beyond healthcare.",
+      "We live in a world full of notifications, dashboards, AI tools, and endless information. More than ever, people value products that feel simple, familiar, and predictable.",
+      "Good design reduces cognitive load.",
+      "Great design almost disappears. When people stop noticing the interface and stay focused on their work, the design has done its job.",
+      "That is what CCS - Clean. Consistent. Simple. is all about.",
+    ],
+  },
 ];
 
 function Articles() {
@@ -1639,6 +1733,7 @@ function Articles() {
                 <button
                   className="w-full text-left p-7 flex items-start justify-between gap-6"
                   onClick={() => setExpanded(isOpen ? null : article.id)}
+                  aria-expanded={isOpen}
                 >
                   <div className="flex-1 min-w-0">
                     <h3 className="text-base font-semibold text-foreground leading-snug mb-2 pr-4">
@@ -1660,12 +1755,14 @@ function Articles() {
                       ))}
                     </div>
                   </div>
-                  <div
-                    className={`shrink-0 w-7 h-7 rounded-full border border-border flex items-center justify-center text-muted-foreground transition-transform duration-200 mt-0.5 ${
-                      isOpen ? "rotate-45" : ""
-                    }`}
-                  >
-                    <ArrowRight size={13} className={isOpen ? "rotate-[315deg]" : ""} />
+                  <div className="shrink-0 mt-0.5 inline-flex items-center gap-2 rounded-full border border-border px-2.5 py-1 text-muted-foreground">
+                    <span className="text-[11px] font-medium uppercase tracking-wider">
+                      {isOpen ? "Collapse" : "Expand"}
+                    </span>
+                    <ChevronDown
+                      size={13}
+                      className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                    />
                   </div>
                 </button>
 
