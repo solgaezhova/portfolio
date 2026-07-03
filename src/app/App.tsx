@@ -42,8 +42,12 @@ import picMarket2 from "@/imports/IMG_3603.png";
 import picPracticeDetails from "@/imports/Screenshot_2026-06-29_at_19.31.41.png";
 import certMobileUX from "@/imports/Certificate_Mobile_UX-Design.jpg";
 import certMasterClass from "@/imports/masterclass-certificate-how-to-create-complex-tables-users-love-a-ui-designers-guide.jpg";
-import certFrontend from "@/imports/Certificate_Frontend_Development_Training.png";
-import certMembership from "@/imports/membership-certificate.jpg";
+import certAiDesignSystems from "@/imports/certificate-ai-for-design-systems-how-to-stay-ahead-and-lead.jpg";
+import certConversationDesign from "@/imports/certificate-conversation-design-practical-tips-for-ai-design.jpg";
+import certDesignPatternsAiUx from "@/imports/certificate-design-patterns-for-ai-ux.jpg";
+import certGetAheadProductAi from "@/imports/certificate-get-ahead-in-product-design-with-ai.jpg";
+import certHealthcareUx from "@/imports/certificate-healthcare-ux-design-for-patient-engagement-and-technology-adoption.jpg";
+import certHumanCenteredAi from "@/imports/certificate-human-centered-design-for-ai.jpg";
 
 // ─── NAV ─────────────────────────────────────────────────────────────────────
 
@@ -360,12 +364,16 @@ function Hero() {
             <ContactLink
               icon={<Linkedin size={13} />}
               label="linkedin.com/in/oezhova"
-              href="#"
+              href="https://linkedin.com/in/oezhova"
+              target="_blank"
+              rel="noopener noreferrer"
             />
             <ContactLink
               icon={<Github size={13} />}
               label="github.com/solgaezhova"
-              href="#"
+              href="https://github.com/solgaezhova"
+              target="_blank"
+              rel="noopener noreferrer"
             />
             <div className="mt-2 flex items-center gap-1.5 justify-end text-xs text-muted-foreground">
               <MapPin size={11} />
@@ -730,20 +738,18 @@ const SKILL_CATEGORIES = [
       "Vite",
       "Next.js",
       "REST APIs",
-      ".NET",
+      "Shadcn/ui"
     ],
   },
   {
     icon: <Layers size={18} />,
     label: "UI Engineering",
     skills: [
-      "Component systems",
-      "Design tokens",
       "Tailwind CSS",
       "Bootstrap",
       "Responsive layout",
       "Animation",
-      "CSS Grid",
+      "Design System Integration",
     ],
   },
   {
@@ -754,14 +760,12 @@ const SKILL_CATEGORIES = [
       "User research",
       "Wireframing",
       "Prototyping",
-      "Design system integration",
-      "Information architecture",
     ],
   },
   {
     icon: <BarChart3 size={18} />,
     label: "Data Visualization",
-    skills: ["Plotly", "D3.js", "Recharts", "Dashboard design", "Charting"],
+    skills: ["Plotly", "D3.js", "Recharts", "Dashboard design", "Charting", "DataTables", "Chart.js"],
   },
   {
     icon: <Accessibility size={18} />,
@@ -803,9 +807,8 @@ const SKILL_CATEGORIES = [
     skills: [
       "Requirements analysis",
       "User story mapping",
-      "A/B testing",
-      "KPI tracking",
-      "Stakeholder management",
+      "Stakeholder collaboration",
+      "Workflow optimization"
     ],
   },
 ];
@@ -1047,7 +1050,7 @@ const PROJECTS = [
       { metric: "Today / Monthly", label: "toggle for operational and strategic views" },
       { metric: "Exception Panel", label: "surfaces critical clinics requiring immediate action" },
       { metric: "Market Health", label: "composite score across volume, revenue, satisfaction, staffing" },
-      { metric: "Sat. vs. Utilization", label: "scatter plot positioning all clinics at a glance" },
+      { metric: "Satisfaction vs. Utilization", label: "scatter plot positioning all clinics at a glance" },
     ],
     screenshots: [
       { src: picMarket1, alt: "Market dashboard - today view", caption: "Today view - market health score, live KPIs, clinic performance table, exception panel, and visit distribution" },
@@ -1478,6 +1481,24 @@ const PROCESS_STEPS = [
 ];
 
 function Process() {
+  const reduceMotion = useReducedMotion();
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.05,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: reduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 },
+    visible: reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 },
+  };
+
   return (
     <section id="process" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
@@ -1485,15 +1506,24 @@ function Process() {
         <h2 className="text-4xl font-semibold tracking-tight text-foreground mb-4">
           How I work
         </h2>
-        <p className="text-base text-muted-foreground mb-14 max-w-xl">
-          A disciplined process that keeps quality high and surprises low.
-          Adapted to each project-never rigid.
+        <p className="text-base text-muted-foreground leading-relaxed mb-10">
+          I follow a structured design process that balances research, creativity, and technical execution. Each step is informed by user needs, business goals, and accessibility standards to ensure the final product is both effective and inclusive.
         </p>
-
         {/* Mobile: vertical list */}
-        <div className="flex flex-col gap-4 md:hidden">
+        <motion.div
+          className="flex flex-col gap-4 md:hidden"
+          variants={containerVariants}
+          initial={reduceMotion ? "visible" : "hidden"}
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.25 }}
+        >
           {PROCESS_STEPS.map((s) => (
-            <div key={s.step} className="flex items-start gap-4">
+            <motion.div
+              key={s.step}
+              className="flex items-start gap-4"
+              variants={itemVariants}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            >
               <div className="flex flex-col items-center shrink-0">
                 <div className="w-7 h-7 rounded-full bg-accent border border-primary/20 flex items-center justify-center">
                   <span className="text-[10px] font-mono font-semibold text-primary">{s.step}</span>
@@ -1503,23 +1533,34 @@ function Process() {
                 <div className="text-sm font-semibold text-foreground mb-0.5">{s.label}</div>
                 <div className="text-xs text-muted-foreground leading-relaxed">{s.description}</div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Desktop: horizontal timeline */}
         <div className="relative hidden md:block">
           <div className="absolute top-6 left-0 right-0 h-px bg-border" />
-          <div className="grid md:grid-cols-4 lg:grid-cols-7 gap-0">
+          <motion.div
+            className="grid md:grid-cols-4 lg:grid-cols-7 gap-0"
+            variants={containerVariants}
+            initial={reduceMotion ? "visible" : "hidden"}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.25 }}
+          >
             {PROCESS_STEPS.map((s) => (
-              <div key={s.step} className="relative pt-10 pr-4">
+              <motion.div
+                key={s.step}
+                className="relative pt-10 pr-4"
+                variants={itemVariants}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              >
                 <div className="absolute top-0 left-0 w-3 h-3 rounded-full bg-primary border-2 border-white ring-1 ring-primary translate-y-[-5px]" />
                 <div className="text-xs font-mono text-primary mb-1">{s.step}</div>
                 <div className="text-sm font-semibold text-foreground mb-2">{s.label}</div>
                 <div className="text-xs text-muted-foreground leading-relaxed">{s.description}</div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -1799,41 +1840,74 @@ function Articles() {
 
 const CERT_IMAGE_LIST = [
   {
-    title: "Mobile UX Design: The Beginner's Guide",
+    title: "AI for Design Systems: How to Stay Ahead and Lead",
     issuer: "Interaction Design Foundation",
-    type: "Course Certificate",
-    date: "May – Nov 2023",
-    hours: "12 hrs 24 min",
-    img: certMobileUX,
+    type: "Master Class Certificate",
+    date: "Mar 2026",
+    hours: null,
+    img: certAiDesignSystems,
+  },
+  {
+    title: "Conversation Design: Practical Tips for AI Design",
+    issuer: "Interaction Design Foundation",
+    type: "Master Class Certificate",
+    date: "Mar 2026",
+    hours: null,
+    img: certConversationDesign,
+  },
+  {
+    title: "How to Elevate the User Experience of AI with Design Patterns",
+    issuer: "Interaction Design Foundation",
+    type: "Master Class Certificate",
+    date: "Mar 2026",
+    hours: null,
+    img: certDesignPatternsAiUx,
+  },
+  {
+    title: "Get Ahead in Product Design with AI",
+    issuer: "Interaction Design Foundation",
+    type: "Master Class Certificate",
+    date: "Mar 2026",
+    hours: null,
+    img: certGetAheadProductAi,
+  },
+  {
+    title: "Healthcare UX: Design for Patient Engagement and Technology Adoption",
+    issuer: "Interaction Design Foundation",
+    type: "Master Class Certificate",
+    date: "Mar 2026",
+    hours: null,
+    img: certHealthcareUx,
+  },
+  {
+    title: "Human-Centered Design for AI",
+    issuer: "Interaction Design Foundation",
+    type: "Master Class Certificate",
+    date: "Mar 2026",
+    hours: null,
+    img: certHumanCenteredAi,
   },
   {
     title: "How to Create Complex Tables Users Love",
     issuer: "Interaction Design Foundation",
     type: "Master Class · Certificate of Participation",
-    date: "2023",
+    date: "Nov 2023",
     hours: null,
     img: certMasterClass,
   },
   {
-    title: "Frontend Development Industry Training",
-    issuer: "Brainnest",
-    type: "Certificate of Completion",
-    date: "2023",
-    hours: "24 hrs + individual work",
-    img: certFrontend,
-  },
-  {
-    title: "IxDF Membership Certificate",
+    title: "Mobile UX Design: The Beginner's Guide",
     issuer: "Interaction Design Foundation",
-    type: "Certificate of Membership · Member #115761",
-    date: "Est. 2002",
-    hours: null,
-    img: certMembership,
+    type: "Course Certificate",
+    date: "May-Nov 2023",
+    hours: "12 hrs 24 min",
+    img: certMobileUX,
   },
 ];
 
 function Certificates() {
   const [lightbox, setLightbox] = useState<string | null>(null);
+  const [showAllCertificates, setShowAllCertificates] = useState(false);
 
   return (
     <section id="certificates" className="py-24 px-6 bg-secondary/40">
@@ -1845,10 +1919,12 @@ function Certificates() {
 
         {/* Image certificates grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {CERT_IMAGE_LIST.map((cert) => (
+          {CERT_IMAGE_LIST.map((cert, index) => (
             <div
               key={cert.title}
-              className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-md transition-all duration-200 cursor-pointer"
+              className={`group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-md transition-all duration-200 cursor-pointer ${
+                !showAllCertificates && index >= 3 ? "hidden sm:block" : ""
+              }`}
               onClick={() => setLightbox(cert.img as unknown as string)}
             >
               <div className="bg-secondary/60 overflow-hidden">
@@ -1877,6 +1953,19 @@ function Certificates() {
             </div>
           ))}
         </div>
+
+        {!showAllCertificates && CERT_IMAGE_LIST.length > 3 && (
+          <div className="sm:hidden mt-6 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setShowAllCertificates(true)}
+              className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-foreground text-sm font-medium rounded-full hover:bg-secondary transition-colors"
+            >
+              View more certificates
+              <ChevronDown size={14} />
+            </button>
+          </div>
+        )}
 
         {/* Lightbox */}
         {lightbox && (
@@ -1996,27 +2085,36 @@ function Contact() {
                   icon: <Mail size={14} />,
                   label: "olya.yezhova@gmail.com",
                   sub: "Preferred first contact",
+                  href: "mailto:olya.yezhova@gmail.com",
                 },
                 {
                   icon: <Linkedin size={14} />,
                   label: "linkedin.com/in/oezhova",
                   sub: "Professional background",
+                  href: "https://linkedin.com/in/oezhova",
                 },
                 {
                   icon: <Github size={14} />,
                   label: "github.com/solgaezhova",
                   sub: "Open source & side projects",
+                  href: "https://github.com/solgaezhova",
                 },
               ].map((c) => (
-                <div key={c.label} className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white/60">
+                <a
+                  key={c.label}
+                  href={c.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 group"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white/60 group-hover:text-white transition-colors">
                     {c.icon}
                   </div>
                   <div>
-                    <div className="text-sm text-white">{c.label}</div>
+                    <div className="text-sm text-white group-hover:underline">{c.label}</div>
                     <div className="text-xs text-white/40">{c.sub}</div>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>
@@ -2031,8 +2129,7 @@ function Contact() {
                 </span>
               </div>
               <p className="text-xs text-white/50 leading-relaxed">
-                Available for full-time roles and select consulting
-                engagements. Based in Houston, TX · Open to remote.
+                Available for full-time and part-time roles. Based in Houston, TX · Open to remote.
               </p>
             </div>
           </div>
