@@ -877,7 +877,7 @@ function Skills() {
 
 function TechBadge({ label }: { label: string }) {
   return (
-    <span className="inline-flex max-w-full items-center gap-1 text-xs px-2.5 py-1 bg-secondary border border-border text-foreground rounded-full font-mono whitespace-normal break-words">
+    <span className="inline-flex min-w-0 max-w-full items-center gap-1 text-xs px-2.5 py-1 bg-secondary border border-border text-foreground rounded-full font-mono whitespace-normal break-all sm:break-words">
       {label}
     </span>
   );
@@ -1073,7 +1073,7 @@ function ScreenshotGallery({ screenshots, title }: { screenshots: Screenshot[]; 
   const safeIdx = Math.min(activeIdx, screenshots.length - 1);
   const current = screenshots[safeIdx];
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 min-w-0">
       <div className="md:hidden flex items-center justify-between px-1 text-[11px] text-muted-foreground">
         <span className="inline-flex items-center gap-1.5">
           <Smartphone size={12} />
@@ -1088,7 +1088,7 @@ function ScreenshotGallery({ screenshots, title }: { screenshots: Screenshot[]; 
       <div className="md:hidden overflow-x-auto snap-x snap-mandatory -mx-1 px-1 pb-1 cursor-grab active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="flex gap-3">
           {screenshots.map((shot) => (
-            <div key={shot.caption} className="min-w-full snap-center space-y-2">
+            <div key={shot.caption} className="w-full min-w-full snap-center space-y-2">
               <div className="rounded-xl overflow-hidden border border-border bg-secondary/30 shadow-sm">
                 <ImageWithFallback
                   src={shot.src}
@@ -1096,7 +1096,7 @@ function ScreenshotGallery({ screenshots, title }: { screenshots: Screenshot[]; 
                   className="w-full object-cover"
                 />
               </div>
-              <p className="text-xs text-muted-foreground text-center px-2">{shot.caption}</p>
+              <p className="text-xs text-muted-foreground text-center px-2 break-words">{shot.caption}</p>
             </div>
           ))}
         </div>
@@ -1246,23 +1246,23 @@ function Projects() {
           >
           {/* Header bar */}
           <div className="px-4 sm:px-8 py-5 sm:py-6 border-b border-border flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2 mb-1">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-1">
                 <span className="text-xs font-mono text-muted-foreground">{project.number}</span>
                 <span className="text-xs px-2 py-0.5 bg-accent text-primary rounded-full font-medium">{project.status}</span>
                 <span className="text-xs text-muted-foreground">{project.organization}</span>
               </div>
-              <h3 className="text-2xl font-semibold tracking-tight text-foreground">{project.title}</h3>
+              <h3 className="text-2xl font-semibold tracking-tight text-foreground break-words">{project.title}</h3>
               <p className="text-sm text-muted-foreground mt-0.5">{project.subtitle}</p>
               {project.liveUrl && (
                 <a
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 mt-1.5 text-xs text-primary/70 hover:text-primary transition-colors font-mono"
+                  className="mt-1.5 flex max-w-full items-start gap-1 text-xs text-primary/70 hover:text-primary transition-colors font-mono break-all"
                 >
-                  <Globe size={11} />
-                  {project.liveUrl.replace(/^https?:\/\//, "")}
+                  <Globe size={11} className="mt-[1px] shrink-0" />
+                  <span className="min-w-0">{project.liveUrl.replace(/^https?:\/\//, "")}</span>
                 </a>
               )}
             </div>
@@ -1295,20 +1295,22 @@ function Projects() {
           <div className="p-4 sm:p-8">
             {/* Screenshots + overview */}
             <div className="grid lg:grid-cols-[1.1fr_1fr] gap-6 sm:gap-10 mb-8 sm:mb-10 pb-8 sm:pb-10 border-b border-border">
-              <ScreenshotGallery key={project.number} screenshots={project.screenshots} title={project.title} />
+              <div className="min-w-0">
+                <ScreenshotGallery key={project.number} screenshots={project.screenshots} title={project.title} />
+              </div>
 
-              <div className="space-y-5">
+              <div className="space-y-5 min-w-0">
                 {/* My Role */}
                 <div>
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
                     My Role
                   </h4>
-                  <p className="text-sm font-medium text-foreground mb-3">{project.myRole}</p>
+                  <p className="text-sm font-medium text-foreground mb-3 break-words">{project.myRole}</p>
                   <ul className="space-y-1.5">
                     {project.responsibilities.map((r) => (
-                      <li key={r} className="text-sm text-muted-foreground flex items-start gap-2 break-words">
+                      <li key={r} className="text-sm text-muted-foreground flex items-start gap-2 min-w-0">
                         <ChevronRight size={12} className="text-primary mt-0.5 shrink-0" />
-                        {r}
+                        <span className="min-w-0 break-words">{r}</span>
                       </li>
                     ))}
                   </ul>
