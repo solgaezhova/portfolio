@@ -877,7 +877,7 @@ function Skills() {
 
 function TechBadge({ label }: { label: string }) {
   return (
-    <span className="inline-flex items-center gap-1 text-xs px-2.5 py-1 bg-secondary border border-border text-foreground rounded-full font-mono">
+    <span className="inline-flex max-w-full items-center gap-1 text-xs px-2.5 py-1 bg-secondary border border-border text-foreground rounded-full font-mono whitespace-normal break-words">
       {label}
     </span>
   );
@@ -1245,7 +1245,7 @@ function Projects() {
             className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm"
           >
           {/* Header bar */}
-          <div className="px-8 py-6 border-b border-border flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+          <div className="px-4 sm:px-8 py-5 sm:py-6 border-b border-border flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-xs font-mono text-muted-foreground">{project.number}</span>
@@ -1292,9 +1292,9 @@ function Projects() {
             </div>
           </div>
 
-          <div className="p-8">
+          <div className="p-4 sm:p-8">
             {/* Screenshots + overview */}
-            <div className="grid lg:grid-cols-[1.1fr_1fr] gap-10 mb-10 pb-10 border-b border-border">
+            <div className="grid lg:grid-cols-[1.1fr_1fr] gap-6 sm:gap-10 mb-8 sm:mb-10 pb-8 sm:pb-10 border-b border-border">
               <ScreenshotGallery key={project.number} screenshots={project.screenshots} title={project.title} />
 
               <div className="space-y-5">
@@ -1306,7 +1306,7 @@ function Projects() {
                   <p className="text-sm font-medium text-foreground mb-3">{project.myRole}</p>
                   <ul className="space-y-1.5">
                     {project.responsibilities.map((r) => (
-                      <li key={r} className="text-sm text-muted-foreground flex items-start gap-2">
+                      <li key={r} className="text-sm text-muted-foreground flex items-start gap-2 break-words">
                         <ChevronRight size={12} className="text-primary mt-0.5 shrink-0" />
                         {r}
                       </li>
