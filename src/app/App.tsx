@@ -1074,7 +1074,18 @@ function ScreenshotGallery({ screenshots, title }: { screenshots: Screenshot[]; 
   const current = screenshots[safeIdx];
   return (
     <div className="space-y-3">
-      <div className="md:hidden overflow-x-auto snap-x snap-mandatory -mx-1 px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="md:hidden flex items-center justify-between px-1 text-[11px] text-muted-foreground">
+        <span className="inline-flex items-center gap-1.5">
+          <Smartphone size={12} />
+          Swipe left or right to view screenshots
+        </span>
+        <span className="inline-flex items-center gap-0.5" aria-hidden="true">
+          <ChevronLeft size={12} />
+          <ChevronRight size={12} />
+        </span>
+      </div>
+
+      <div className="md:hidden overflow-x-auto snap-x snap-mandatory -mx-1 px-1 pb-1 cursor-grab active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="flex gap-3">
           {screenshots.map((shot) => (
             <div key={shot.caption} className="min-w-full snap-center space-y-2">
@@ -1255,7 +1266,7 @@ function Projects() {
                 </a>
               )}
             </div>
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 shrink-0">
               {project.liveUrl && (
                 <a
                   href={project.liveUrl}
@@ -1408,7 +1419,7 @@ function Projects() {
               <div className="text-xs text-muted-foreground font-mono">
                 Project {active + 1} / {totalProjects}
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
                 <button
                   onClick={() => goToProject(Math.max(0, active - 1))}
                   disabled={active === 0}
