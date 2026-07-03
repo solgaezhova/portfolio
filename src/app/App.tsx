@@ -313,9 +313,9 @@ function Hero() {
               </span>
               <span className="mx-2 text-muted-foreground/60 hidden sm:inline">·</span>
               <span className="text-teal-700 inline-flex">UI/UX Design</span>
-              <span className="mx-2 text-muted-foreground/60 inline">·</span>
+              <span className="mx-0.5 sm:mx-2 text-muted-foreground/60 inline">·</span>
               <span className="text-sky-700 inline-flex">Healthcare</span>
-              <span className="mx-2 text-muted-foreground/60 inline">·</span>
+              <span className="mx-0.5 sm:mx-2 text-muted-foreground/60 inline">·</span>
               <span className="text-cyan-700 inline-flex">SaaS</span>
             </motion.p>
             <motion.p
