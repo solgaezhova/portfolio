@@ -814,8 +814,6 @@ const SKILL_CATEGORIES = [
 ];
 
 function Skills() {
-  const reduceMotion = useReducedMotion();
-
   return (
     <section id="skills" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
@@ -825,12 +823,8 @@ function Skills() {
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {SKILL_CATEGORIES.map((cat, i) => (
-            <motion.div
+            <div
               key={cat.label}
-              initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
-              whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.3, delay: i * 0.025 }}
               className="relative overflow-hidden p-5 border border-border rounded-xl bg-card hover:border-primary/30 hover:shadow-md transition-all duration-200 group"
             >
               <div
@@ -865,7 +859,7 @@ function Skills() {
                   </span>
                 ))}
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
