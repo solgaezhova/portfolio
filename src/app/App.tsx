@@ -309,7 +309,7 @@ function Hero() {
               className="text-xl font-medium text-muted-foreground mt-3 mb-5 md:mt-0 md:mb-5 tracking-tight flex flex-wrap items-center gap-y-3 gap-x-2 sm:gap-x-0"
             >
               <span className="inline-flex w-full sm:w-auto h-10 justify-start items-center px-3.5 rounded-full bg-slate-100 border border-slate-200 text-slate-800 leading-none">
-                Senior Frontend Engineer
+                Design Engineer
               </span>
               <span className="mx-2 text-muted-foreground/60 hidden sm:inline">·</span>
               <span className="text-teal-700 inline-flex">UI/UX Design</span>
@@ -324,7 +324,7 @@ function Hero() {
               transition={{ duration: 0.32, delay: 0.16 }}
               className="text-base text-muted-foreground max-w-xl leading-relaxed mb-10"
             >
-              Designing intuitive healthcare and SaaS products through the intersection
+              Designing and building intuitive healthcare and SaaS products through the intersection
               of engineering, UX, and AI.
             </motion.p>
 
@@ -536,7 +536,7 @@ function About() {
               </h2>
               <div className="space-y-4 text-base text-muted-foreground leading-relaxed">
                 <p>
-                  {"I'm a Senior Frontend Engineer with 5+ years of experience designing and building healthcare and SaaS applications. My strength is translating complex business workflows into intuitive, accessible, and scalable user experiences."}
+                  {"I'm a Design Engineer with 5+ years of experience designing and building healthcare and SaaS applications. My strength is translating complex business workflows into intuitive, accessible, and scalable user experiences."}
                 </p>
                 <p>
                   I combine frontend engineering, UX design, and product
@@ -546,7 +546,7 @@ function About() {
                   and deliver measurable business impact.
                 </p>
                 <p>
-                  {"Recently, I've been incorporating AI tools into both my design and development workflow to prototype faster, explore more ideas, and increase development efficiency."}
+                  {"I'm incorporating AI tools into both my design and development workflow to prototype faster, explore more ideas, and increase development efficiency."}
                 </p>
               </div>
             </div>
@@ -896,40 +896,37 @@ const PROJECTS = [
     subtitle: "HCA Healthcare · Production App",
     organization: "HCA Healthcare",
     industry: "Healthcare",
-    status: "Production",
+    status: "Design & Build",
     liveUrl: "https://ucservices.cnw.hcahealthcare.cloud/",
     githubUrl: null,
-    tech: ["React 18", "TypeScript", "Vite", "Neutron UI SDK", "Azure Maps", "Bootstrap", ".NET Core", "REST APIs", "Vitest", "Figma", "GitHub Copilot"],
+    tech: ["React", "TypeScript", "Vite", ".NET Core", "Azure Maps", "Vitest"],
     myRole: "Senior Frontend Engineer & UI/UX Designer",
     responsibilities: [
-      "End-to-end UI/UX design and frontend implementation of the production call-center app",
-      "Real-time clinic search with autocomplete, match highlighting, and service type selection",
-      "Service hours lookup with today/tomorrow date toggle and dynamic availability display",
-      "Nearby clinic discovery with distance-sorted results, address, phone, and hours",
-      "Interactive map view with clinic location markers and detail popups",
-      "Authored technical documentation for the full app architecture - wiki and onboarding reference",
+      "Designed and implemented the production UI and frontend architecture.",
+      "Built clinic/service search and availability lookup.",
+      "Integrated REST APIs and Azure Maps for clinic discovery.",
+      "Improved accessibility and documented the architecture.",
     ],
     challenge:
-      "Call center teams needed a faster way to find nearby clinics by service and day without phone-based manual lookups. The solution had to stay reliable and easy to use at scale across 330+ clinics.",
+      "Call center teams needed a faster way to find clinics, services, and availability across 330+ locations.",
     architecture:
       "Single-page React 18 + TypeScript app built with Vite, integrated into an ASP.NET Core backend - the React build outputs directly into the .NET app's wwwroot folder. State is managed locally in DashboardPage (no Redux/Context) and passed to stateless child components via props and callbacks. The UI renders in three progressive states: initial search → selected clinic results → nearby clinics panel. API calls hit three endpoints: /api/certifications, /api/clinics, and /api/servicesdashboard. Dashboard data is cached in-memory per clinic/certification/date with a 5-minute expiration to reduce redundant API calls. The Neutron UI SDK (HCA's design system) provides WCAG 2.1 AA-compliant components; Bootstrap handles responsive layout; Azure Maps renders nearby clinic locations with token-cached auth.",
     technicalChallenges: [
-      "Gating the Search button until both clinic and certification are selected - coordinating two independent async inputs with clean loading and error states",
-      "In-memory caching keyed by clinic/certification/date with 5-minute TTL to balance data freshness and API load",
-      "Azure Maps integration: fetching and caching auth tokens from /api/azure-maps-token, building markers with popups, keeping map and list views in sync without duplicating state",
-      "Three-column responsive layout that stacks cleanly on mobile and tablet - critical for shared clinical workstations and call center environments",
+      "Responsive search::Designed autosuggest search with a 3-character minimum and highlighted matching text, while keeping results responsive across a large clinic and service dataset with clear loading states.",
+      "API coordination::Coordinated 3 endpoints in a progressive flow: initial search → selected clinic results → nearby clinics panel, while handling loading states and errors.",
+      "Repeated requests::Added 5-minute in-memory caching to reduce unnecessary API requests while keeping availability data reasonably fresh.",
+      "Accessibility::Implemented accessible interactions and states across the key search and availability workflows.",
     ],
     impact: [
-      { metric: "330+", label: "urgent care clinics accessible in real time" },
-      { metric: "5,000+", label: "daily active users" },
-      { metric: "30–40%", label: "reduction in clinic workflow processing time" },
-      { metric: "WCAG 2.1 AA", label: "accessibility via Neutron Design System" },
+      { metric: "330+", label: "clinics" },
+      { metric: "5,000+", label: "daily users" },
+      { metric: "30–40%", label: "faster workflow" },
+      { metric: "WCAG 2.1 AA", label: "accessibility" },
     ],
     screenshots: [
-      { src: ss1, alt: "Empty search state", caption: "Search interface - enter clinic name and select service" },
-      { src: ss2, alt: "Search results with service hours", caption: "Results view - BAT service hours for Cypress clinic" },
-      { src: ss3, alt: "Nearby clinics expanded panel", caption: "Expanded options - nearby clinics with addresses and hours" },
-      { src: ss4, alt: "Map view with clinic pins", caption: "Map view - geographic clinic distribution" },
+      { src: ss2, alt: "Search results with service hours", caption: "Step 1 — Check service availability by clinic" },
+      { src: ss3, alt: "Nearby clinics expanded panel", caption: "Step 2 — Compare nearby clinics" },
+      { src: ss4, alt: "Map view with clinic pins", caption: "Step 3 — Explore locations on the map" },
     ] as Screenshot[],
   },
   {
@@ -938,33 +935,32 @@ const PROJECTS = [
     subtitle: "HCA Healthcare · UI/UX Redesign",
     organization: "HCA Healthcare",
     industry: "Healthcare",
-    status: "Design Preview",
+    status: "Re-Design",
     liveUrl: "https://practice-info-card.figma.site/",
     githubUrl: null,
-    tech: ["Figma Make", "UX Research", "UI/UX Design", "Accessibility", "Figma"],
+    tech: ["Figma Make", "UX Research", "UI/UX Design", "Accessibility"],
     myRole: "UX Researcher & UI/UX Designer",
     responsibilities: [
-      "Conducted a full heuristic evaluation of the existing production app",
-      "Documented accessibility issues: broken ARIA references, insufficient color contrast, non-mobile-friendly layout",
-      "Created redesign concepts for home page, search experience, practice page, and provider page",
-      "Prototyped the redesign interactively using Figma Make",
-      "Produced a written before/after evaluation with specific improvement rationale per surface",
+      "Redesigned the provider and practice information experience.",
+      "Designed categorized autocomplete search and filters.",
+      "Restructured dense provider and practice data.",
+      "Designed and prototyped the experience in Figma Make.",
     ],
     challenge:
-      "The existing Practice Information Card experience was hard to scan, inaccessible in key flows, and slow for finding provider and practice details. Users needed clearer navigation, faster search, and easier access to critical information.",
+      "Call center teams needed a faster way to find providers, services, and practice details. The existing experience was difficult to scan and slowed access to critical information.",
     architecture:
       "The redesign covered four surfaces: (1) Home - clear subtitle, search bar with helper text and descriptive placeholder, 'Recently Viewed' section, card-based help resources. (2) Search - autosuggest dropdown after 3 characters with results categorized into Clinics, Providers, and COID, plus quick filter chips (All / Clinic Only / Provider Only / COID Only). (3) Practice page - tabbed navigation (Providers / Sites / Practice Details), card layout for contact and location details, insurance chips, and breadcrumb navigation. (4) Provider page - dedicated page with specialty chips, status badges, quick action buttons (Contact Provider, Schedule Appointment, Send Message), and organized card sections for professional info, practice affiliation, and practice policies. The prototype was built with Figma Make.",
     technicalChallenges: [
-      "Identifying and documenting WCAG failures: color contrast, broken ARIA, missing keyboard navigation",
-      "Designing real-time autosuggest search with multi-category results (Clinics, Providers, COID) and filter chips",
-      "Restructuring dense tables into scannable card layouts without losing information density",
-      "Designing for variable-length provider and practice data across specialty lists, service tables, and multi-site practices",
+      "Accessibility::Fixed WCAG issues across contrast, ARIA, and keyboard navigation.",
+      "Search::Designed real-time autocomplete with categorized results and filters.",
+      "Dense data::Reworked provider and practice information into scannable cards.",
+      "Variable content::Designed layouts that adapt to different provider and practice data.",
     ],
     impact: [
-      { metric: "WCAG AA", label: "accessibility target across all surfaces" },
-      { metric: "50% faster", label: "search time reduced through direct provider search" },
-      { metric: "Real-time", label: "autosuggest search with categorized results" },
-      { metric: "Direct provider search", label: "find providers without opening a practice page first" },
+      { metric: "WCAG AA", label: "Accessible design" },
+      { metric: "50% faster", label: "Search time" },
+      { metric: "Real-time", label: "Live search" },
+      { metric: "Direct search", label: "Direct provider search" },
     ],
     screenshots: [
       { src: picHomepage, alt: "Practice Information Card home page with search", caption: "Home - autosuggest search with categorized Clinics & Providers results and filter chips" },
@@ -979,36 +975,33 @@ const PROJECTS = [
     subtitle: "Open Source · Personal Project",
     organization: "Personal / Open Source",
     industry: "Healthcare",
-    status: "Live Demo",
+    status: "Design & Build",
     liveUrl: "https://solgaezhova.github.io/shadcn-dashboard/",
     githubUrl: "https://github.com/solgaezhova/shadcn-dashboard",
     tech: ["Next.js 16", "TypeScript", "shadcn/ui", "Tailwind CSS", "Recharts", "TanStack Table", "GitHub Pages", "GitHub Actions"],
     myRole: "Healthcare UI/UX Designer & Frontend Engineer",
     responsibilities: [
-      "End-to-end design and implementation of a modern clinic operations dashboard",
-      "Accessible color system design using oklch color space for perceptual uniformity",
-      "Real-time metrics visualization with interactive area charts and time range selectors",
-      "Advanced data table with column visibility controls, sorting, filtering, and pagination",
-      "Dark mode support for 24/7 clinical operations with full color token switching",
-      "Responsive UI optimized for clinical workstations, tablets, and mobile devices",
+      "Designed and implemented the complete healthcare dashboard UI.",
+      "Built interactive metric cards, charts, and data tables.",
+      "Implemented responsive layouts and dark mode.",
+      "Used Figma Make and GitHub Copilot to accelerate design and development.",
     ],
     challenge:
-      "Clinics needed one accessible dashboard to monitor patient flow and daily operations across devices. The key challenge was presenting dense data with clear visual hierarchy and color-blind-safe chart distinction.",
+      "Built as a personal project to explore modern frontend patterns for healthcare dashboards, with a focus on accessibility, data visualization, and reusable UI components.",
     architecture:
       "Next.js 16 app with static export deployed via GitHub Pages and automated GitHub Actions workflow. React component hierarchy built with shadcn/ui providing WCAG 2.1 AA-compliant components. Global CSS variables define an oklch-based color system ensuring perceptual uniformity across all surfaces. Patient metrics displayed via Recharts with interactive area charts, time range selectors (Last 3 months / Last 30 days / Last 7 days), and tooltips. Advanced data table uses TanStack React Table for column visibility, sorting, filtering, and pagination. Sidebar navigation with active state indicators. Mock data simulates real clinic operations: patient count, average wait time, open exam rooms, staff status, and triage levels.",
     technicalChallenges: [
-      "Designing an accessible oklch-based color palette - ensuring visual distinction of data series for users with color blindness",
-      "Mapping chart series colors to global CSS theme tokens for consistency across metrics cards, charts, and tables",
-      "Building a responsive three-column dashboard layout that adapts cleanly to mobile, tablet, and desktop clinical workstations",
-      "Syncing Tooltip provider context across nested sidebar components to prevent runtime errors",
-      "Automating deployment with GitHub Actions while managing build optimization for static hosting on GitHub Pages",
+      "Accessible data visualization::Designed an OKLCH-based color system to distinguish chart data without relying on color alone.",
+      "Reusable UI system::Built dashboard components with shared tokens and shadcn/ui for consistent styling.",
+      "Dense clinical data::Organized metrics, charts, and tables into a clear hierarchy without overwhelming the user.",
+      "Responsive dashboard::Designed two-column layout to adapt across desktop, tablet, and mobile.",
     ],
-    impactLabel: "Key Features",
+    impactLabel: "KEY FEATURES",
     impact: [
-      { metric: "4 metric cards", label: "live patient count, wait time, exam rooms, staff on duty" },
-      { metric: "Area chart", label: "patient & wait time trends with 3-month / 30-day / 7-day range" },
-      { metric: "Data table", label: "sortable, filterable columns with configurable visibility picker" },
-      { metric: "oklch palette", label: "perceptually uniform, color-blind safe color system" },
+      { metric: "4 metric cards", label: "Patients, wait time, rooms, staff" },
+      { metric: "Trend analysis", label: "3-month, 30-day, and 7-day" },
+      { metric: "Data table", label: "Sorting, filtering, table controls" },
+      { metric: "Dark mode", label: "Full theme switching" },
     ],
     screenshots: [
       { src: picDashboard1, alt: "Healthcare clinic dashboard showing metric cards and area chart", caption: "Light mode - metric cards (patients, wait time, exam rooms, staff) and patient trend chart" },
@@ -1025,32 +1018,30 @@ const PROJECTS = [
     status: "Design",
     liveUrl: "",
     githubUrl: null,
-    tech: ["Figma Make", "UI/UX Design", "Data Visualization", "Dashboard Design", "Healthcare Analytics"],
+    tech: ["Figma", "UI/UX Design", "Data Visualization", "Dashboard Design"],
     myRole: "UI/UX Designer",
     responsibilities: [
-      "Designed a market-level dashboard for urgent care leadership to monitor multiple clinics simultaneously",
-      "Market Health Score surface with transparent composite scoring across volume, revenue, satisfaction, and staffing",
-      "Executive KPI bar with real-time and monthly views: patients, avg clinic time, satisfaction, revenue, clinics needing attention",
-      "Clinic Performance Ranking table with wait time, utilization, patient abandonment, visits/hr, and overall score",
-      "Exception Panel surfacing clinics requiring immediate attention with key risk indicators",
-      "Satisfaction vs. Utilization scatter plot and Visit Reason donut chart for operational insights",
+      "Designed a market-level dashboard for monitoring multiple clinics.",
+      "Created a Market Health Score and executive KPIs.",
+      "Designed data visualizations for trends, utilization, satisfaction.",
+      "Created the high-fidelity interactive prototype in Figma.",
     ],
     challenge:
-      "Market leaders lacked a single view of multi-clinic performance and had to jump between dashboards. They needed an exception-driven interface that highlights risk clinics and trends immediately.",
+      "Designed as a personal concept to explore how healthcare leaders could monitor multi-clinic performance in one view, with a focus on prioritizing exceptions and trends.",
     architecture:
       "Designed in Figma Make as a high-fidelity interactive prototype (desktop only). The layout is structured around a management-by-exception model: a Market Health Score at top-left anchors the view, followed by six executive KPI cards, then a full-width clinic performance ranking table. The lower section splits into three panels - an Exception Panel flagging critical and watch clinics, a Satisfaction vs. Utilization scatter plot positioning all clinics on a 2x2 performance grid, and a Visit Reason donut chart. A Today / Monthly toggle switches the entire dashboard between daily operational data and rolling monthly performance.",
     technicalChallenges: [
-      "Designing a composite Market Health Score (0-100) that is immediately readable yet transparently derived from four sub-dimensions: volume, revenue, satisfaction, and staffing",
-      "Fitting six executive KPIs, a ranked clinic table, three analytical panels, and a market volume chart into a single view without overwhelming the user",
-      "Designing the Exception Panel to prioritize actionability - showing only the clinics that need attention, with the specific metrics driving each alert",
-      "Creating a Satisfaction vs. Utilization scatter that positions all clinics at once and makes outliers immediately identifiable without a legend",
+      "Information density::Created a clear hierarchy for KPIs, rankings, charts, and exceptions within one dashboard.",
+      "Prioritization::Designed the Exception Panel to surface clinics requiring attention first.",
+      "Composite metrics::Designed a Market Health Score that combines multiple performance dimensions into one readable signal.",
+      "Data comparison::Used visual comparisons to make clinic performance, trends, and outliers easy to identify.",
     ],
     impactLabel: "Key Features",
     impact: [
-      { metric: "Today / Monthly", label: "toggle for operational and strategic views" },
-      { metric: "Exception Panel", label: "surfaces critical clinics requiring immediate action" },
-      { metric: "Market Health", label: "composite score across volume, revenue, satisfaction, staffing" },
-      { metric: "Satisfaction vs. Utilization", label: "scatter plot positioning all clinics at a glance" },
+      { metric: "Today / Monthly", label: "Switch between operational and strategic views" },
+      { metric: "Exception Panel", label: "Surface clinics requiring attention" },
+      { metric: "Market Health", label: "Composite performance score" },
+      { metric: "Satisfaction vs. Utilization", label: "Compare clinic performance at a glance" },
     ],
     screenshots: [
       { src: picMarket1, alt: "Market dashboard - today view", caption: "Today view - market health score, live KPIs, clinic performance table, exception panel, and visit distribution" },
@@ -1167,40 +1158,10 @@ function ScreenshotGallery({ screenshots, title }: { screenshots: Screenshot[]; 
 
 function Projects() {
   const [active, setActive] = useState(0);
-  const [expandedSections, setExpandedSections] = useState({
-    architecture: false,
-    technical: false,
-  });
   const reduceMotion = useReducedMotion();
   const projectCardRef = useRef<HTMLDivElement | null>(null);
   const totalProjects = PROJECTS.length;
   const project = PROJECTS[active];
-
-  useEffect(() => {
-    setExpandedSections({
-      architecture: false,
-      technical: false,
-    });
-  }, [active]);
-
-  const splitPreview = (text: string, maxLength: number) => {
-    if (text.length <= maxLength) {
-      return { preview: text, rest: "" };
-    }
-
-    const candidate = text.slice(0, maxLength);
-    const lastSpace = candidate.lastIndexOf(" ");
-    const cutPoint = lastSpace > Math.floor(maxLength * 0.6) ? lastSpace : maxLength;
-
-    return {
-      preview: `${text.slice(0, cutPoint).trim()}...`,
-      rest: text.slice(cutPoint).trim(),
-    };
-  };
-
-  const architectureSplit = splitPreview(project.architecture, 170);
-  const previewChallenges = project.technicalChallenges.slice(0, 2);
-  const extraChallenges = project.technicalChallenges.slice(2);
 
   const goToProject = (index: number) => {
     setActive(index);
@@ -1275,7 +1236,7 @@ function Projects() {
                   className="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-white text-xs font-medium rounded-full hover:bg-primary/90 transition-colors"
                 >
                   <ExternalLink size={11} />
-                  Live Demo
+                  {project.number === "01" ? "Live Application" : "Live Demo"}
                 </a>
               )}
               {project.githubUrl && (
@@ -1293,129 +1254,169 @@ function Projects() {
           </div>
 
           <div className="p-4 sm:p-8">
-            {/* Screenshots + overview */}
-            <div className="grid lg:grid-cols-[1.1fr_1fr] gap-6 sm:gap-10 mb-8 sm:mb-10 pb-8 sm:pb-10 border-b border-border">
-              <div className="min-w-0">
-                <ScreenshotGallery key={project.number} screenshots={project.screenshots} title={project.title} />
-              </div>
+            {project.number === "01" ? (
+              <>
+                <div className="grid lg:grid-cols-[1.1fr_1fr] gap-6 sm:gap-10 mb-8 sm:mb-10 pb-8 sm:pb-10 border-b border-border">
+                  <div className="min-w-0">
+                    <ScreenshotGallery key={project.number} screenshots={project.screenshots} title={project.title} />
+                  </div>
 
-              <div className="space-y-5 min-w-0">
-                {/* My Role */}
-                <div>
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                    My Role
-                  </h4>
-                  <p className="text-sm font-medium text-foreground mb-3 break-words">{project.myRole}</p>
-                  <ul className="space-y-1.5">
-                    {project.responsibilities.map((r) => (
-                      <li key={r} className="text-sm text-muted-foreground flex items-start gap-2 min-w-0">
-                        <ChevronRight size={12} className="text-primary mt-0.5 shrink-0" />
-                        <span className="min-w-0 break-words">{r}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                  <div className="space-y-5 min-w-0">
+                    <div className="border border-border rounded-xl p-4 bg-card/50">
+                      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                        Challenge
+                      </h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{project.challenge}</p>
+                    </div>
 
-                {/* Tech stack */}
-                <div>
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                    Tech Stack
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((t) => (
-                      <TechBadge key={t} label={t} />
-                    ))}
+                    <div className="border border-border rounded-xl p-4 bg-card/50">
+                      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                        My Role
+                      </h4>
+                      <p className="text-sm font-medium text-foreground mb-3 break-words">{project.myRole}</p>
+                      <ul className="space-y-1.5">
+                        {project.responsibilities.map((r) => (
+                          <li key={r} className="text-sm text-muted-foreground flex items-start gap-2 min-w-0">
+                            <ChevronRight size={12} className="text-primary mt-0.5 shrink-0" />
+                            <span className="min-w-0 break-words">{r}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="border border-border rounded-xl p-4 bg-card/50">
+                      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                        Tech Stack
+                      </h4>
+                      <p className="text-sm text-foreground/90 leading-relaxed">{project.tech.join(" · ")}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Details grid */}
-            <div className="grid lg:grid-cols-2 gap-10">
-              <div className="space-y-6">
-                <div className="border border-border rounded-xl p-4 bg-card/50">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                    Challenge
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{project.challenge}</p>
-                </div>
-
-                <div className="border border-border rounded-xl p-4 bg-card/50">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                    Architecture & Implementation
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {expandedSections.architecture ? project.architecture : architectureSplit.preview}
-                  </p>
-                  {architectureSplit.rest && (
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setExpandedSections((prev) => ({
-                          ...prev,
-                          architecture: !prev.architecture,
-                        }))
-                      }
-                      className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
-                    >
-                      {expandedSections.architecture ? "Read less" : "Read more"}
-                      <ChevronRight
-                        size={12}
-                        className={`transition-transform ${expandedSections.architecture ? "rotate-90" : ""}`}
-                      />
-                    </button>
-                  )}
-                </div>
-
-                <div className="border border-border rounded-xl p-4 bg-card/50">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                    Technical Challenges
-                  </h4>
-                  <ul className="space-y-2">
-                    {(expandedSections.technical ? project.technicalChallenges : previewChallenges).map((c) => (
-                      <li key={c} className="text-sm text-muted-foreground flex items-start gap-2">
-                        <div className="w-1 h-1 rounded-full bg-primary mt-2 shrink-0" />
-                        {c}
-                      </li>
-                    ))}
-                  </ul>
-                  {extraChallenges.length > 0 && (
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setExpandedSections((prev) => ({
-                          ...prev,
-                          technical: !prev.technical,
-                        }))
-                      }
-                      className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
-                    >
-                      {expandedSections.technical ? "Read less" : "Read more"}
-                      <ChevronRight
-                        size={12}
-                        className={`transition-transform ${expandedSections.technical ? "rotate-90" : ""}`}
-                      />
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
-                  {project.impactLabel ?? "Business Impact"}
-                </h4>
-                <div className="grid grid-cols-2 gap-3">
-                  {project.impact.map((imp) => (
-                    <div key={imp.label} className="p-4 bg-accent rounded-xl border border-primary/10">
-                      <div className="text-lg font-semibold text-primary tracking-tight leading-tight">
-                        {imp.metric}
-                      </div>
-                      <div className="text-xs text-muted-foreground mt-1 leading-relaxed">{imp.label}</div>
+                <div className="grid lg:grid-cols-[1fr_0.95fr] gap-10">
+                  <div className="space-y-6">
+                    <div className="border border-border rounded-xl p-4 bg-card/50">
+                      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                        Technical Challenges & Solutions
+                      </h4>
+                      <ul className="space-y-2">
+                        {project.technicalChallenges.map((c) => (
+                          <li key={c} className="text-sm text-muted-foreground flex items-start gap-2">
+                            <div className="w-1 h-1 rounded-full bg-primary mt-2 shrink-0" />
+                            <span className="min-w-0 break-words">
+                              <span className="font-medium text-foreground">
+                                {c.split("::")[0]}
+                              </span>
+                              <span className="text-muted-foreground"> - {c.split("::")[1]}</span>
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  ))}
+
+                  </div>
+
+                  <div className="lg:pl-2">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
+                      {project.impactLabel ?? "Business Impact"}
+                    </h4>
+                    <div className="grid grid-cols-2 gap-3">
+                      {project.impact.map((imp) => (
+                        <div key={imp.label} className="p-4.5 sm:p-5 bg-accent rounded-xl border border-primary/15 shadow-sm">
+                          <div className="text-xl sm:text-2xl font-semibold text-primary tracking-tight leading-tight">
+                            {imp.metric}
+                          </div>
+                          <div className="text-xs sm:text-[13px] text-muted-foreground mt-1.5 leading-relaxed">{imp.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </>
+            ) : (
+              <>
+                {/* Screenshots + overview */}
+                <div className="grid lg:grid-cols-[1.1fr_1fr] gap-6 sm:gap-10 mb-8 sm:mb-10 pb-8 sm:pb-10 border-b border-border">
+                  <div className="min-w-0">
+                    <ScreenshotGallery key={project.number} screenshots={project.screenshots} title={project.title} />
+                  </div>
+
+                  <div className="space-y-5 min-w-0">
+                    <div className="border border-border rounded-xl p-4 bg-card/50">
+                      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                        Challenge
+                      </h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{project.challenge}</p>
+                    </div>
+
+                    <div className="border border-border rounded-xl p-4 bg-card/50">
+                      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                        My Role
+                      </h4>
+                      <p className="text-sm font-medium text-foreground mb-3 break-words">{project.myRole}</p>
+                      <ul className="space-y-1.5">
+                        {project.responsibilities.map((r) => (
+                          <li key={r} className="text-sm text-muted-foreground flex items-start gap-2 min-w-0">
+                            <ChevronRight size={12} className="text-primary mt-0.5 shrink-0" />
+                            <span className="min-w-0 break-words">{r}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="border border-border rounded-xl p-4 bg-card/50">
+                      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                        Tech Stack
+                      </h4>
+                      <p className="text-sm text-foreground/90 leading-relaxed">{project.tech.join(" · ")}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Details grid */}
+                <div className="grid lg:grid-cols-[1fr_0.95fr] gap-10">
+                  <div className="space-y-6">
+                    <div className="border border-border rounded-xl p-4 bg-card/50">
+                      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                        {project.number === "02" || project.number === "03" || project.number === "04" ? "Technical Challenges & Solutions" : "Technical Challenges"}
+                      </h4>
+                      <ul className="space-y-2">
+                        {project.technicalChallenges.map((c) => (
+                          <li key={c} className="text-sm text-muted-foreground flex items-start gap-2">
+                            <div className="w-1 h-1 rounded-full bg-primary mt-2 shrink-0" />
+                            {project.number === "02" || project.number === "03" || project.number === "04" ? (
+                              <span className="min-w-0 break-words">
+                                <span className="font-medium text-foreground">{c.split("::")[0]}</span>
+                                <span className="text-muted-foreground"> - {c.split("::")[1]}</span>
+                              </span>
+                            ) : (
+                              c
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                  </div>
+
+                  <div className="lg:pl-2">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
+                      {project.impactLabel ?? "Business Impact"}
+                    </h4>
+                    <div className="grid grid-cols-2 gap-3">
+                      {project.impact.map((imp) => (
+                        <div key={imp.label} className="p-4.5 sm:p-5 bg-accent rounded-xl border border-primary/15 shadow-sm">
+                          <div className="text-xl sm:text-2xl font-semibold text-primary tracking-tight leading-tight">
+                            {imp.metric}
+                          </div>
+                          <div className="text-xs sm:text-[13px] text-muted-foreground mt-1.5 leading-relaxed">{imp.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
 
             <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div className="text-xs text-muted-foreground font-mono">
@@ -1764,6 +1765,7 @@ const ARTICLES = [
 
 function Articles() {
   const [expanded, setExpanded] = useState<number | null>(null);
+  const [showAllArticles, setShowAllArticles] = useState(false);
 
   return (
     <section id="articles" className="py-24 px-6">
@@ -1777,12 +1779,14 @@ function Articles() {
         </p>
 
         <div className="space-y-4">
-          {ARTICLES.map((article) => {
+          {ARTICLES.map((article, index) => {
             const isOpen = expanded === article.id;
             return (
               <article
                 key={article.id}
-                className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/20 transition-colors"
+                className={`bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/20 transition-colors ${
+                  !showAllArticles && index >= 2 ? "hidden sm:block" : ""
+                }`}
               >
                 <button
                   className="w-full text-left p-7 flex items-start justify-between gap-6"
@@ -1844,6 +1848,19 @@ function Articles() {
             );
           })}
         </div>
+
+        {!showAllArticles && ARTICLES.length > 2 && (
+          <div className="sm:hidden mt-6 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setShowAllArticles(true)}
+              className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-foreground text-sm font-medium rounded-full hover:bg-secondary transition-colors"
+            >
+              View more articles
+              <ChevronDown size={14} />
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -2089,7 +2106,7 @@ function Contact() {
               {"Let's build something great."}
             </h2>
             <p className="text-base text-white/60 leading-relaxed mb-10 max-w-lg">
-              {"I'm open to senior frontend, UI engineering, product engineering, and UX-focused software engineering roles-especially teams building healthcare, SaaS, or data products."}
+              {"I'm open to frontend, UI/UX, and product engineering roles-especially teams building healthcare, SaaS, or data products."}
             </p>
 
             <div className="space-y-4">
@@ -2175,10 +2192,10 @@ export default function App() {
         <About />
       </Reveal>
       <Reveal>
-        <Skills />
+        <Projects />
       </Reveal>
       <Reveal>
-        <Projects />
+        <Skills />
       </Reveal>
       <Reveal>
         <Process />
