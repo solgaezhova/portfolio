@@ -1150,18 +1150,6 @@ function ScreenshotGallery({ screenshots, title }: { screenshots: Screenshot[]; 
                         setFailedVideoSrcs((prev) => new Set(prev).add(String(shot.src)))
                       }
                     />
-                    {isOverlayVisible(`${title}-mobile-video-${i}`) && (
-                      <button
-                        type="button"
-                        onClick={() => playFromOverlay(`${title}-mobile-video-${i}`)}
-                        className="absolute inset-0 m-auto h-20 w-20 rounded-full bg-black/55 text-white backdrop-blur-[1px] flex items-center justify-center hover:bg-black/65 transition-colors"
-                        aria-label="Play video"
-                      >
-                        <svg viewBox="0 0 24 24" className="h-10 w-10 fill-current" aria-hidden="true">
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
-                      </button>
-                    )}
                   </div>
                 ) : (
                   <ImageWithFallback
