@@ -31,6 +31,8 @@ import ss1 from "@/imports/Screenshot_2026-06-29_at_16.52.46.png";
 import ss2 from "@/imports/Screenshot_2026-06-29_at_16.53.58.png";
 import ss3 from "@/imports/Screenshot_2026-06-29_at_16.58.10.png";
 import ss4 from "@/imports/Screenshot_2026-06-29_at_16.59.42.png";
+import project1FlowVideo from "@/imports/recordings/project1-recording.mp4";
+import project1Poster from "@/imports/posters/project1-poster.png";
 import picHomepage from "@/imports/image.png";
 import picProviderPage from "@/imports/Screenshot_2026-06-29_at_19.27.03.png";
 import picPracticePage from "@/imports/Screenshot_2026-06-29_at_19.43.53.png";
@@ -880,7 +882,13 @@ function TechBadge({ label }: { label: string }) {
 // ─── PROJECTS ─────────────────────────────────────────────────────────────────
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Screenshot = { src: any; alt: string; caption: string };
+type Screenshot = {
+  type?: "image" | "video";
+  src: any;
+  alt: string;
+  caption: string;
+  poster?: string;
+};
 type ImpactItem = { metric: string; label: string };
 
 const PROJECTS = [
@@ -918,6 +926,13 @@ const PROJECTS = [
       { metric: "WCAG 2.1 AA", label: "accessibility" },
     ],
     screenshots: [
+      {
+        type: "video",
+        src: project1FlowVideo,
+        poster: project1Poster,
+        alt: "Urgent Care Services Dashboard demo flow",
+        caption: "",
+      },
       { src: ss2, alt: "Search results with service hours", caption: "Step 1 — Check service availability by clinic" },
       { src: ss3, alt: "Nearby clinics expanded panel", caption: "Step 2 — Compare nearby clinics" },
       { src: ss4, alt: "Map view with clinic pins", caption: "Step 3 — Explore locations on the map" },
@@ -1046,7 +1061,39 @@ const PROJECTS = [
 
 function ScreenshotGallery({ screenshots, title }: { screenshots: Screenshot[]; title: string }) {
   const [activeIdx, setActiveIdx] = useState(0);
+  const [failedVideoSrcs, setFailedVideoSrcs] = useState<Set<string>>(new Set());
+  const [showPlayOverlay, setShowPlayOverlay] = useState<Record<string, boolean>>({});
   const reduceMotion = useReducedMotion();
+  const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
+
+  const setVideoRef = (key: string, node: HTMLVideoElement | null) => {
+    videoRefs.current[key] = node;
+  };
+
+  const playFromOverlay = (key: string) => {
+    const video = videoRefs.current[key];
+    if (!video) return;
+    void video.play().then(() => {
+      setShowPlayOverlay((prev) => ({ ...prev, [key]: false }));
+    }).catch(() => {
+      // If autoplay/play is blocked, keep overlay visible.
+    });
+  };
+
+  const isOverlayVisible = (key: string) => showPlayOverlay[key] ?? true;
+
+  const resetVideoToPoster = (video: HTMLVideoElement) => {
+    if (video.dataset.resetting === "1") return;
+
+    video.dataset.resetting = "1";
+    video.currentTime = 0;
+    video.load();
+
+    window.setTimeout(() => {
+      video.dataset.resetting = "0";
+    }, 0);
+  };
+
   if (screenshots.length === 0) {
     return (
       <div className="rounded-xl border border-dashed border-border bg-secondary/50 h-64 flex flex-col items-center justify-center gap-3 text-muted-foreground">
@@ -1072,16 +1119,59 @@ function ScreenshotGallery({ screenshots, title }: { screenshots: Screenshot[]; 
 
       <div className="md:hidden overflow-x-auto snap-x snap-mandatory -mx-1 px-1 pb-1 cursor-grab active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="flex gap-3">
-          {screenshots.map((shot) => (
-            <div key={shot.caption} className="w-full min-w-full snap-center space-y-2">
+          {screenshots.map((shot, i) => (
+            <div key={`${title}-mobile-${i}-${shot.alt}`} className="w-full min-w-full snap-center space-y-2">
               <div className="rounded-xl overflow-hidden border border-border bg-secondary/30 shadow-sm">
-                <ImageWithFallback
-                  src={shot.src}
-                  alt={shot.alt}
-                  className="w-full object-cover"
-                />
+                {shot.type === "video" && !failedVideoSrcs.has(String(shot.src)) ? (
+                  <div className="relative">
+                    <video
+                      ref={(node) => setVideoRef(`${title}-mobile-video-${i}`, node)}
+                      src={shot.src}
+                      poster={shot.poster || ss2}
+                      muted
+                      playsInline
+                      controls
+                      preload="metadata"
+                      className="w-full object-cover"
+                      aria-label={shot.alt}
+                      onPlay={() =>
+                        setShowPlayOverlay((prev) => ({ ...prev, [`${title}-mobile-video-${i}`]: false }))
+                      }
+                      onPause={(e) => {
+                        if (e.currentTarget.currentTime <= 0.05) {
+                          setShowPlayOverlay((prev) => ({ ...prev, [`${title}-mobile-video-${i}`]: true }));
+                        }
+                      }}
+                      onEnded={(e) => {
+                        resetVideoToPoster(e.currentTarget);
+                        setShowPlayOverlay((prev) => ({ ...prev, [`${title}-mobile-video-${i}`]: true }));
+                      }}
+                      onError={() =>
+                        setFailedVideoSrcs((prev) => new Set(prev).add(String(shot.src)))
+                      }
+                    />
+                    {isOverlayVisible(`${title}-mobile-video-${i}`) && (
+                      <button
+                        type="button"
+                        onClick={() => playFromOverlay(`${title}-mobile-video-${i}`)}
+                        className="absolute inset-0 m-auto h-20 w-20 rounded-full bg-black/55 text-white backdrop-blur-[1px] flex items-center justify-center hover:bg-black/65 transition-colors"
+                        aria-label="Play video"
+                      >
+                        <svg viewBox="0 0 24 24" className="h-10 w-10 fill-current" aria-hidden="true">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
+                ) : (
+                  <ImageWithFallback
+                    src={shot.type === "video" ? shot.poster || ss2 : shot.src}
+                    alt={shot.alt}
+                    className="w-full object-cover"
+                  />
+                )}
               </div>
-              <p className="text-xs text-muted-foreground text-center px-2 break-words">{shot.caption}</p>
+              <p className="text-xs text-muted-foreground text-center px-2 break-words">{shot.caption || "\u00A0"}</p>
             </div>
           ))}
         </div>
@@ -1097,11 +1187,55 @@ function ScreenshotGallery({ screenshots, title }: { screenshots: Screenshot[]; 
               exit={reduceMotion ? { opacity: 1 } : { opacity: 0, x: -10 }}
               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
-              <ImageWithFallback
-                src={current.src}
-                alt={current.alt}
-                className="w-full object-cover"
-              />
+                {current.type === "video" && !failedVideoSrcs.has(String(current.src)) ? (
+                  <div className="relative">
+                    <video
+                      key={`${title}-video-${safeIdx}`}
+                      ref={(node) => setVideoRef(`${title}-desktop-video-${safeIdx}`, node)}
+                      src={current.src}
+                      poster={current.poster || ss2}
+                      muted
+                      playsInline
+                      controls
+                      preload="metadata"
+                      className="w-full object-cover"
+                      aria-label={current.alt}
+                      onPlay={() =>
+                        setShowPlayOverlay((prev) => ({ ...prev, [`${title}-desktop-video-${safeIdx}`]: false }))
+                      }
+                      onPause={(e) => {
+                        if (e.currentTarget.currentTime <= 0.05) {
+                          setShowPlayOverlay((prev) => ({ ...prev, [`${title}-desktop-video-${safeIdx}`]: true }));
+                        }
+                      }}
+                      onEnded={(e) => {
+                        resetVideoToPoster(e.currentTarget);
+                        setShowPlayOverlay((prev) => ({ ...prev, [`${title}-desktop-video-${safeIdx}`]: true }));
+                      }}
+                      onError={() =>
+                        setFailedVideoSrcs((prev) => new Set(prev).add(String(current.src)))
+                      }
+                    />
+                    {isOverlayVisible(`${title}-desktop-video-${safeIdx}`) && (
+                      <button
+                        type="button"
+                        onClick={() => playFromOverlay(`${title}-desktop-video-${safeIdx}`)}
+                        className="absolute inset-0 m-auto h-20 w-20 rounded-full bg-black/55 text-white backdrop-blur-[1px] flex items-center justify-center hover:bg-black/65 transition-colors"
+                        aria-label="Play video"
+                      >
+                        <svg viewBox="0 0 24 24" className="h-10 w-10 fill-current" aria-hidden="true">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
+                ) : (
+                  <ImageWithFallback
+                    src={current.type === "video" ? current.poster || ss2 : current.src}
+                    alt={current.alt}
+                    className="w-full object-cover"
+                  />
+                )}
             </motion.div>
           </AnimatePresence>
         </div>
@@ -1114,7 +1248,7 @@ function ScreenshotGallery({ screenshots, title }: { screenshots: Screenshot[]; 
             transition={{ duration: 0.16 }}
             className="text-xs text-muted-foreground text-center mt-3"
           >
-            {current.caption}
+            {current.caption || "\u00A0"}
           </motion.p>
         </AnimatePresence>
       </div>
