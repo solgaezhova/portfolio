@@ -27,29 +27,30 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
-import ss1 from "@/imports/Screenshot_2026-06-29_at_16.52.46.png";
-import ss2 from "@/imports/Screenshot_2026-06-29_at_16.53.58.png";
-import ss3 from "@/imports/Screenshot_2026-06-29_at_16.58.10.png";
-import ss4 from "@/imports/Screenshot_2026-06-29_at_16.59.42.png";
+import ss1 from "@/imports/screenshots/project1-screenshot1-overview.png";
+import ss2 from "@/imports/screenshots/project1-screenshot2-search-results.png";
+import ss3 from "@/imports/screenshots/project1-screenshot3-nearby-clinics.png";
+import ss4 from "@/imports/screenshots/project1-screenshot4-map-view.png";
 import project1FlowVideo from "@/imports/recordings/project1-recording.mp4";
+import project2FlowVideo from "@/imports/recordings/project2-recording.mp4";
 import project1Poster from "@/imports/posters/project1-poster.png";
-import picHomepage from "@/imports/image.png";
-import picProviderPage from "@/imports/Screenshot_2026-06-29_at_19.27.03.png";
-import picPracticePage from "@/imports/Screenshot_2026-06-29_at_19.43.53.png";
-import picDashboard1 from "@/imports/image-1.png";
-import picDashboard2 from "@/imports/image-2.png";
-import picDashboard3 from "@/imports/Screenshot_2026-07-01_at_16.06.30.png";
-import picMarket1 from "@/imports/IMG_3602.png";
-import picMarket2 from "@/imports/IMG_3603.png";
-import picPracticeDetails from "@/imports/Screenshot_2026-06-29_at_19.31.41.png";
-import certMobileUX from "@/imports/Certificate_Mobile_UX-Design.jpg";
-import certMasterClass from "@/imports/masterclass-certificate-how-to-create-complex-tables-users-love-a-ui-designers-guide.jpg";
-import certAiDesignSystems from "@/imports/certificate-ai-for-design-systems-how-to-stay-ahead-and-lead.jpg";
-import certConversationDesign from "@/imports/certificate-conversation-design-practical-tips-for-ai-design.jpg";
-import certDesignPatternsAiUx from "@/imports/certificate-design-patterns-for-ai-ux.jpg";
-import certGetAheadProductAi from "@/imports/certificate-get-ahead-in-product-design-with-ai.jpg";
-import certHealthcareUx from "@/imports/certificate-healthcare-ux-design-for-patient-engagement-and-technology-adoption.jpg";
-import certHumanCenteredAi from "@/imports/certificate-human-centered-design-for-ai.jpg";
+import picHomepage from "@/imports/screenshots/project2-screenshot1-home.png";
+import picProviderPage from "@/imports/screenshots/project2-screenshot2-provider-page.png";
+import picPracticePage from "@/imports/screenshots/project2-screenshot4-practice-page.png";
+import picDashboard1 from "@/imports/screenshots/project3-screenshot1-dashboard-light.png";
+import picDashboard2 from "@/imports/screenshots/project3-screenshot2-dashboard-full.png";
+import picDashboard3 from "@/imports/screenshots/project3-screenshot3-dashboard-dark.png";
+import picMarket1 from "@/imports/screenshots/project4-screenshot1-market-today.png";
+import picMarket2 from "@/imports/screenshots/project4-screenshot2-market-monthly.png";
+import picPracticeDetails from "@/imports/screenshots/project2-screenshot3-practice-details.png";
+import certMobileUX from "@/imports/certificates/Certificate_Mobile_UX-Design.jpg";
+import certMasterClass from "@/imports/certificates/masterclass-certificate-how-to-create-complex-tables-users-love-a-ui-designers-guide.jpg";
+import certAiDesignSystems from "@/imports/certificates/certificate-ai-for-design-systems-how-to-stay-ahead-and-lead.jpg";
+import certConversationDesign from "@/imports/certificates/certificate-conversation-design-practical-tips-for-ai-design.jpg";
+import certDesignPatternsAiUx from "@/imports/certificates/certificate-design-patterns-for-ai-ux.jpg";
+import certGetAheadProductAi from "@/imports/certificates/certificate-get-ahead-in-product-design-with-ai.jpg";
+import certHealthcareUx from "@/imports/certificates/certificate-healthcare-ux-design-for-patient-engagement-and-technology-adoption.jpg";
+import certHumanCenteredAi from "@/imports/certificates/certificate-human-centered-design-for-ai.jpg";
 
 // ─── NAV ─────────────────────────────────────────────────────────────────────
 
@@ -972,6 +973,13 @@ const PROJECTS = [
       { metric: "Direct search", label: "Direct provider search" },
     ],
     screenshots: [
+      {
+        type: "video",
+        src: project2FlowVideo,
+        poster: picHomepage,
+        alt: "Practice Information Card demo flow",
+        caption: "",
+      },
       { src: picHomepage, alt: "Practice Information Card home page with search", caption: "Home - autosuggest search with categorized Clinics & Providers results and filter chips" },
       { src: picProviderPage, alt: "Provider detail page - upper section", caption: "Provider page - header with status badges, specialty chips, and quick action buttons" },
       { src: picPracticePage, alt: "Practice page with Providers tab", caption: "Practice page - header card with key metrics, tabbed navigation, and provider cards with status badges" },
