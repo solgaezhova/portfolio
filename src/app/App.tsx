@@ -896,34 +896,37 @@ const PROJECTS = [
   {
     number: "01",
     title: "Urgent Care Services Dashboard",
-    subtitle: "HCA Healthcare · Production App",
+    subtitle: "Turning a manual clinic lookup into a faster availability workflow",
     organization: "HCA Healthcare",
     industry: "Healthcare",
-    status: "Design & Build",
+    status: "Product Design · Design Engineering · Frontend",
     liveUrl: "https://ucservices.cnw.hcahealthcare.cloud/",
     githubUrl: null,
-    tech: ["React", "TypeScript", "Vite", ".NET Core", "Azure Maps", "Vitest"],
-    myRole: "Senior Frontend Engineer & UI/UX Designer",
+    tech: ["React", "TypeScript", "Vite", ".NET Core", "Azure Maps", "Neutron", "Vitest", "Figma"],
+    myRole: "Product Designer & Senior Frontend Engineer",
     responsibilities: [
-      "Designed and implemented the production UI and frontend architecture.",
-      "Built clinic/service search and availability lookup.",
-      "Integrated REST APIs and Azure Maps for clinic discovery.",
-      "Improved accessibility and documented the architecture.",
+      "End-to-end product design — Designed the user experience and product workflow.",
+      "Product architecture — Shaped the overall architecture and information hierarchy.",
+      "API & data requirements — Defined what the frontend needed from the backend.",
+      "Frontend implementation — Built the complete experience in React and TypeScript.",
+      "Responsive + accessible — Designed touch-friendly experiences across desktop and mobile.",
+      "Neutron design system — Used HCA's existing design system for consistent, accessible UI.",
     ],
     challenge:
-      "Call center teams needed a faster way to find clinics, services, and availability across 330+ locations.",
+      "When a patient called the call center, operators needed to find a clinic that could provide the requested service. Previously, operators had to contact clinics individually to find availability.",
     architecture:
-      "Single-page React 18 + TypeScript app built with Vite, integrated into an ASP.NET Core backend - the React build outputs directly into the .NET app's wwwroot folder. State is managed locally in DashboardPage (no Redux/Context) and passed to stateless child components via props and callbacks. The UI renders in three progressive states: initial search → selected clinic results → nearby clinics panel. API calls hit three endpoints: /api/certifications, /api/clinics, and /api/servicesdashboard. Dashboard data is cached in-memory per clinic/certification/date with a 5-minute expiration to reduce redundant API calls. The Neutron UI SDK (HCA's design system) provides WCAG 2.1 AA-compliant components; Bootstrap handles responsive layout; Azure Maps renders nearby clinic locations with token-cached auth.",
+      "I translated the UX requirements into the data and API requirements needed to support the experience, including the data required for clinic results, availability, and the map.\n\nI also proposed in-memory caching to reduce unnecessary API requests while keeping availability data reasonably fresh.",
     technicalChallenges: [
-      "Responsive search::Designed autosuggest search with a 3-character minimum and highlighted matching text, while keeping results responsive across a large clinic and service dataset with clear loading states.",
-      "API coordination::Coordinated 3 endpoints in a progressive flow: initial search → selected clinic results → nearby clinics panel, while handling loading states and errors.",
-      "Repeated requests::Added 5-minute in-memory caching to reduce unnecessary API requests while keeping availability data reasonably fresh.",
-      "Accessibility::Implemented accessible interactions and states across the key search and availability workflows.",
+      "Progressive disclosure::Show only relevant clinics first; reveal nearby options when needed.",
+      "Proximity-based alternatives::Show nearby clinics sorted by distance when the selected clinic has no availability.",
+      "List + Map::Use the list for quick comparison and the map for geographic context.",
+      "Responsive + accessible::Designed touch-friendly, accessible experiences across desktop and mobile.",
+      "HCA Design System::Used Neutron components for consistency and established accessibility patterns.",
     ],
     impact: [
+      { metric: "~30%", label: "estimated time improvement" },
       { metric: "330+", label: "clinics" },
       { metric: "5,000+", label: "daily users" },
-      { metric: "30–40%", label: "faster workflow" },
       { metric: "WCAG 2.1 AA", label: "accessibility" },
     ],
     screenshots: [
@@ -932,7 +935,7 @@ const PROJECTS = [
         src: project1FlowVideo,
         poster: project1Poster,
         alt: "Urgent Care Services Dashboard demo flow",
-        caption: "",
+        caption: "From clinic search to availability and nearby alternatives",
       },
       { src: ss2, alt: "Search results with service hours", caption: "Step 1 — Check service availability by clinic" },
       { src: ss3, alt: "Nearby clinics expanded panel", caption: "Step 2 — Compare nearby clinics" },
@@ -1380,71 +1383,69 @@ function Projects() {
           <div className="p-4 sm:p-8">
             {project.number === "01" ? (
               <>
-                <div className="grid lg:grid-cols-[1.1fr_1fr] gap-6 sm:gap-10 mb-8 sm:mb-10 pb-8 sm:pb-10 border-b border-border">
-                  <div className="min-w-0">
-                    <ScreenshotGallery key={project.number} screenshots={project.screenshots} title={project.title} />
+                <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-8">
+                  <div className="border border-border rounded-xl p-4 bg-card/50 min-w-0">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                      The Problem
+                    </h4>
+                    <p className="text-sm font-medium text-foreground mb-2 break-words">
+                      <span className="font-semibold text-foreground">Finding the right clinic</span> required a manual process
+                    </p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      When a patient called the call center, <span className="font-semibold text-foreground">operators needed to find a clinic that could provide the requested service</span>. Previously, operators had to contact clinics individually to find availability.
+                    </p>
+                    <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+                      With 330+ clinics, <span className="font-semibold text-foreground">finding a nearby option</span> was unnecessarily manual.
+                    </p>
                   </div>
 
-                  <div className="space-y-5 min-w-0">
-                    <div className="border border-border rounded-xl p-4 bg-card/50">
-                      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                        Challenge
-                      </h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{project.challenge}</p>
-                    </div>
-
-                    <div className="border border-border rounded-xl p-4 bg-card/50">
-                      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                        My Role
-                      </h4>
-                      <p className="text-sm font-medium text-foreground mb-3 break-words">{project.myRole}</p>
-                      <ul className="space-y-1.5">
-                        {project.responsibilities.map((r) => (
-                          <li key={r} className="text-sm text-muted-foreground flex items-start gap-2 min-w-0">
-                            <ChevronRight size={12} className="text-primary mt-0.5 shrink-0" />
-                            <span className="min-w-0 break-words">{r}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="border border-border rounded-xl p-4 bg-card/50">
-                      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                        Tech Stack
-                      </h4>
-                      <p className="text-sm text-foreground/90 leading-relaxed">{project.tech.join(" · ")}</p>
-                    </div>
+                  <div className="border border-border rounded-xl p-4 bg-card/50 min-w-0">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                      The Solution
+                    </h4>
+                    <p className="text-sm font-medium text-foreground mb-2 break-words">
+                      A <span className="font-semibold text-foreground">guided workflow</span> from clinic search to nearby alternatives
+                    </p>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                      I designed a <span className="font-semibold text-foreground">guided workflow</span> that helps call-center operators find a clinic, check <span className="font-semibold text-foreground">service availability today and tomorrow</span>, and quickly find <span className="font-semibold text-foreground">nearby alternatives</span> for the patient.
+                    </p>
+                    <p className="text-sm text-foreground/90 leading-relaxed">
+                      Find a clinic → Select a service → Check <span className="font-semibold text-foreground">today/tomorrow availability</span> → Find nearby options → View on map
+                    </p>
                   </div>
                 </div>
 
-                <div className="grid lg:grid-cols-[1fr_0.95fr] gap-10">
-                  <div className="space-y-6">
-                    <div className="border border-border rounded-xl p-4 bg-card/50">
-                      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                        Technical Challenges & Solutions
-                      </h4>
-                      <ul className="space-y-2">
-                        {project.technicalChallenges.map((c) => (
-                          <li key={c} className="text-sm text-muted-foreground flex items-start gap-2">
-                            <div className="w-1 h-1 rounded-full bg-primary mt-2 shrink-0" />
+                <div className="max-w-4xl mx-auto mb-8 sm:mb-8">
+                  <ScreenshotGallery key={project.number} screenshots={project.screenshots} title={project.title} />
+                </div>
+
+                <div className="grid lg:grid-cols-[1fr_1.05fr] gap-6 sm:gap-8 mb-8 sm:mb-8">
+                  <div className="border border-border rounded-xl p-4 bg-card/50 min-w-0">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                      My Role
+                    </h4>
+                    <p className="text-sm font-medium text-foreground mb-3 break-words">{project.myRole}</p>
+                    <ul className="space-y-2">
+                      {project.responsibilities.map((item) => {
+                        const [lead, rest] = item.split(" — ");
+                        return (
+                          <li key={item} className="text-sm text-muted-foreground flex items-start gap-2 min-w-0">
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
                             <span className="min-w-0 break-words">
-                              <span className="font-medium text-foreground">
-                                {c.split("::")[0]}
-                              </span>
-                              <span className="text-muted-foreground"> - {c.split("::")[1]}</span>
+                              <span className="font-semibold text-foreground">{lead}</span>
+                              <span> — {rest}</span>
                             </span>
                           </li>
-                        ))}
-                      </ul>
-                    </div>
-
+                        );
+                      })}
+                    </ul>
                   </div>
 
-                  <div className="lg:pl-2">
+                  <div className="border border-border rounded-xl p-4 bg-card/50 min-w-0">
                     <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
-                      {project.impactLabel ?? "Business Impact"}
+                      Product Impact
                     </h4>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid sm:grid-cols-2 gap-3">
                       {project.impact.map((imp) => (
                         <div key={imp.label} className="p-4.5 sm:p-5 bg-accent rounded-xl border border-primary/15 shadow-sm">
                           <div className="text-xl sm:text-2xl font-semibold text-primary tracking-tight leading-tight">
@@ -1453,6 +1454,47 @@ function Projects() {
                           <div className="text-xs sm:text-[13px] text-muted-foreground mt-1.5 leading-relaxed">{imp.label}</div>
                         </div>
                       ))}
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed mt-4">
+                      Replaced a manual clinic-by-clinic lookup process with a centralized search and availability workflow.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid lg:grid-cols-[1fr_1.05fr] gap-6 sm:gap-8">
+                  <div className="border border-border rounded-xl p-4 bg-card/50 min-w-0">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                      Key Design Decisions
+                    </h4>
+                    <ul className="space-y-2">
+                      {project.technicalChallenges.map((c) => (
+                        <li key={c} className="text-sm text-muted-foreground flex items-start gap-2">
+                          <div className="w-1 h-1 rounded-full bg-primary mt-2 shrink-0" />
+                          <span className="min-w-0 break-words">
+                            <span className="font-medium text-foreground">
+                              {c.split("::")[0]}
+                            </span>
+                            <span className="text-muted-foreground"> - {c.split("::")[1]}</span>
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="border border-border rounded-xl p-4 bg-card/50 min-w-0">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                      From Product Requirements to Production
+                    </h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
+                      I translated the <span className="font-semibold text-foreground">UX requirements</span> into the <span className="font-semibold text-foreground">data and API requirements</span> needed to support the experience, including the data required for clinic results, availability, and the map.
+                      <br /><br />
+                      I also proposed <span className="font-semibold text-foreground">in-memory caching</span> to reduce unnecessary API requests while keeping availability data reasonably fresh.
+                    </p>
+                    <div className="mt-4">
+                      <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                        Tech Stack
+                      </h5>
+                      <p className="text-sm text-foreground/90 leading-relaxed">{project.tech.join(" · ")}</p>
                     </div>
                   </div>
                 </div>
