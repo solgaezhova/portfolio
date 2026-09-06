@@ -25,6 +25,9 @@ import {
   Smartphone,
   ChevronLeft,
   ChevronDown,
+  Phone,
+  Clock3,
+  Palette,
 } from "lucide-react";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import ss1 from "@/imports/screenshots/project1-screenshot1-overview.png";
@@ -59,7 +62,6 @@ const NAV_LINKS = [
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
   { label: "Process", href: "#process" },
-  { label: "AI Workflow", href: "#ai" },
   { label: "Articles", href: "#articles" },
   { label: "Certificates", href: "#certificates" },
   { label: "Testimonials", href: "#testimonials" },
@@ -487,6 +489,62 @@ function ContactLink({
 
 // ─── ABOUT ────────────────────────────────────────────────────────────────────
 
+function ReactIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+      <circle cx="12" cy="12" r="1.8" fill="#61DAFB" />
+      <g fill="none" stroke="#61DAFB" strokeWidth="1.25" strokeLinecap="round">
+        <ellipse cx="12" cy="12" rx="8.5" ry="3.2" transform="rotate(0 12 12)" />
+        <ellipse cx="12" cy="12" rx="8.5" ry="3.2" transform="rotate(60 12 12)" />
+        <ellipse cx="12" cy="12" rx="8.5" ry="3.2" transform="rotate(120 12 12)" />
+      </g>
+    </svg>
+  );
+}
+
+function TypeScriptIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+      <path d="M3 5.5A2.5 2.5 0 0 1 5.5 3h13A2.5 2.5 0 0 1 21 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 18.5v-13Zm4.5 3.2h2.4v7.3h-2.4V8.7Zm4 0h5.1v2.1h-2.7v5.2h-2.4V10.8h-2.1V8.7h2.1Z" fill="#3178C6" />
+    </svg>
+  );
+}
+
+function ViteIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+      <path d="M12 2.3 2.8 18.2l1.8 3.5 7.4-13.3 7.4 13.3 1.8-3.5L12 2.3Zm0 4.5 4.8 8.7H7.2L12 6.8Z" fill="#FFCF5A" />
+      <path d="M4.8 18.7 12 5.6l7.2 13.1H4.8Z" fill="#6FE2D5" opacity="0.9" />
+    </svg>
+  );
+}
+
+function VitestIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+      <path d="M12 2.5c2 0 3.8 1.2 4.7 2.9l.6 1.3 1.4.6c1.8.8 2.9 2.8 2.5 4.8-.3 1.9-1.8 3.4-3.8 3.8l-1.4.3-.8 1.5c-.9 1.8-2.8 2.9-4.9 2.9-2.1 0-4-.9-4.9-2.7l-.7-1.4-1.5-.7c-2-.8-3.2-2.8-2.9-4.9.2-2.1 1.8-3.8 3.9-4.1l1.4-.2.8-1.4C8.3 4.1 10 2.5 12 2.5Zm.1 3.2-2.5 7.2h2.1l-.6 4.2 5.9-8.1h-2.5l1.4-3.3h-3.8Z" fill="#6E9F18" />
+    </svg>
+  );
+}
+
+function AzureIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+      <path d="M3 17.3 9.3 5.8l4.5 11.5H3Zm7.8-9.3L21 18.7H9.9L7.3 13.8l3.5-5.8Z" fill="#0078D4" />
+    </svg>
+  );
+}
+
+function FigmaIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+      <path d="M8.5 3.5a3.5 3.5 0 0 1 3.5 3.5H8.5V3.5Zm0 3.5H5a3.5 3.5 0 0 1 3.5-3.5v3.5Zm0 3.5a3.5 3.5 0 0 1-3.5-3.5H8.5v3.5Zm0 3.5a3.5 3.5 0 0 1-3.5-3.5H8.5v3.5Zm3.5 0a3.5 3.5 0 1 1 0-7h3.5v7H12Zm0 0v3.5a3.5 3.5 0 1 1 0-7V13Zm7-7a3.5 3.5 0 0 1 0 7H15v-7h4Z" fill="#F24E1E" />
+      <path d="M15 3.5h3.5a3.5 3.5 0 0 1 0 7H15V3.5Zm0 7h3.5a3.5 3.5 0 0 1 0 7H15v-7Z" fill="#FF7262" opacity="0.8" />
+      <path d="M8.5 20.5a3.5 3.5 0 0 1 0-7h3.5v7H8.5Z" fill="#A259FF" opacity="0.8" />
+    </svg>
+  );
+}
+
 const CORE_STRENGTHS = [
   {
     icon: <Code2 size={16} />,
@@ -896,14 +954,14 @@ const PROJECTS = [
   {
     number: "01",
     title: "Urgent Care Services Dashboard",
-    subtitle: "Turning a manual clinic lookup into a faster availability workflow",
+    subtitle: "A production application that helps call center operators quickly find nearby clinics offering the service a patient needs, check availability, and compare options.",
     organization: "HCA Healthcare",
     industry: "Healthcare",
     status: "Product Design · Design Engineering · Frontend",
     liveUrl: "https://ucservices.cnw.hcahealthcare.cloud/",
     githubUrl: null,
-    tech: ["React", "TypeScript", "Vite", ".NET Core", "Azure Maps", "Neutron", "Vitest", "Figma"],
-    myRole: "Product Designer & Senior Frontend Engineer",
+    tech: ["React", "TypeScript", "Vite", "Azure Maps", "Vitest", "Figma"],
+    myRole: "Product Designer & Frontend Engineer",
     responsibilities: [
       "End-to-end product design — Designed the user experience and product workflow.",
       "Product architecture — Shaped the overall architecture and information hierarchy.",
@@ -924,9 +982,9 @@ const PROJECTS = [
       "HCA Design System::Used Neutron components for consistency and established accessibility patterns.",
     ],
     impact: [
-      { metric: "~30%", label: "estimated time improvement" },
       { metric: "330+", label: "clinics" },
       { metric: "5,000+", label: "daily users" },
+      { metric: "Production", label: "application" },
       { metric: "WCAG 2.1 AA", label: "accessibility" },
     ],
     screenshots: [
@@ -1117,9 +1175,9 @@ function ScreenshotGallery({ screenshots, title }: { screenshots: Screenshot[]; 
   const current = screenshots[safeIdx];
   return (
     <div className="space-y-3 min-w-0">
-      <div className="md:hidden flex items-center justify-between px-1 text-[11px] text-muted-foreground">
+      <div className="md:hidden flex items-center justify-between px-1 text-[13px] text-muted-foreground">
         <span className="inline-flex items-center gap-1.5">
-          <Smartphone size={12} />
+          <Smartphone size={13} />
           Swipe left or right to view screenshots
         </span>
         <span className="inline-flex items-center gap-0.5" aria-hidden="true">
@@ -1332,171 +1390,331 @@ function Projects() {
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
             className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm"
           >
-          {/* Header bar */}
-          <div className="px-4 sm:px-8 py-5 sm:py-6 border-b border-border flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-            <div className="min-w-0">
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-1">
-                <span className="text-xs font-mono text-muted-foreground">{project.number}</span>
-                <span className="text-xs px-2 py-0.5 bg-accent text-primary rounded-full font-medium">{project.status}</span>
-                <span className="text-xs text-muted-foreground">{project.organization}</span>
+          {project.number !== "01" && (
+            <div className="px-4 sm:px-8 py-5 sm:py-6 border-b border-border flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-1">
+                  <span className="text-xs font-mono text-muted-foreground">{project.number}</span>
+                  <span className="text-xs px-2 py-0.5 bg-accent text-primary rounded-full font-medium">{project.status}</span>
+                  <span className="text-xs text-muted-foreground">{project.organization}</span>
+                </div>
+                <h3 className="text-2xl font-semibold tracking-tight text-foreground break-words">{project.title}</h3>
+                <p className="text-sm text-muted-foreground mt-0.5">{project.subtitle}</p>
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1.5 flex max-w-full items-start gap-1 text-xs text-primary/70 hover:text-primary transition-colors font-mono break-all"
+                  >
+                    <Globe size={11} className="mt-[1px] shrink-0" />
+                    <span className="min-w-0">{project.liveUrl.replace(/^https?:\/\//, "")}</span>
+                  </a>
+                )}
               </div>
-              <h3 className="text-2xl font-semibold tracking-tight text-foreground break-words">{project.title}</h3>
-              <p className="text-sm text-muted-foreground mt-0.5">{project.subtitle}</p>
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-1.5 flex max-w-full items-start gap-1 text-xs text-primary/70 hover:text-primary transition-colors font-mono break-all"
-                >
-                  <Globe size={11} className="mt-[1px] shrink-0" />
-                  <span className="min-w-0">{project.liveUrl.replace(/^https?:\/\//, "")}</span>
-                </a>
-              )}
+              <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 shrink-0">
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-white text-xs font-medium rounded-full hover:bg-primary/90 transition-colors"
+                  >
+                    <ExternalLink size={11} />
+                    {project.number === "01" ? "Live Application" : "Live Demo"}
+                  </a>
+                )}
+                {project.githubUrl && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 border border-border text-foreground text-xs font-medium rounded-full hover:bg-secondary transition-colors"
+                  >
+                    <Github size={11} />
+                    GitHub
+                  </a>
+                )}
+              </div>
             </div>
-            <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 shrink-0">
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-white text-xs font-medium rounded-full hover:bg-primary/90 transition-colors"
-                >
-                  <ExternalLink size={11} />
-                  {project.number === "01" ? "Live Application" : "Live Demo"}
-                </a>
-              )}
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 border border-border text-foreground text-xs font-medium rounded-full hover:bg-secondary transition-colors"
-                >
-                  <Github size={11} />
-                  GitHub
-                </a>
-              )}
-            </div>
-          </div>
+          )}
 
           <div className="p-4 sm:p-8">
             {project.number === "01" ? (
               <>
-                <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-8">
-                  <div className="border border-border rounded-xl p-4 bg-card/50 min-w-0">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                      The Problem
-                    </h4>
-                    <p className="text-sm font-medium text-foreground mb-2 break-words">
-                      <span className="font-semibold text-foreground">Finding the right clinic</span> required a manual process
-                    </p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      When a patient called the call center, <span className="font-semibold text-foreground">operators needed to find a clinic that could provide the requested service</span>. Previously, operators had to contact clinics individually to find availability.
-                    </p>
-                    <p className="text-sm text-muted-foreground leading-relaxed mt-3">
-                      With 330+ clinics, <span className="font-semibold text-foreground">finding a nearby option</span> was unnecessarily manual.
-                    </p>
-                  </div>
+                <div className="relative pb-8 border-b border-border mb-8 pt-1">
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute right-0 top-0 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-primary/90"
+                    >
+                      Live Application
+                      <ExternalLink size={12} />
+                    </a>
+                  )}
 
-                  <div className="border border-border rounded-xl p-4 bg-card/50 min-w-0">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                      The Solution
-                    </h4>
-                    <p className="text-sm font-medium text-foreground mb-2 break-words">
-                      A <span className="font-semibold text-foreground">guided workflow</span> from clinic search to nearby alternatives
-                    </p>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                      I designed a <span className="font-semibold text-foreground">guided workflow</span> that helps call-center operators find a clinic, check <span className="font-semibold text-foreground">service availability today and tomorrow</span>, and quickly find <span className="font-semibold text-foreground">nearby alternatives</span> for the patient.
-                    </p>
-                    <p className="text-sm text-foreground/90 leading-relaxed">
-                      Find a clinic → Select a service → Check <span className="font-semibold text-foreground">today/tomorrow availability</span> → Find nearby options → View on map
-                    </p>
-                  </div>
-                </div>
+                  <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] xl:gap-8 pt-14 xl:pt-4">
+                    <div className="space-y-4 min-w-0 py-1">
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
+                        HCA HEALTHCARE · PRODUCTION APP
+                      </div>
+                      <h3 className="text-[1.7rem] sm:text-[2rem] lg:text-[2.2rem] font-semibold tracking-[-0.06em] text-foreground leading-[1.02] break-words">
+                        Urgent Care Services Dashboard
+                      </h3>
+                      <p className="text-[15px] text-muted-foreground leading-[1.7]">
+                        A production application that helps call center operators quickly find nearby clinics offering the service a patient needs, check availability, and compare options.
+                      </p>
 
-                <div className="max-w-4xl mx-auto mb-8 sm:mb-8">
-                  <ScreenshotGallery key={project.number} screenshots={project.screenshots} title={project.title} />
-                </div>
-
-                <div className="grid lg:grid-cols-[1fr_1.05fr] gap-6 sm:gap-8 mb-8 sm:mb-8">
-                  <div className="border border-border rounded-xl p-4 bg-card/50 min-w-0">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                      My Role
-                    </h4>
-                    <p className="text-sm font-medium text-foreground mb-3 break-words">{project.myRole}</p>
-                    <ul className="space-y-2">
-                      {project.responsibilities.map((item) => {
-                        const [lead, rest] = item.split(" — ");
-                        return (
-                          <li key={item} className="text-sm text-muted-foreground flex items-start gap-2 min-w-0">
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-                            <span className="min-w-0 break-words">
-                              <span className="font-semibold text-foreground">{lead}</span>
-                              <span> — {rest}</span>
+                      <div className="min-w-0 pt-1 mt-6">
+                        <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
+                          TECH STACK
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {[
+                            { name: "React", Icon: ReactIcon },
+                            { name: "TypeScript", Icon: TypeScriptIcon },
+                            { name: "Vite", Icon: ViteIcon },
+                            { name: "Azure Maps", Icon: AzureIcon },
+                            { name: "Figma", Icon: FigmaIcon },
+                          ].map(({ name, Icon }) => (
+                            <span key={name} className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-2.5 py-1.5 text-[11px] font-medium text-foreground shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+                              <span className="flex h-4 w-4 items-center justify-center shrink-0">
+                                <Icon />
+                              </span>
+                              {name}
                             </span>
-                          </li>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4 min-w-0 pt-1">
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-border bg-transparent px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+                        >
+                          View on GitHub
+                          <Github size={14} />
+                        </a>
+                      )}
+
+                      <div className="min-w-0">
+                        <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
+                          MY ROLE
+                        </div>
+                        <h4 className="text-[1.2rem] sm:text-[1.4rem] font-semibold tracking-[-0.03em] text-foreground mb-3 mt-3 leading-snug">
+                          Frontend Engineer & UI/UX Designer
+                        </h4>
+                        <ul className="space-y-2 text-[12px] sm:text-[13px] leading-relaxed text-muted-foreground">
+                          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />Designed and implemented the production UI and frontend architecture.</li>
+                          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />Built clinic/service search and real-time availability lookup.</li>
+                          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />Integrated REST APIs and Azure Maps for clinic discovery.</li>
+                          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />Improved accessibility and documented the architecture.</li>
+                          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />Applied HCA's Neutron Design System to maintain consistent, accessible UI.</li>
+
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10 mb-10">
+                  <div className="space-y-8 min-w-0">
+                    <div className="min-w-0">
+                      <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
+                        THE PROBLEM
+                      </div>
+                      <h4 className="text-[1.3rem] sm:text-[1.5rem] font-semibold tracking-[-0.04em] text-foreground leading-[1.2] mb-3">
+                        Finding availability was a manual, multi-step process.
+                      </h4>
+                      <p className="text-[13px] text-muted-foreground leading-[1.7] mb-2">
+                        Call-center operators had to contact clinics individually to find a location that offered the requested service and had availability.
+                      </p>
+
+                      <div className="mt-6 flex flex-wrap items-center gap-2.5 text-[12px] text-muted-foreground">
+                        {[
+                          "Patient requests a service",
+                          "Operator contacts multiple clinics",
+                          "Checks service & availability",
+                          "Repeats as needed",
+                        ].map((step, index, arr) => (
+                          <div key={step} className="flex items-center gap-2.5">
+                            <div className="rounded-full border border-border bg-white px-2.5 py-2 text-[12px] font-medium text-foreground shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+                              {step}
+                            </div>
+                            {index < arr.length - 1 && <ChevronRight size={12} className="text-muted-foreground/80" />}
+                          </div>
+                        ))}
+                      </div>
+
+                      <p className="mt-4 text-[13px] text-muted-foreground leading-[1.7]">
+                        330+ clinics made this process difficult to scale.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-8 min-w-0">
+                    <div className="min-w-0 pt-1">
+                      <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
+                        THE SOLUTION
+                      </div>
+                      <h4 className="text-[1.3rem] sm:text-[1.5rem] font-semibold tracking-[-0.04em] text-foreground leading-[1.2] mb-3">
+                        A guided workflow that makes it easier to find the right clinic.
+                      </h4>
+                      <p className="text-[13px] text-muted-foreground leading-[1.7] mb-5">
+                        I designed a progressive experience that takes operators from a known clinic to availability, nearby alternatives, and geographic context in a few steps.
+                      </p>
+
+                      <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 xl:grid-cols-5">
+                        {[
+                          { label: "Find a clinic", detail: "Autocomplete search", icon: Monitor, badge: "bg-gradient-to-br from-sky-100 to-blue-100 text-sky-700 border-sky-200" },
+                          { label: "Select a service", detail: "Dropdown selection", icon: CheckCircle2, badge: "bg-gradient-to-br from-emerald-100 to-green-100 text-emerald-700 border-emerald-200" },
+                          { label: "Check availability", detail: "Today / tomorrow hours", icon: Clock3, badge: "bg-gradient-to-br from-violet-100 to-indigo-100 text-violet-700 border-violet-200" },
+                          { label: "Find nearby options", detail: "Distance-sorted alternatives", icon: MapPin, badge: "bg-gradient-to-br from-cyan-100 to-blue-100 text-cyan-700 border-cyan-200" },
+                          { label: "View on map", detail: "Interactive map location", icon: Globe, badge: "bg-gradient-to-br from-pink-100 to-rose-100 text-pink-700 border-pink-200" },
+                        ].map((step, index) => {
+                          const Icon = step.icon;
+                          return (
+                            <div key={step.label} className="rounded-xl border border-border bg-white p-3 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+                              <div className="mb-3 flex items-center justify-between gap-2">
+                                <span className={`inline-flex h-11 w-11 items-center justify-center rounded-lg border ${step.badge}`}>
+                                  <Icon size={16} />
+                                </span>
+                                <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">0{index + 1}</span>
+                              </div>
+                              <div className="text-[11px] font-semibold text-foreground mb-1">{step.label}</div>
+                              <div className="text-[10px] leading-relaxed text-muted-foreground">{step.detail}</div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div className="mt-10 flex flex-col items-center">
+                  <div className="mb-3 text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
+                    VIDEO + SCREENSHOTS
+                  </div>
+                  <div className="flex justify-center w-full">
+                    <div className="w-full max-w-4xl rounded-[1.5rem] border border-border bg-white/80 p-2.5 shadow-[0_16px_35px_rgba(15,23,42,0.08)]">
+                      <ScreenshotGallery key={project.number} screenshots={project.screenshots} title={project.title} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-10 grid gap-8 lg:grid-cols-2 lg:items-start">
+                  <div className="border-t border-border pt-8 self-stretch">
+                    <div className="mb-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
+                      KEY DESIGN DECISIONS
+                    </div>
+                    <div className="grid h-full grid-cols-2 gap-3">
+                      {[
+                        { title: "Progressive disclosure", text: "Show relevant information only when needed to keep the experience focused.", icon: Layers, badge: "bg-gradient-to-br from-sky-100 to-indigo-100 text-indigo-700 border-indigo-200" },
+                        { title: "Proximity-based results", text: "Nearby clinics are sorted by distance so operators can quickly find the closest option.", icon: MapPin, badge: "bg-gradient-to-br from-cyan-100 to-blue-100 text-cyan-700 border-cyan-200" },
+                        { title: "List + Map", text: "The list is great for comparison; the map adds geographic context.", icon: Monitor, badge: "bg-gradient-to-br from-emerald-100 to-teal-100 text-emerald-700 border-emerald-200" },
+                        { title: "Responsive & accessible", text: "Built for desktop and mobile with accessible interactions and touch-friendly controls.", icon: Accessibility, badge: "bg-gradient-to-br from-violet-100 to-purple-100 text-violet-700 border-violet-200" },
+                      ].map((item) => {
+                        const Icon = item.icon;
+
+                        return (
+                          <div key={item.title} className="h-full rounded-xl border border-border bg-white p-3.5 min-h-[140px] shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+                            <div className="mb-2 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">
+                              <span className={`inline-flex h-7 w-7 items-center justify-center rounded-md border ${item.badge}`}>
+                                <Icon size={12} />
+                              </span>
+                              {item.title}
+                            </div>
+                            <p className="text-[12px] leading-relaxed text-muted-foreground">{item.text}</p>
+                          </div>
                         );
                       })}
-                    </ul>
+                    </div>
                   </div>
 
-                  <div className="border border-border rounded-xl p-4 bg-card/50 min-w-0">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
-                      Product Impact
-                    </h4>
-                    <div className="grid sm:grid-cols-2 gap-3">
-                      {project.impact.map((imp) => (
-                        <div key={imp.label} className="p-4.5 sm:p-5 bg-accent rounded-xl border border-primary/15 shadow-sm">
-                          <div className="text-xl sm:text-2xl font-semibold text-primary tracking-tight leading-tight">
-                            {imp.metric}
+                  <div className="space-y-6 border-t border-border pt-8 self-stretch">
+                    <div className="min-w-0 h-full">
+                      <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
+                        BUSINESS IMPACT
+                      </div>
+                      <div className="grid h-full grid-cols-2 gap-3">
+                        {[
+                          { metric: "330+", label: "clinics" },
+                          { metric: "5,000+", label: "daily users" },
+                          { metric: "~30%", label: "time optimization" },
+                          { metric: "WCAG 2.1 AA", label: "accessibility" },
+                        ].map((item) => (
+                          <div key={item.label} className="h-full rounded-xl border border-primary/15 bg-[#f2f6ff] p-4 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+                            <div className="flex h-full min-h-[76px] flex-col items-center justify-center text-center leading-none">
+                              <div className="text-[1.5rem] sm:text-[1.7rem] font-semibold tracking-[-0.05em] text-primary">{item.metric}</div>
+                              <div className={`mt-1.5 text-[11px] sm:text-[12px] font-medium tracking-normal text-muted-foreground leading-[1.2] ${item.label === "time optimization" ? "max-w-[14ch] whitespace-nowrap" : "max-w-[10ch]"}`}>
+                                {item.label}
+                              </div>
+                            </div>
                           </div>
-                          <div className="text-xs sm:text-[13px] text-muted-foreground mt-1.5 leading-relaxed">{imp.label}</div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed mt-4">
-                      Replaced a manual clinic-by-clinic lookup process with a centralized search and availability workflow.
-                    </p>
+
                   </div>
                 </div>
 
-                <div className="grid lg:grid-cols-[1fr_1.05fr] gap-6 sm:gap-8">
-                  <div className="border border-border rounded-xl p-4 bg-card/50 min-w-0">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                      Key Design Decisions
-                    </h4>
-                    <ul className="space-y-2">
-                      {project.technicalChallenges.map((c) => (
-                        <li key={c} className="text-sm text-muted-foreground flex items-start gap-2">
-                          <div className="w-1 h-1 rounded-full bg-primary mt-2 shrink-0" />
-                          <span className="min-w-0 break-words">
-                            <span className="font-medium text-foreground">
-                              {c.split("::")[0]}
-                            </span>
-                            <span className="text-muted-foreground"> - {c.split("::")[1]}</span>
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
+                <div className="mt-10 border-t border-border pt-8">
+                  <div className="grid lg:grid-cols-[1.35fr_0.85fr] gap-8">
+                  <div className="rounded-xl border border-border bg-secondary/30 p-4 min-w-0 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+                    <div className="mb-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
+                      FROM DESIGN TO PRODUCTION
+                    </div>
+                    <div className="flex flex-wrap items-center gap-1.5 md:gap-2">
+                      {[
+                        { label: "User needs", icon: Users, badge: "bg-gradient-to-br from-sky-500 to-cyan-600 text-white border-sky-400/60" },
+                        { label: "UX & IA", icon: Layers, badge: "bg-gradient-to-br from-violet-500 to-indigo-600 text-white border-violet-400/60" },
+                        { label: "Data & API", icon: Code2, badge: "bg-gradient-to-br from-emerald-500 to-teal-600 text-white border-emerald-400/60" },
+                        { label: "React", icon: Zap, badge: "bg-gradient-to-br from-amber-500 to-orange-600 text-white border-amber-400/60" },
+                        { label: "Production", icon: BarChart3, badge: "bg-gradient-to-br from-rose-500 to-pink-600 text-white border-rose-400/60" },
+                      ].map((step, index, arr) => {
+                        const Icon = step.icon;
+                        return (
+                          <div key={step.label} className="flex items-center gap-1.5 md:gap-2">
+                            <div className="flex min-w-0 items-center gap-1.5 rounded-full border border-border bg-white px-2.5 py-1.5 text-[9px] font-medium text-foreground shadow-sm">
+                              <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full border ${step.badge}`}>
+                                <Icon size={11} />
+                              </span>
+                              <span className="whitespace-nowrap">{step.label}</span>
+                            </div>
+                            {index < arr.length - 1 && <ChevronRight size={11} className="hidden text-muted-foreground/80 md:block" />}
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <p className="mt-5 text-[15px] text-muted-foreground leading-[1.75]">
+                      I translated the UX requirements into the data and API requirements needed to support the experience and implemented the complete frontend.
+                    </p>
                   </div>
 
-                  <div className="border border-border rounded-xl p-4 bg-card/50 min-w-0">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                      From Product Requirements to Production
-                    </h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
-                      I translated the <span className="font-semibold text-foreground">UX requirements</span> into the <span className="font-semibold text-foreground">data and API requirements</span> needed to support the experience, including the data required for clinic results, availability, and the map.
-                      <br /><br />
-                      I also proposed <span className="font-semibold text-foreground">in-memory caching</span> to reduce unnecessary API requests while keeping availability data reasonably fresh.
-                    </p>
-                    <div className="mt-4">
-                      <h5 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                        Tech Stack
-                      </h5>
-                      <p className="text-sm text-foreground/90 leading-relaxed">{project.tech.join(" · ")}</p>
+                  <div className="rounded-xl border border-border bg-secondary/30 p-4 min-w-0 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+                    <div className="mb-3 flex items-center gap-2.5">
+                      <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-amber-400/60 bg-gradient-to-br from-amber-400 to-orange-500 text-white">
+                        <Zap size={15} />
+                      </span>
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
+                        PERFORMANCE OPTIMIZATION
+                      </div>
                     </div>
+                    <h4 className="text-lg font-semibold tracking-[-0.03em] text-foreground mb-2">
+                      In-memory caching
+                    </h4>
+                    <p className="text-[15px] text-muted-foreground leading-[1.75]">
+                      I proposed in-memory caching for dashboard results to reduce unnecessary API requests while keeping availability data reasonably fresh.
+                    </p>
                   </div>
+                </div>
                 </div>
               </>
             ) : (
@@ -1741,110 +1959,6 @@ function Process() {
               </motion.div>
             ))}
           </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── AI WORKFLOW ──────────────────────────────────────────────────────────────
-
-const AI_TOOLS = [
-  {
-    tool: "GitHub Copilot",
-    category: "Code Generation",
-    use: "Boilerplate reduction, unit test generation, refactoring suggestions, documentation drafts.",
-    gain: "~30% faster coding on repetitive patterns",
-    color: "bg-[#161b22] text-white",
-    dot: "bg-white",
-  },
-  {
-    tool: "ChatGPT / Claude",
-    category: "Research & Writing",
-    use: "Requirements clarification, copy drafting, code review discussion, architecture brainstorming.",
-    gain: "~50% faster research and ideation cycles",
-    color: "bg-accent",
-    dot: "bg-primary",
-  },
-  {
-    tool: "Figma Make",
-    category: "Design Exploration",
-    use: "Rapid UI prototypes, component variants, layout exploration, design-to-code hand-off.",
-    gain: "Compress 2-day wireframe cycles to ~4 hours",
-    color: "bg-secondary",
-    dot: "bg-foreground",
-  },
-  {
-    tool: "Cursor IDE",
-    category: "AI-Native Coding",
-    use: "Codebase-aware autocomplete, multi-file edits, inline explanations, one-shot component generation.",
-    gain: "Reduces context-switching friction significantly",
-    color: "bg-accent",
-    dot: "bg-primary",
-  },
-];
-
-function AIWorkflow() {
-  return (
-    <section id="ai" className="py-24 px-6 bg-secondary/40">
-      <div className="max-w-6xl mx-auto">
-        <SectionLabel>AI Workflow</SectionLabel>
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-12 items-start">
-          <div>
-            <h2 className="text-4xl font-semibold tracking-tight text-foreground mb-4">
-              I use AI as a force multiplier-not a shortcut.
-            </h2>
-            <p className="text-base text-muted-foreground leading-relaxed mb-6">
-              AI tools have changed how I work, not what I care about. I still
-              write thoughtful code, make intentional design decisions, and own
-              every pixel that ships. AI handles the mechanical parts so I can
-              focus on the hard parts.
-            </p>
-            <div className="relative overflow-hidden rounded-xl border border-border/80 bg-card/70 backdrop-blur-sm px-5 py-5 min-h-[150px] shadow-[0_1px_0_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-200">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/28 via-sky-300/10 to-transparent opacity-60" />
-              <div className="absolute -top-10 -right-8 w-24 h-24 rounded-full bg-white/30 blur-2xl" />
-              <div className="relative">
-                <div className="h-1.5 w-11 rounded-full mb-3 bg-cyan-500/65" />
-                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                  Overall productivity lift
-                </div>
-                <div className="text-4xl font-semibold text-foreground tracking-tight mb-1">
-                  2–3×
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Estimated output multiplier on greenfield features when AI tools
-                  are paired with clear requirements and strong architectural
-                  judgment.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            {AI_TOOLS.map((t) => (
-              <div
-                key={t.tool}
-                className="p-5 bg-card border border-border rounded-xl hover:shadow-sm transition-shadow"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <div className="font-semibold text-sm text-foreground">
-                      {t.tool}
-                    </div>
-                    <div className="text-xs text-muted-foreground mt-1.5 sm:mt-1">
-                      {t.category}
-                    </div>
-                  </div>
-                  <span className="text-xs px-2 py-0.5 bg-accent text-primary rounded-full font-mono">
-                    {t.gain}
-                  </span>
-                </div>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {t.use}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>
@@ -2365,9 +2479,6 @@ export default function App() {
       </Reveal>
       <Reveal>
         <Process />
-      </Reveal>
-      <Reveal>
-        <AIWorkflow />
       </Reveal>
       <Reveal>
         <Articles />
