@@ -283,7 +283,7 @@ function Hero() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="min-h-screen flex flex-col justify-center pt-14 pb-24 px-6">
+    <section className="min-h-[80vh] flex flex-col justify-center pt-14 pb-6 px-6">
       <div className="max-w-6xl mx-auto w-full">
         <div className="grid lg:grid-cols-[1fr_auto] gap-16 items-end">
           <motion.div
@@ -387,7 +387,7 @@ function Hero() {
           </motion.div>
         </div>
 
-        <div className="mt-20 relative left-1/2 right-1/2 w-screen -translate-x-1/2">
+        <div className="mt-12 relative left-1/2 right-1/2 w-screen -translate-x-1/2">
           <div className="relative h-px w-full overflow-hidden">
             <motion.div
               className="absolute inset-y-0 w-[220%] bg-gradient-to-r from-cyan-300/55 via-sky-300/45 to-teal-300/55"
@@ -440,7 +440,7 @@ function Hero() {
               transition={{ duration: 0.28, delay: 0.035 * i }}
               className="group"
             >
-              <div className={`relative overflow-hidden rounded-2xl border border-border/80 bg-card/70 backdrop-blur-sm px-5 py-5 md:px-6 md:py-6 min-h-[138px] md:min-h-[150px] shadow-[0_1px_0_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-200 h-full ${stat.ring}`}>
+              <div className={`relative overflow-hidden rounded-2xl border border-border/80 bg-card/70 backdrop-blur-sm px-5 py-6 md:px-6 md:py-7 min-h-[160px] md:min-h-[176px] shadow-[0_1px_0_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-200 h-full ${stat.ring}`}>
                 <div className={`absolute inset-0 bg-gradient-to-br ${stat.glow} opacity-60`} />
                 <div className="absolute -top-10 -right-8 w-24 h-24 rounded-full bg-white/30 blur-2xl" />
                 <div className="relative">
@@ -582,7 +582,7 @@ const WHAT_I_BUILD = [
 
 function About() {
   return (
-    <section id="about" className="py-24 px-6 bg-secondary/40">
+    <section id="about" className="py-16 px-6 bg-secondary/40">
       <div className="max-w-6xl mx-auto space-y-16">
 
         {/* Summary */}
@@ -771,7 +771,7 @@ function About() {
               Personal Philosophy
             </h3>
             <TypewriterPhilosophy
-              intro="Great frontend engineers don't just build interfaces. "
+              intro="Great design engineers don't just build interfaces. "
               emphasis="They understand the people, processes, and workflows behind them."
               className="text-base text-foreground leading-relaxed mb-3"
             />
@@ -876,7 +876,7 @@ const SKILL_CATEGORIES = [
 
 function Skills() {
   return (
-    <section id="skills" className="py-24 px-6">
+    <section id="skills" className="py-16 px-6">
       <div className="max-w-6xl mx-auto">
         <SectionLabel>Skills</SectionLabel>
         <h2 className="text-4xl font-semibold tracking-tight text-foreground mb-12">
@@ -1356,7 +1356,7 @@ function Projects() {
   };
 
   return (
-    <section id="projects" className="py-24 px-6 bg-secondary/40">
+    <section id="projects" className="py-16 px-6 bg-secondary/40">
       <div className="max-w-6xl mx-auto">
         <SectionLabel>Projects</SectionLabel>
         <h2 className="text-4xl font-semibold tracking-tight text-foreground mb-10">
@@ -1898,7 +1898,7 @@ function Process() {
   };
 
   return (
-    <section id="process" className="py-24 px-6">
+    <section id="process" className="py-16 px-6">
       <div className="max-w-6xl mx-auto">
         <SectionLabel>Design Process</SectionLabel>
         <h2 className="text-4xl font-semibold tracking-tight text-foreground mb-4">
@@ -2048,7 +2048,7 @@ function Articles() {
   const [showAllArticles, setShowAllArticles] = useState(false);
 
   return (
-    <section id="articles" className="py-24 px-6">
+    <section id="articles" className="py-16 px-6">
       <div className="max-w-6xl mx-auto">
         <SectionLabel>Articles</SectionLabel>
         <h2 className="text-4xl font-semibold tracking-tight text-foreground mb-4">
@@ -2220,7 +2220,7 @@ function Certificates() {
   const [showAllCertificates, setShowAllCertificates] = useState(false);
 
   return (
-    <section id="certificates" className="py-24 px-6 bg-secondary/40">
+    <section id="certificates" className="py-16 px-6 bg-secondary/40">
       <div className="max-w-6xl mx-auto">
         <SectionLabel>Certificates</SectionLabel>
         <h2 className="text-4xl font-semibold tracking-tight text-foreground mb-12">
@@ -2334,7 +2334,7 @@ const TESTIMONIALS = [
 
 function Testimonials() {
   return (
-    <section id="testimonials" className="py-24 px-6">
+    <section id="testimonials" className="py-16 px-6">
       <div className="max-w-6xl mx-auto">
         <SectionLabel>Testimonials</SectionLabel>
         <h2 className="text-4xl font-semibold tracking-tight text-foreground mb-12">
@@ -2375,7 +2375,7 @@ function Testimonials() {
 
 function Contact() {
   return (
-    <section id="contact" className="py-24 px-6 bg-foreground">
+    <section id="contact" className="py-16 px-6 bg-foreground">
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-[1fr_auto] gap-16 items-start">
           <div>
