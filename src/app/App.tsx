@@ -29,6 +29,7 @@ import {
   Phone,
   Clock3,
   Palette,
+  Search,
 } from "lucide-react";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import ss1 from "@/imports/screenshots/project1-screenshot1-overview.png";
@@ -37,12 +38,13 @@ import ss3 from "@/imports/screenshots/project1-screenshot3-nearby-clinics.png";
 import ss4 from "@/imports/screenshots/project1-screenshot4-map-view.png";
 import project1FlowVideo from "@/imports/recordings/project1-recording.mp4";
 import project2FlowVideo from "@/imports/recordings/project2-recording.mp4";
+import project3FlowVideo from "@/imports/recordings/project3-recording.mp4";
 import project1Poster from "@/imports/posters/project1-poster.png";
 import picHomepage from "@/imports/screenshots/project2-screenshot1-home.png";
 import picProviderPage from "@/imports/screenshots/project2-screenshot2-provider-page.png";
 import picPracticePage from "@/imports/screenshots/project2-screenshot4-practice-page.png";
 import picDashboard1 from "@/imports/screenshots/project3-screenshot1-dashboard-light.png";
-import picDashboard2 from "@/imports/screenshots/project3-screenshot2-dashboard-full.png";
+import picDashboardFullAlt from "@/imports/screenshots/project3-screenshot5-dashboard-full-alt.png";
 import picDashboard3 from "@/imports/screenshots/project3-screenshot3-dashboard-dark.png";
 import picMarket1 from "@/imports/screenshots/project4-screenshot1-market-today.png";
 import picMarket2 from "@/imports/screenshots/project4-screenshot2-market-monthly.png";
@@ -1027,7 +1029,7 @@ const PROJECTS = [
   {
     number: "02",
     title: "Practice Information Card",
-    subtitle: "HCA Healthcare · UI/UX Redesign",
+    subtitle: "A UX redesign that makes provider and practice information faster to find, easier to scan, and more accessible.",
     organization: "HCA Healthcare",
     industry: "Healthcare",
     status: "Re-Design",
@@ -1053,7 +1055,7 @@ const PROJECTS = [
     ],
     impact: [
       { metric: "WCAG AA", label: "Accessible design" },
-      { metric: "50% faster", label: "Search time" },
+      { metric: "~40% faster", label: "Search time" },
       { metric: "Real-time", label: "Live search" },
       { metric: "Direct search", label: "Direct provider search" },
     ],
@@ -1061,9 +1063,9 @@ const PROJECTS = [
       {
         type: "video",
         src: project2FlowVideo,
-        poster: picHomepage,
+        poster: picProviderPage,
         alt: "Practice Information Card demo flow",
-        caption: "",
+        caption: "Redesigned provider search and practice information experience",
       },
       { src: picHomepage, alt: "Practice Information Card home page with search", caption: "Home - autosuggest search with categorized Clinics & Providers results and filter chips" },
       { src: picProviderPage, alt: "Provider detail page - upper section", caption: "Provider page - header with status badges, specialty chips, and quick action buttons" },
@@ -1103,30 +1105,37 @@ const PROJECTS = [
       { metric: "4 metric cards", label: "Patients, wait time, rooms, staff" },
       { metric: "Trend analysis", label: "3-month, 30-day, and 7-day" },
       { metric: "Data table", label: "Sorting, filtering, table controls" },
-      { metric: "Dark mode", label: "Full theme switching" },
+      { metric: "Dark mode", label: "Dark mode — full theme switching" },
     ],
     screenshots: [
+      {
+        type: "video",
+        src: project3FlowVideo,
+        poster: picDashboard3,
+        alt: "Interactive dashboard demo with trends, data tables, and dark mode",
+        caption: "Interactive dashboard with trends, data tables, and dark mode",
+      },
       { src: picDashboard1, alt: "Healthcare clinic dashboard showing metric cards and area chart", caption: "Light mode - metric cards (patients, wait time, exam rooms, staff) and patient trend chart" },
-      { src: picDashboard2, alt: "Full dashboard view with metrics, chart, and data table", caption: "Full view - trend chart with tooltip active and clinic operations table" },
+      { src: picDashboardFullAlt, alt: "Full dashboard view with metrics, chart, and data table", caption: "Full view - trend chart with tooltip active and clinic operations table" },
       { src: picDashboard3, alt: "Dashboard in dark mode", caption: "Dark mode - full color token switching for 24/7 clinical operations" },
     ] as Screenshot[],
   },
   {
     number: "04",
     title: "Healthcare Market Dashboard",
-    subtitle: "UI/UX Design (Figma)",
+    subtitle: "A personal concept exploring how healthcare leaders can monitor multi-clinic performance, identify exceptions, and spot trends in one view.",
     organization: "Personal / Concept",
     industry: "Healthcare",
     status: "Design",
     liveUrl: "",
     githubUrl: null,
     tech: ["Figma", "UI/UX Design", "Data Visualization", "Dashboard Design"],
-    myRole: "UI/UX Designer",
     responsibilities: [
       "Designed a market-level dashboard for monitoring multiple clinics.",
       "Created a Market Health Score and executive KPIs.",
-      "Designed data visualizations for trends, utilization, satisfaction.",
-      "Created the high-fidelity interactive prototype in Figma.",
+      "Designed exception monitoring and clinic performance rankings.",
+      "Designed data visualizations for trends, utilization, and satisfaction.",
+      "Created a high-fidelity interactive prototype in Figma.",
     ],
     challenge:
       "Designed as a personal concept to explore how healthcare leaders could monitor multi-clinic performance in one view, with a focus on prioritizing exceptions and trends.",
@@ -1417,23 +1426,59 @@ function Projects() {
           {project.number !== "01" && (
             <div className="px-4 sm:px-8 py-5 sm:py-6 border-b border-border flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
               <div className="min-w-0">
-                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-1">
-                  <span className="text-xs font-mono text-muted-foreground">{project.number}</span>
-                  <span className="text-xs px-2 py-0.5 bg-accent text-primary rounded-full font-medium">{project.status}</span>
-                  <span className="text-xs text-muted-foreground">{project.organization}</span>
+                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary mb-2">
+                  {project.number === "02"
+                    ? "HCA HEALTHCARE · RE-DESIGN PROJECT"
+                    : project.number === "03"
+                      ? "PERSONAL · DESIGN & ENGINEERING PROJECT"
+                      : project.number === "04"
+                        ? "PERSONAL · PRODUCT DESIGN CONCEPT"
+                        : "HCA HEALTHCARE · DESIGN PROJECT"}
                 </div>
-                <h3 className="text-2xl font-semibold tracking-tight text-foreground break-words">{project.title}</h3>
-                <p className="text-sm text-muted-foreground mt-0.5">{project.subtitle}</p>
-                {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-1.5 flex max-w-full items-start gap-1 text-xs text-primary/70 hover:text-primary transition-colors font-mono break-all"
-                  >
-                    <Globe size={11} className="mt-[1px] shrink-0" />
-                    <span className="min-w-0">{project.liveUrl.replace(/^https?:\/\//, "")}</span>
-                  </a>
+                <h3 className="text-[1.7rem] sm:text-[2rem] lg:text-[2.2rem] font-semibold tracking-[-0.06em] text-foreground leading-[1.02] break-words mt-1">{project.title}</h3>
+                {project.number === "03" ? (
+                  <p className="text-[15px] text-muted-foreground leading-[1.7] mt-3">
+                    A personal healthcare dashboard exploring accessible data visualization, reusable UI patterns, and responsive clinical workflows.
+                  </p>
+                ) : project.number === "04" ? (
+                  <>
+                    <p className="text-[15px] text-muted-foreground leading-[1.7] mt-3">
+                      A personal concept exploring how healthcare leaders can monitor multi-clinic performance, identify exceptions, and spot trends in one view.
+                    </p>
+                  </>
+                ) : (
+                  <p className="text-[15px] text-muted-foreground leading-[1.7] mt-3">{project.subtitle}</p>
+                )}
+
+                {(project.number === "02" || project.number === "04") && (
+                  <div className="min-w-0 pt-1 mt-6">
+                    <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
+                      {project.number === "04" ? "TOOLS & APPROACH" : "APPROACH & TOOLS"}
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {(project.number === "04"
+                        ? [
+                            { name: "Figma", Icon: FigmaIcon },
+                            { name: "UI/UX Design", Icon: Palette },
+                            { name: "Data Visualization", Icon: BarChart3 },
+                            { name: "Dashboard Design", Icon: Monitor },
+                          ]
+                        : [
+                            { name: "Figma Make", Icon: FigmaIcon },
+                            { name: "UX Research", Icon: Lightbulb },
+                            { name: "UI/UX Design", Icon: Palette },
+                            { name: "Accessibility", Icon: Accessibility },
+                          ]
+                      ).map(({ name, Icon }) => (
+                        <span key={name} className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-2.5 py-1.5 text-[11px] font-medium text-foreground shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+                          <span className="flex h-4 w-4 items-center justify-center shrink-0">
+                            <Icon size={12} />
+                          </span>
+                          {name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </div>
               <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 shrink-0">
@@ -1445,7 +1490,7 @@ function Projects() {
                     className="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-white text-xs font-medium rounded-full hover:bg-primary/90 transition-colors"
                   >
                     <ExternalLink size={11} />
-                    {project.number === "01" ? "Live Application" : "Live Demo"}
+                    {project.number === "01" ? "Live Application" : "Interactive Demo"}
                   </a>
                 )}
                 {project.githubUrl && (
@@ -1760,17 +1805,22 @@ A production healthcare application that helps call-center teams find clinic ser
 
                   <div className="space-y-5 min-w-0">
                     <div className="border border-border rounded-xl p-4 bg-card/50">
-                      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                      <h4 className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary mb-2.5">
                         Challenge
                       </h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{project.challenge}</p>
+                      <p className="text-[13px] font-medium leading-relaxed text-foreground/80">{project.challenge}</p>
                     </div>
 
                     <div className="border border-border rounded-xl p-4 bg-card/50">
-                      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                        My Role
+                      <h4 className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary mb-2">
+                        {project.number === "03" ? "WHAT I BUILT" : project.number === "04" ? "WHAT I DESIGNED" : "My Role"}
                       </h4>
-                      <p className="text-sm font-medium text-foreground mb-3 break-words">{project.myRole}</p>
+                      {project.number !== "03" && project.number !== "04" && (
+                        <p className="text-sm font-medium text-foreground mb-3 break-words">{project.myRole}</p>
+                      )}
+                      {project.number === "04" && (
+                        <p className="text-sm font-medium text-foreground mb-3 break-words">{project.myRole}</p>
+                      )}
                       <ul className="space-y-1.5">
                         {project.responsibilities.map((r) => (
                           <li key={r} className="text-sm text-muted-foreground flex items-start gap-2 min-w-0">
@@ -1778,15 +1828,61 @@ A production healthcare application that helps call-center teams find clinic ser
                             <span className="min-w-0 break-words">{r}</span>
                           </li>
                         ))}
+                        {project.number !== "03" && project.number !== "04" && (
+                          <li className="text-sm text-muted-foreground flex items-start gap-2 min-w-0">
+                            <ChevronRight size={12} className="text-primary mt-0.5 shrink-0" />
+                            <span className="min-w-0 break-words">Applied HCA's Neutron Design System to maintain consistent, accessible UI.</span>
+                          </li>
+                        )}
                       </ul>
                     </div>
 
-                    <div className="border border-border rounded-xl p-4 bg-card/50">
-                      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                        Tech Stack
-                      </h4>
-                      <p className="text-sm text-foreground/90 leading-relaxed">{project.tech.join(" · ")}</p>
-                    </div>
+                    {project.number === "03" && (
+                      <div className="border border-border rounded-xl p-4 bg-card/50">
+                        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
+                          TECH STACK
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {[
+                            { name: "Next.js", Icon: () => (
+                              <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+                                <path d="M12 2.5a9.5 9.5 0 1 1 0 19 9.5 9.5 0 0 1 0-19Zm1.8 5.2-5.1 8.2h2.3l3.7-5.9 1.1 1.9V16h2.2V8.3h-4.2Zm-1.6 0v5.5L8.3 16h2.2l2.7-4.4V7.7h-2.1Z" fill="#111827" />
+                              </svg>
+                            ) },
+                            { name: "TypeScript", Icon: TypeScriptIcon },
+                            { name: "shadcn/ui", Icon: () => (
+                              <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+                                <rect x="3" y="3" width="18" height="18" rx="5" fill="#0F172A" />
+                                <path d="M8 12.5h8M8 8.7h8M8 16.3h5.5" stroke="#F8FAFC" strokeWidth="1.5" strokeLinecap="round" />
+                              </svg>
+                            ) },
+                            { name: "Tailwind CSS", Icon: () => (
+                              <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+                                <path d="M5 15.2c1.1-2.1 2.5-3.1 4.2-3.1 1.5 0 2.3 1 3.1 1.8.7.7 1.3 1.2 2.5 1.2 1.1 0 2.2-.7 3.2-2.2-.3 2.7-1.8 5.1-4.4 6.3-2.4 1.1-5.2 1-7.6-.6C4.3 17.9 4.2 16.5 5 15.2Zm6.7-8.5c.8 1.7.7 3.1-.8 4.4-1 1-2.2 1.7-3.4 2.2.5-1.9 1.8-3.6 3.4-5 .8-.7 1.3-1.2 1.1-1.6-.1-.2-.2-.3-.3-.3Z" fill="#06B6D4" />
+                              </svg>
+                            ) },
+                            { name: "Recharts", Icon: () => (
+                              <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+                                <path d="M5 17.5V9.5h2v8h-2Zm4-6V6.5h2v11h-2Zm4 3V4.5h2v12h-2Zm4 2V9.5h2v8h-2Z" fill="#0EA5E9" />
+                              </svg>
+                            ) },
+                            { name: "TanStack Table", Icon: () => (
+                              <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+                                <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11A2.5 2.5 0 0 1 17.5 20h-11A2.5 2.5 0 0 1 4 17.5v-11Zm2.5-.5h11a.5.5 0 0 1 .5.5v2H6V6.5a.5.5 0 0 1 .5-.5Zm-1 4h13v7.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V10Zm3.5 1.5h2.5v2H9v-2Zm4 0h2.5v2h-2.5v-2Z" fill="#6D28D9" />
+                              </svg>
+                            ) },
+                          ].map(({ name, Icon }) => (
+                            <span key={name} className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-2.5 py-1.5 text-[11px] font-medium text-foreground shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+                              <span className="flex h-4 w-4 items-center justify-center shrink-0">
+                                <Icon />
+                              </span>
+                              {name}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
                   </div>
                 </div>
 
@@ -1794,7 +1890,7 @@ A production healthcare application that helps call-center teams find clinic ser
                 <div className="grid lg:grid-cols-[1fr_0.95fr] gap-10">
                   <div className="space-y-6">
                     <div className="border border-border rounded-xl p-4 bg-card/50">
-                      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                      <h4 className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary mb-3">
                         {project.number === "02" || project.number === "03" || project.number === "04" ? "Technical Challenges & Solutions" : "Technical Challenges"}
                       </h4>
                       <ul className="space-y-2">
@@ -1817,18 +1913,34 @@ A production healthcare application that helps call-center teams find clinic ser
                   </div>
 
                   <div className="lg:pl-2">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
+                    <h4 className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary mb-4">
                       {project.impactLabel ?? "Business Impact"}
                     </h4>
                     <div className="grid grid-cols-2 gap-3">
-                      {project.impact.map((imp) => (
-                        <div key={imp.label} className="p-4.5 sm:p-5 bg-accent rounded-xl border border-primary/15 shadow-sm">
-                          <div className="text-xl sm:text-2xl font-semibold text-primary tracking-tight leading-tight">
-                            {imp.metric}
+                      {project.number === "02" ? (
+                        [
+                          { metric: "WCAG AA", label: "Accessible design" },
+                          { metric: "~40% faster", label: "Search time" },
+                          { metric: "Real-time", label: "Autocomplete & filters" },
+                          { metric: "Direct search", label: "Provider & practice information" },
+                        ].map((imp) => (
+                          <div key={imp.label} className="p-4.5 sm:p-5 bg-accent rounded-xl border border-primary/15 shadow-sm">
+                            <div className="text-xl sm:text-2xl font-semibold text-primary tracking-tight leading-tight">
+                              {imp.metric}
+                            </div>
+                            <div className="text-xs sm:text-[13px] text-muted-foreground mt-1.5 leading-relaxed">{imp.label}</div>
                           </div>
-                          <div className="text-xs sm:text-[13px] text-muted-foreground mt-1.5 leading-relaxed">{imp.label}</div>
-                        </div>
-                      ))}
+                        ))
+                      ) : (
+                        project.impact.map((imp) => (
+                          <div key={imp.label} className="p-4.5 sm:p-5 bg-accent rounded-xl border border-primary/15 shadow-sm">
+                            <div className="text-xl sm:text-2xl font-semibold text-primary tracking-tight leading-tight">
+                              {imp.metric}
+                            </div>
+                            <div className="text-xs sm:text-[13px] text-muted-foreground mt-1.5 leading-relaxed">{imp.label}</div>
+                          </div>
+                        ))
+                      )}
                     </div>
                   </div>
                 </div>
