@@ -8,6 +8,7 @@ import {
   Globe,
   ExternalLink,
   ChevronRight,
+  ChevronUp,
   Code2,
   Layers,
   Zap,
@@ -61,7 +62,6 @@ const NAV_LINKS = [
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
-  { label: "Process", href: "#process" },
   { label: "Articles", href: "#articles" },
   { label: "Certificates", href: "#certificates" },
   { label: "Testimonials", href: "#testimonials" },
@@ -591,23 +591,47 @@ function About() {
           <div className="grid lg:grid-cols-[2fr_1fr] gap-16 items-start">
             <div>
               <h2 className="text-4xl font-semibold tracking-tight text-foreground mb-6">
-                Engineering clarity,
+                Designing products.
                 <br />
-                designing with purpose.
+                Building the technology.
               </h2>
               <div className="space-y-4 text-base text-muted-foreground leading-relaxed">
                 <p>
-                  {"I'm a Design Engineer with 5+ years of experience designing and building healthcare and SaaS applications. My strength is translating complex business workflows into intuitive, accessible, and scalable user experiences."}
+                  I'm a Design Engineer with 5+ years of experience designing and building healthcare and SaaS applications.
                 </p>
                 <p>
-                  I combine frontend engineering, UX design, and product
-                  thinking to create applications that are both technically
-                  robust and easy to use. I enjoy collaborating with clinicians,
-                  product teams, and stakeholders to solve real-world problems
-                  and deliver measurable business impact.
+                  I work at the intersection of product, UX, and frontend engineering, turning complex workflows into simple, accessible experiences and taking ideas from concept to working product.
                 </p>
                 <p>
-                  {"I'm incorporating AI tools into both my design and development workflow to prototype faster, explore more ideas, and increase development efficiency."}
+                  My strength is end-to-end ownership - understanding the problem, designing the experience, building the interface, and delivering a production-ready solution.
+                </p>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-border max-w-2xl">
+                <p className="mb-3 text-base font-medium text-foreground">
+                  From idea <span className="text-muted-foreground">→</span> shipped product
+                </p>
+                <div className="flex flex-wrap items-center gap-1.5 md:gap-2 text-sm text-muted-foreground">
+                  {[
+                    { step: "01", label: "Research" },
+                    { step: "02", label: "Design" },
+                    { step: "03", label: "Code" },
+                    { step: "04", label: "Test" },
+                    { step: "05", label: "Ship" },
+                  ].map((item, index, array) => (
+                    <div key={item.step} className="flex items-center gap-1.5 md:gap-2">
+                      <div className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/75 px-2.5 py-1.5 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+                        <span className="text-[10px] font-mono font-semibold text-primary">{item.step}</span>
+                        <span className="text-sm font-medium text-foreground">{item.label}</span>
+                      </div>
+                      {index < array.length - 1 && (
+                        <ArrowRight size={12} className="text-muted-foreground/70 shrink-0" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-4 text-sm text-muted-foreground">
+                  I work across the entire product lifecycle.
                 </p>
               </div>
             </div>
@@ -954,7 +978,7 @@ const PROJECTS = [
   {
     number: "01",
     title: "Urgent Care Services Dashboard",
-    subtitle: "A production application that helps call center operators quickly find nearby clinics offering the service a patient needs, check availability, and compare options.",
+    subtitle: "A production healthcare application that helps call-center teams find clinic services and availability faster.",
     organization: "HCA Healthcare",
     industry: "Healthcare",
     status: "Product Design · Design Engineering · Frontend",
@@ -963,12 +987,12 @@ const PROJECTS = [
     tech: ["React", "TypeScript", "Vite", "Azure Maps", "Vitest", "Figma"],
     myRole: "Product Designer & Frontend Engineer",
     responsibilities: [
-      "End-to-end product design — Designed the user experience and product workflow.",
-      "Product architecture — Shaped the overall architecture and information hierarchy.",
-      "API & data requirements — Defined what the frontend needed from the backend.",
-      "Frontend implementation — Built the complete experience in React and TypeScript.",
-      "Responsive + accessible — Designed touch-friendly experiences across desktop and mobile.",
-      "Neutron design system — Used HCA's existing design system for consistent, accessible UI.",
+      "End-to-end product design  -  Designed the user experience and product workflow.",
+      "Product architecture  -  Shaped the overall architecture and information hierarchy.",
+      "API & data requirements  -  Defined what the frontend needed from the backend.",
+      "Frontend implementation  -  Built the complete experience in React and TypeScript.",
+      "Responsive + accessible  -  Designed touch-friendly experiences across desktop and mobile.",
+      "Neutron design system  -  Used HCA's existing design system for consistent, accessible UI.",
     ],
     challenge:
       "When a patient called the call center, operators needed to find a clinic that could provide the requested service. Previously, operators had to contact clinics individually to find availability.",
@@ -995,9 +1019,9 @@ const PROJECTS = [
         alt: "Urgent Care Services Dashboard demo flow",
         caption: "From clinic search to availability and nearby alternatives",
       },
-      { src: ss2, alt: "Search results with service hours", caption: "Step 1 — Check service availability by clinic" },
-      { src: ss3, alt: "Nearby clinics expanded panel", caption: "Step 2 — Compare nearby clinics" },
-      { src: ss4, alt: "Map view with clinic pins", caption: "Step 3 — Explore locations on the map" },
+      { src: ss2, alt: "Search results with service hours", caption: "Step 1  -  Check service availability by clinic" },
+      { src: ss3, alt: "Nearby clinics expanded panel", caption: "Step 2  -  Compare nearby clinics" },
+      { src: ss4, alt: "Map view with clinic pins", caption: "Step 3  -  Explore locations on the map" },
     ] as Screenshot[],
   },
   {
@@ -1464,8 +1488,7 @@ function Projects() {
                         Urgent Care Services Dashboard
                       </h3>
                       <p className="text-[15px] text-muted-foreground leading-[1.7]">
-                        A production application that helps call center operators quickly find nearby clinics offering the service a patient needs, check availability, and compare options.
-                      </p>
+A production healthcare application that helps call-center teams find clinic services and availability faster.                      </p>
 
                       <div className="min-w-0 pt-1 mt-6">
                         <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
@@ -1643,22 +1666,32 @@ function Projects() {
                       <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
                         BUSINESS IMPACT
                       </div>
-                      <div className="grid h-full grid-cols-2 gap-3">
-                        {[
-                          { metric: "330+", label: "clinics" },
-                          { metric: "5,000+", label: "daily users" },
-                          { metric: "~30%", label: "time optimization" },
-                          { metric: "WCAG 2.1 AA", label: "accessibility" },
-                        ].map((item) => (
-                          <div key={item.label} className="h-full rounded-xl border border-primary/15 bg-[#f2f6ff] p-4 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
-                            <div className="flex h-full min-h-[76px] flex-col items-center justify-center text-center leading-none">
-                              <div className="text-[1.5rem] sm:text-[1.7rem] font-semibold tracking-[-0.05em] text-primary">{item.metric}</div>
-                              <div className={`mt-1.5 text-[11px] sm:text-[12px] font-medium tracking-normal text-muted-foreground leading-[1.2] ${item.label === "time optimization" ? "max-w-[14ch] whitespace-nowrap" : "max-w-[10ch]"}`}>
-                                {item.label}
-                              </div>
-                            </div>
+                      <p className="mb-4 text-[1.05rem] sm:text-[1.3rem] font-medium leading-snug tracking-[-0.03em] text-foreground">
+                        Replaced a manual clinic-availability workflow with a guided search experience used across 330+ locations.
+                      </p>
+                      <div className="mx-auto mt-6 flex w-full max-w-[260px] items-center justify-center rounded-xl border border-primary/15 bg-[#f2f6ff] p-4 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+                        <div className="w-full">
+                          <div className="flex items-end justify-between gap-3 mb-3">
+                            <div className="text-[1.8rem] sm:text-[2rem] font-semibold tracking-[-0.05em] text-primary">~30%</div>
+                            <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-primary/80">faster</div>
                           </div>
-                        ))}
+                          <div className="flex h-16 items-end gap-1.5">
+                            {[32, 46, 58, 70, 82, 94, 100].map((bar, index) => (
+                              <div
+                                key={index}
+                                className={`w-full rounded-t-md ${index === 6 ? "bg-gradient-to-t from-primary to-sky-400" : "bg-primary/20"}`}
+                                style={{ height: `${bar}%` }}
+                                aria-hidden="true"
+                              />
+                            ))}
+                          </div>
+                          <div className="mt-2.5 text-center text-[11px] sm:text-[12px] font-medium tracking-normal text-muted-foreground leading-[1.15] whitespace-nowrap">
+                            faster workflow
+                          </div>
+                          <div className="mt-1 text-center text-[10px] italic tracking-normal text-primary/70 leading-[1.15] whitespace-nowrap">
+                            time saved per search
+                          </div>
+                        </div>
                       </div>
                     </div>
 
@@ -1827,139 +1860,6 @@ function Projects() {
           </div>
           </motion.div>
         </AnimatePresence>
-      </div>
-    </section>
-  );
-}
-
-// ─── DESIGN PROCESS ───────────────────────────────────────────────────────────
-
-const PROCESS_STEPS = [
-  {
-    step: "01",
-    label: "Research",
-    description:
-      "User interviews, analytics review, competitive analysis, stakeholder alignment.",
-  },
-  {
-    step: "02",
-    label: "Discovery",
-    description:
-      "Problem framing, opportunity mapping, success metrics definition.",
-  },
-  {
-    step: "03",
-    label: "UX",
-    description:
-      "Journey mapping, information architecture, user flow diagrams.",
-  },
-  {
-    step: "04",
-    label: "Prototypes",
-    description:
-      "Rapid prototyping with Figma Make to validate flows, interactions, and usability.",
-  },
-  {
-    step: "05",
-    label: "Development",
-    description:
-      "React implementation, TypeScript, API integration, performance tuning.",
-  },
-  {
-    step: "06",
-    label: "Testing",
-    description:
-      "Usability testing, QA, accessibility audit, cross-browser review.",
-  },
-  {
-    step: "07",
-    label: "Delivery",
-    description: "Staged rollout, monitoring, documentation, retrospective.",
-  },
-];
-
-function Process() {
-  const reduceMotion = useReducedMotion();
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.05,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: reduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 },
-    visible: reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 },
-  };
-
-  return (
-    <section id="process" className="py-16 px-6">
-      <div className="max-w-6xl mx-auto">
-        <SectionLabel>Design Process</SectionLabel>
-        <h2 className="text-4xl font-semibold tracking-tight text-foreground mb-4">
-          How I work
-        </h2>
-        <p className="text-base text-muted-foreground leading-relaxed mb-10">
-          I follow a structured design process that balances research, creativity, and technical execution. Each step is informed by user needs, business goals, and accessibility standards to ensure the final product is both effective and inclusive.
-        </p>
-        {/* Mobile: vertical list */}
-        <motion.div
-          className="flex flex-col gap-4 md:hidden"
-          variants={containerVariants}
-          initial={reduceMotion ? "visible" : "hidden"}
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
-        >
-          {PROCESS_STEPS.map((s) => (
-            <motion.div
-              key={s.step}
-              className="flex items-start gap-4"
-              variants={itemVariants}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="flex flex-col items-center shrink-0">
-                <div className="w-7 h-7 rounded-full bg-accent border border-primary/20 flex items-center justify-center">
-                  <span className="text-[10px] font-mono font-semibold text-primary">{s.step}</span>
-                </div>
-              </div>
-              <div className="pt-0.5">
-                <div className="text-sm font-semibold text-foreground mb-0.5">{s.label}</div>
-                <div className="text-xs text-muted-foreground leading-relaxed">{s.description}</div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Desktop: horizontal timeline */}
-        <div className="relative hidden md:block">
-          <div className="absolute top-6 left-0 right-0 h-px bg-border" />
-          <motion.div
-            className="grid md:grid-cols-4 lg:grid-cols-7 gap-0"
-            variants={containerVariants}
-            initial={reduceMotion ? "visible" : "hidden"}
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.25 }}
-          >
-            {PROCESS_STEPS.map((s) => (
-              <motion.div
-                key={s.step}
-                className="relative pt-10 pr-4"
-                variants={itemVariants}
-                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <div className="absolute top-0 left-0 w-3 h-3 rounded-full bg-primary border-2 border-white ring-1 ring-primary translate-y-[-5px]" />
-                <div className="text-xs font-mono text-primary mb-1">{s.step}</div>
-                <div className="text-sm font-semibold text-foreground mb-2">{s.label}</div>
-                <div className="text-xs text-muted-foreground leading-relaxed">{s.description}</div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
       </div>
     </section>
   );
@@ -2449,9 +2349,20 @@ function Contact() {
           <span className="text-sm text-white/30">
             © 2026 Olya Ezhova. All rights reserved.
           </span>
-          <span className="text-xs text-white/20 font-mono">
-            Built with React · TypeScript · Tailwind · Figma Make
-          </span>
+          <div className="flex items-center gap-4">
+            <a
+              href="#top"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.14em] text-white/80 transition-all duration-200 hover:border-white/25 hover:bg-white/10 hover:text-white"
+            >
+              <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white/10">
+                <ChevronUp size={12} />
+              </span>
+              Back to top
+            </a>
+            <span className="text-xs text-white/20 font-mono">
+              Built with React · TypeScript · Tailwind · Figma Make
+            </span>
+          </div>
         </div>
       </div>
     </section>
@@ -2463,6 +2374,7 @@ function Contact() {
 export default function App() {
   return (
     <div
+      id="top"
       className="min-h-screen bg-background text-foreground"
       style={{ fontFamily: "var(--font-sans)" }}
     >
@@ -2476,9 +2388,6 @@ export default function App() {
       </Reveal>
       <Reveal>
         <Skills />
-      </Reveal>
-      <Reveal>
-        <Process />
       </Reveal>
       <Reveal>
         <Articles />
