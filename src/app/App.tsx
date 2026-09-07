@@ -221,7 +221,7 @@ import certHumanCenteredAi from "@/imports/certificates/certificate-human-center
 const NAV_LINKS = [
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
-  { label: "Articles", href: "#articles" },
+  { label: "Skills", href: "#skills" },
   // { label: "Certificates", href: "#certificates" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
@@ -471,7 +471,7 @@ function Hero() {
               transition={{ duration: 0.32, delay: 0.12 }}
               className="text-xl font-medium text-muted-foreground mt-3 mb-5 md:mt-0 md:mb-5 tracking-tight flex flex-wrap items-center gap-y-3 gap-x-2 sm:gap-x-0"
             >
-              <span className="hidden sm:inline-flex w-full sm:w-auto h-10 justify-start items-center px-3.5 rounded-full bg-slate-100 border border-slate-200 text-slate-800 leading-none">
+              <span className="inline-flex w-full sm:w-auto h-10 justify-start items-center px-3.5 rounded-full bg-slate-100 border border-slate-200 text-slate-800 leading-none">
                 Design Engineer
               </span>
               <span className="mx-2 text-muted-foreground/60 hidden sm:inline">·</span>
@@ -487,7 +487,7 @@ function Hero() {
               transition={{ duration: 0.32, delay: 0.16 }}
               className="text-base text-muted-foreground max-w-xl leading-relaxed mb-10"
             >
-              Designing and building intuitive healthcare and SaaS products through the intersection
+              Designing and building intuitive healthcare products through the intersection
               of engineering, UX, and AI.
             </motion.p>
 
@@ -725,17 +725,11 @@ function About() {
                   I'm a Design Engineer with 5+ years of experience designing and building healthcare and SaaS applications.
                 </p>
                 <p>
-                  I work at the intersection of product, UX, and frontend engineering, turning complex workflows into simple, accessible experiences and taking ideas from concept to working product.
-                </p>
-                <p>
                   My strength is end-to-end ownership - understanding the problem, designing the experience, building the interface, and delivering a production-ready solution.
                 </p>
               </div>
 
-              <div className="mt-8 pt-6 border-t border-border max-w-2xl">
-                <p className="mb-5 text-base font-medium text-foreground">
-                  From Idea <span className="text-muted-foreground">→</span> Shipped Product
-                </p>
+              <div className="mt-6 pt-6 max-w-2xl">
                 <ProductLifecycleStages reduceMotion={reduceMotion} />
               </div>
             </div>
@@ -759,42 +753,8 @@ function About() {
           </div>
         </div>
 
-        {/* Core strengths */}
-        <div>
-          <h3 className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-6">
-            Core Strengths
-          </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {CORE_STRENGTHS.map((s, i) => (
-              <div
-                key={s.label}
-                className="relative overflow-hidden p-5 bg-card/75 backdrop-blur-sm border border-border rounded-xl hover:border-primary/30 hover:shadow-md transition-all duration-200 group"
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${[
-                  "from-cyan-400/22 via-cyan-200/8 to-transparent",
-                  "from-teal-400/22 via-teal-200/8 to-transparent",
-                  "from-sky-400/22 via-sky-200/8 to-transparent",
-                  "from-emerald-400/22 via-emerald-200/8 to-transparent",
-                ][i % 4]} opacity-70`} />
-                <div className="absolute -top-8 -right-8 w-20 h-20 rounded-full bg-white/35 blur-2xl" />
-                <div className="relative">
-                  <div className="w-8 h-8 rounded-lg bg-white/65 border border-white/60 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-                    {s.icon}
-                  </div>
-                  <h4 className="text-sm font-semibold text-foreground mb-2">
-                    {s.label}
-                  </h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {s.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Award + background row */}
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-3 gap-4">
           <div className="p-6 bg-card border border-border rounded-2xl flex items-start gap-4">
             <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0 text-amber-500">
               <CheckCircle2 size={18} />
@@ -832,22 +792,6 @@ function About() {
           </div>
 
           <div className="p-6 bg-card border border-border rounded-2xl flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-primary shrink-0">
-              <Globe size={18} />
-            </div>
-            <div>
-              <div className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-1">
-                Background
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Having lived and worked across multiple countries and cultures, I
-                bring adaptability, curiosity, strong communication skills, and
-                diverse perspectives to collaborative teams.
-              </p>
-            </div>
-          </div>
-
-          <div className="p-6 bg-card border border-border rounded-2xl flex items-start gap-4">
             <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0 text-amber-500">
               <Lightbulb size={18} />
             </div>
@@ -855,10 +799,8 @@ function About() {
               <div className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-1">
                 Fun Fact
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                I was a{" "}
-                <span className="font-semibold text-foreground">lawyer for over 10 years</span>{" "}
-                before switching to software engineering - bringing structured thinking, attention to detail, and a deep appreciation for clear documentation to everything I build.
+              <p className="text-sm text-foreground leading-relaxed">
+                Before software, I worked in law. And I've lived and worked across multiple countries and cultures. This experience helps me bring adaptability, curiosity, and diverse perspectives to teams.
               </p>
             </div>
           </div>
@@ -884,6 +826,49 @@ function About() {
           </div>
         </div>
 
+      </div>
+    </section>
+  );
+}
+
+// ─── SKILLS SECTION ───────────────────────────────────────────────────────
+
+function Skills() {
+  return (
+    <section className="py-16 px-6">
+      <div className="max-w-6xl mx-auto">
+        <div id="skills">
+          <h3 className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-6">
+            Skills
+          </h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {CORE_STRENGTHS.map((s, i) => (
+              <div
+                key={s.label}
+                className="relative overflow-hidden p-5 bg-card/75 backdrop-blur-sm border border-border rounded-xl hover:border-primary/30 hover:shadow-md transition-all duration-200 group"
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${[
+                  "from-cyan-400/22 via-cyan-200/8 to-transparent",
+                  "from-teal-400/22 via-teal-200/8 to-transparent",
+                  "from-sky-400/22 via-sky-200/8 to-transparent",
+                  "from-emerald-400/22 via-emerald-200/8 to-transparent",
+                ][i % 4]} opacity-70`} />
+                <div className="absolute -top-8 -right-8 w-20 h-20 rounded-full bg-white/35 blur-2xl" />
+                <div className="relative">
+                  <div className="w-8 h-8 rounded-lg bg-white/65 border border-white/60 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                    {s.icon}
+                  </div>
+                  <h4 className="text-sm font-semibold text-foreground mb-2">
+                    {s.label}
+                  </h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {s.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -1577,12 +1562,38 @@ A production healthcare application that helps call-center teams find clinic ser
                         </h4>
                         <ul className="space-y-2 text-[12px] sm:text-[13px] leading-relaxed text-muted-foreground">
                           <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />Designed and implemented the production UI and frontend architecture.</li>
-                          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />Built clinic/service search and real-time availability lookup.</li>
                           <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />Integrated REST APIs and Azure Maps for clinic discovery.</li>
-                          <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />Improved accessibility and documented the architecture.</li>
                           <li className="flex items-start gap-2"><span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />Applied HCA's Neutron Design System to maintain consistent, accessible UI.</li>
 
                         </ul>
+
+                        <div className="mt-6">
+                          <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
+                            FROM DESIGN TO PRODUCTION
+                          </div>
+                          <div className="flex flex-wrap items-center gap-1">
+                            {[
+                              { label: "Research", icon: Users, badge: "bg-gradient-to-br from-sky-500 to-cyan-600 text-white border-sky-400/60" },
+                              { label: "UI/UX", icon: Layers, badge: "bg-gradient-to-br from-violet-500 to-indigo-600 text-white border-violet-400/60" },
+                              { label: "API", icon: Code2, badge: "bg-gradient-to-br from-emerald-500 to-teal-600 text-white border-emerald-400/60" },
+                              { label: "React", icon: Zap, badge: "bg-gradient-to-br from-amber-500 to-orange-600 text-white border-amber-400/60" },
+                              { label: "Production", icon: BarChart3, badge: "bg-gradient-to-br from-rose-500 to-pink-600 text-white border-rose-400/60" },
+                            ].map((step, index, arr) => {
+                              const Icon = step.icon;
+                              return (
+                                <div key={step.label} className="flex items-center gap-1.5 md:gap-2">
+                                  <div className="flex min-w-0 items-center gap-1.5 rounded-full border border-border bg-white px-2.5 py-1.5 text-[9px] font-medium text-foreground shadow-sm">
+                                    <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full border ${step.badge}`}>
+                                      <Icon size={11} />
+                                    </span>
+                                    <span className="whitespace-nowrap">{step.label}</span>
+                                  </div>
+                                  {index < arr.length - 1 && <ChevronRight size={11} className="hidden text-muted-foreground/80 md:block" />}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1704,7 +1715,7 @@ A production healthcare application that helps call-center teams find clinic ser
                   </div>
 
                   <div className="space-y-6 border-t border-border pt-8 self-stretch">
-                    <div className="min-w-0 h-full">
+                    <div className="min-w-0">
                       <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
                         BUSINESS IMPACT
                       </div>
@@ -1736,60 +1747,7 @@ A production healthcare application that helps call-center teams find clinic ser
                         </div>
                       </div>
                     </div>
-
                   </div>
-                </div>
-
-                <div className="mt-10 border-t border-border pt-8">
-                  <div className="grid lg:grid-cols-[1.35fr_0.85fr] gap-8">
-                  <div className="rounded-xl border border-border bg-secondary/30 p-4 min-w-0 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
-                    <div className="mb-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
-                      FROM DESIGN TO PRODUCTION
-                    </div>
-                    <div className="flex flex-wrap items-center gap-1.5 md:gap-2">
-                      {[
-                        { label: "User needs", icon: Users, badge: "bg-gradient-to-br from-sky-500 to-cyan-600 text-white border-sky-400/60" },
-                        { label: "UX & IA", icon: Layers, badge: "bg-gradient-to-br from-violet-500 to-indigo-600 text-white border-violet-400/60" },
-                        { label: "Data & API", icon: Code2, badge: "bg-gradient-to-br from-emerald-500 to-teal-600 text-white border-emerald-400/60" },
-                        { label: "React", icon: Zap, badge: "bg-gradient-to-br from-amber-500 to-orange-600 text-white border-amber-400/60" },
-                        { label: "Production", icon: BarChart3, badge: "bg-gradient-to-br from-rose-500 to-pink-600 text-white border-rose-400/60" },
-                      ].map((step, index, arr) => {
-                        const Icon = step.icon;
-                        return (
-                          <div key={step.label} className="flex items-center gap-1.5 md:gap-2">
-                            <div className="flex min-w-0 items-center gap-1.5 rounded-full border border-border bg-white px-2.5 py-1.5 text-[9px] font-medium text-foreground shadow-sm">
-                              <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full border ${step.badge}`}>
-                                <Icon size={11} />
-                              </span>
-                              <span className="whitespace-nowrap">{step.label}</span>
-                            </div>
-                            {index < arr.length - 1 && <ChevronRight size={11} className="hidden text-muted-foreground/80 md:block" />}
-                          </div>
-                        );
-                      })}
-                    </div>
-                    <p className="mt-5 text-[15px] text-muted-foreground leading-[1.75]">
-                      I translated the UX requirements into the data and API requirements needed to support the experience and implemented the complete frontend.
-                    </p>
-                  </div>
-
-                  <div className="rounded-xl border border-border bg-secondary/30 p-4 min-w-0 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
-                    <div className="mb-3 flex items-center gap-2.5">
-                      <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-amber-400/60 bg-gradient-to-br from-amber-400 to-orange-500 text-white">
-                        <Zap size={15} />
-                      </span>
-                      <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
-                        PERFORMANCE OPTIMIZATION
-                      </div>
-                    </div>
-                    <h4 className="text-lg font-semibold tracking-[-0.03em] text-foreground mb-2">
-                      In-memory caching
-                    </h4>
-                    <p className="text-[15px] text-muted-foreground leading-[1.75]">
-                      I proposed in-memory caching for dashboard results to reduce unnecessary API requests while keeping availability data reasonably fresh.
-                    </p>
-                  </div>
-                </div>
                 </div>
               </>
             ) : (
@@ -2055,9 +2013,8 @@ const ARTICLES = [
 function Articles() {
   const [expanded, setExpanded] = useState<number | null>(null);
   const [showAllArticles, setShowAllArticles] = useState(false);
-
-  // Show 2 on desktop, 1 on mobile
-  const itemsToShow = showAllArticles ? ARTICLES.length : undefined;
+  const featuredArticle = ARTICLES[0]; // Show only first article by default
+  const otherArticles = ARTICLES.slice(1); // Other articles
 
   return (
     <section id="articles" className="py-16 px-6">
@@ -2070,113 +2027,156 @@ function Articles() {
           Posts originally published on LinkedIn - perspectives on frontend engineering, product thinking, and working at the intersection of design and code.
         </p>
 
-        <div className="space-y-4">
-          {ARTICLES.map((article, index) => {
-            const isOpen = expanded === article.id;
-            
-            // Determine visibility based on index, screen size, and expanded state
-            let hiddenClass = "";
-            
-            if (!showAllArticles) {
-              if (index >= 2) {
-                // Article 3 and beyond: hidden on all screens initially
-                hiddenClass = "hidden";
-              } else if (index === 1) {
-                // Article 2: hidden on mobile, visible on desktop
-                hiddenClass = "hidden sm:block";
-              }
-              // Article 1 (index 0): always visible
-            }
-            // If showAllArticles is true, all articles are shown
-            
-            return (
-              <article
-                key={article.id}
-                className={`bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/20 transition-colors ${hiddenClass}`}
-              >
-                <button
-                  className="w-full text-left p-7 flex items-start justify-between gap-6"
-                  onClick={() => setExpanded(isOpen ? null : article.id)}
-                  aria-expanded={isOpen}
-                >
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-base font-semibold text-foreground leading-snug mb-2 pr-4">
-                      {article.title}
-                    </h3>
-                    {!isOpen && (
-                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
-                        {article.preview}
-                      </p>
-                    )}
-                    <div className="flex flex-wrap gap-1.5 mt-3">
-                      {article.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-xs text-primary/70 bg-accent px-2 py-0.5 rounded-full"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="shrink-0 mt-0.5 inline-flex items-center gap-2 rounded-full border border-border px-2.5 py-1 text-muted-foreground">
-                    <span className="text-[11px] font-medium uppercase tracking-wider">
-                      {isOpen ? "Collapse" : "Expand"}
-                    </span>
-                    <ChevronDown
-                      size={13}
-                      className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
-                    />
-                  </div>
-                </button>
-
-                {isOpen && (
-                  <div className="px-7 pb-7 border-t border-border pt-6">
-                    <div className="space-y-4 max-w-3xl">
-                      {article.body.map((para, i) => (
-                        <p key={i} className="text-sm text-muted-foreground leading-relaxed">
-                          {para}
-                        </p>
-                      ))}
-                    </div>
-                    <a
-                      href="https://www.linkedin.com/in/oezhova"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 mt-6 text-xs font-medium text-primary hover:underline"
-                    >
-                      <Linkedin size={12} />
-                      View on LinkedIn
-                    </a>
-                  </div>
-                )}
-              </article>
-            );
-          })}
-        </div>
-
-        {/* Show More / Show Less Button */}
-        {ARTICLES.length > 2 && (
-          <div className="mt-6 flex justify-center">
-            <button
-              type="button"
-              onClick={() => setShowAllArticles(!showAllArticles)}
-              className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-foreground text-sm font-medium rounded-full hover:bg-secondary transition-colors"
-            >
-              {showAllArticles ? (
-                <>
-                  Show less
-                  <ChevronUp size={14} />
-                </>
-              ) : (
-                <>
-                  View more articles
-                  <ChevronDown size={14} />
-                </>
+        {/* Featured Article */}
+        <article className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/20 transition-colors mb-6">
+          <button
+            className="w-full text-left p-7 flex items-start justify-between gap-6"
+            onClick={() => setExpanded(expanded === featuredArticle.id ? null : featuredArticle.id)}
+            aria-expanded={expanded === featuredArticle.id}
+          >
+            <div className="flex-1 min-w-0">
+              <h3 className="text-base font-semibold text-foreground leading-snug mb-2 pr-4">
+                {featuredArticle.title}
+              </h3>
+              {expanded !== featuredArticle.id && (
+                <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                  {featuredArticle.preview}
+                </p>
               )}
-            </button>
+              <div className="flex flex-wrap gap-1.5 mt-3">
+                {featuredArticle.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs text-primary/70 bg-accent px-2 py-0.5 rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="shrink-0 mt-0.5 inline-flex items-center gap-2 rounded-full border border-border px-2.5 py-1 text-muted-foreground">
+              <span className="text-[11px] font-medium uppercase tracking-wider">
+                {expanded === featuredArticle.id ? "Collapse" : "Expand"}
+              </span>
+              <ChevronDown
+                size={13}
+                className={`transition-transform duration-200 ${expanded === featuredArticle.id ? "rotate-180" : ""}`}
+              />
+            </div>
+          </button>
+
+          {expanded === featuredArticle.id && (
+            <div className="px-7 pb-7 border-t border-border pt-6">
+              <div className="space-y-4 max-w-3xl">
+                {featuredArticle.body.map((para, i) => (
+                  <p key={i} className="text-sm text-muted-foreground leading-relaxed">
+                    {para}
+                  </p>
+                ))}
+              </div>
+              <a
+                href="https://www.linkedin.com/in/oezhova"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 mt-6 text-xs font-medium text-primary hover:underline"
+              >
+                <Linkedin size={12} />
+                View on LinkedIn
+              </a>
+            </div>
+          )}
+        </article>
+
+        {/* Other Articles - Hidden by default */}
+        {showAllArticles && (
+          <div className="space-y-4 mb-6">
+            {otherArticles.map((article) => {
+              const isOpen = expanded === article.id;
+              return (
+                <article
+                  key={article.id}
+                  className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/20 transition-colors"
+                >
+                  <button
+                    className="w-full text-left p-7 flex items-start justify-between gap-6"
+                    onClick={() => setExpanded(isOpen ? null : article.id)}
+                    aria-expanded={isOpen}
+                  >
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-base font-semibold text-foreground leading-snug mb-2 pr-4">
+                        {article.title}
+                      </h3>
+                      {!isOpen && (
+                        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                          {article.preview}
+                        </p>
+                      )}
+                      <div className="flex flex-wrap gap-1.5 mt-3">
+                        {article.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-xs text-primary/70 bg-accent px-2 py-0.5 rounded-full"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="shrink-0 mt-0.5 inline-flex items-center gap-2 rounded-full border border-border px-2.5 py-1 text-muted-foreground">
+                      <span className="text-[11px] font-medium uppercase tracking-wider">
+                        {isOpen ? "Collapse" : "Expand"}
+                      </span>
+                      <ChevronDown
+                        size={13}
+                        className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                      />
+                    </div>
+                  </button>
+
+                  {isOpen && (
+                    <div className="px-7 pb-7 border-t border-border pt-6">
+                      <div className="space-y-4 max-w-3xl">
+                        {article.body.map((para, i) => (
+                          <p key={i} className="text-sm text-muted-foreground leading-relaxed">
+                            {para}
+                          </p>
+                        ))}
+                      </div>
+                      <a
+                        href="https://www.linkedin.com/in/oezhova"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 mt-6 text-xs font-medium text-primary hover:underline"
+                      >
+                        <Linkedin size={12} />
+                        View on LinkedIn
+                      </a>
+                    </div>
+                  )}
+                </article>
+              );
+            })}
           </div>
         )}
+
+        {/* Toggle All Articles Button */}
+        <button
+          type="button"
+          onClick={() => setShowAllArticles(!showAllArticles)}
+          className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+        >
+          {showAllArticles ? (
+            <>
+              Show less articles
+              <ChevronUp size={14} />
+            </>
+          ) : (
+            <>
+              View all articles
+              <ArrowRight size={14} />
+            </>
+          )}
+        </button>
       </div>
     </section>
   );
@@ -2369,6 +2369,16 @@ const TESTIMONIALS = [
 ];
 
 function Testimonials() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? TESTIMONIALS.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === TESTIMONIALS.length - 1 ? 0 : prev + 1));
+  };
+
   return (
     <section id="testimonials" className="py-16 px-6">
       <div className="max-w-6xl mx-auto">
@@ -2376,7 +2386,9 @@ function Testimonials() {
         <h2 className="text-4xl font-semibold tracking-tight text-foreground mb-12">
           What colleagues say
         </h2>
-        <div className="grid md:grid-cols-3 gap-5">
+        
+        {/* Desktop Grid */}
+        <div className="hidden md:grid md:grid-cols-3 gap-5">
           {TESTIMONIALS.map((t) => (
             <div
               key={t.author}
@@ -2401,6 +2413,50 @@ function Testimonials() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Mobile Carousel */}
+        <div className="md:hidden">
+          <div className="p-6 bg-card border border-border rounded-2xl flex flex-col gap-5">
+            <Quote size={20} className="text-primary/40" />
+            <p className="text-sm text-foreground leading-relaxed flex-1">
+              {TESTIMONIALS[currentIndex].quote}
+            </p>
+            <div className="flex items-center gap-3 pt-4 border-t border-border">
+              <div className="w-9 h-9 rounded-full bg-accent flex items-center justify-center text-primary text-xs font-semibold">
+                {TESTIMONIALS[currentIndex].initials}
+              </div>
+              <div>
+                <div className="text-sm font-medium text-foreground">
+                  {TESTIMONIALS[currentIndex].author}
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  {TESTIMONIALS[currentIndex].title}, {TESTIMONIALS[currentIndex].company}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Carousel Controls */}
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <button
+              onClick={handlePrev}
+              className="p-2 rounded-full border border-border hover:bg-secondary transition-colors"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft size={20} className="text-foreground" />
+            </button>
+            <div className="text-sm font-medium text-muted-foreground">
+              {currentIndex + 1} / {TESTIMONIALS.length}
+            </div>
+            <button
+              onClick={handleNext}
+              className="p-2 rounded-full border border-border hover:bg-secondary transition-colors"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight size={20} className="text-foreground" />
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -2521,6 +2577,9 @@ export default function App() {
       </Reveal>
       <Reveal>
         <Projects />
+      </Reveal>
+      <Reveal>
+        <Skills />
       </Reveal>
       <Reveal>
         <Articles />

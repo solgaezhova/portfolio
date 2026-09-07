@@ -5,9 +5,10 @@ interface FlipCardProps {
   frontMetric: string;
   frontLabel: string;
   backTitle: string;
-  backItems: (string | { text: string; bold?: boolean })[];
-  icon: React.ReactNode;
-  gradientIndex: number;
+  backItems?: (string | { text: string; bold?: boolean })[];
+  backDescription?: string;
+  icon?: React.ReactNode;
+  gradientIndex?: number;
 }
 
 export function FlipCard({
@@ -15,20 +16,29 @@ export function FlipCard({
   frontLabel,
   backTitle,
   backItems,
+  backDescription,
   icon,
-  gradientIndex,
+  gradientIndex = 0,
 }: FlipCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
-  const [touchStart, setTouchStart] = useState(0);
+  const [touchStart, setTouchStart] = useState({ x: 0, y: 0 });
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.touches[0].clientY);
+    setTouchStart({
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+    });
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    const touchEnd = e.changedTouches[0].clientY;
-    const diff = Math.abs(touchEnd - touchStart);
-    if (diff < 10) {
+    const touchEnd = {
+      x: e.changedTouches[0].clientX,
+      y: e.changedTouches[0].clientY,
+    };
+    const diffX = Math.abs(touchEnd.x - touchStart.x);
+    const diffY = Math.abs(touchEnd.y - touchStart.y);
+    // If movement is minimal in both directions, treat as a tap
+    if (diffX < 20 && diffY < 20) {
       setIsFlipped(!isFlipped);
     }
   };
@@ -105,9 +115,11 @@ export function FlipCard({
                 </div>
                 <div className="text-sm font-normal text-black leading-tight mb-2" style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>{frontLabel}</div>
               </div>
-              <div className={`flex-shrink-0 ml-2 ${iconColor}`}>
-                {icon}
-              </div>
+              {icon && (
+                <div className={`flex-shrink-0 ml-2 ${iconColor}`}>
+                  {icon}
+                </div>
+              )}
             </div>
             
             <div className="absolute bottom-4 right-4 text-xs text-gray-500 whitespace-nowrap" style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>
@@ -134,12 +146,25 @@ export function FlipCard({
               <h3 className="text-sm md:text-base font-semibold text-black flex-1" style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>
                 {backTitle}
               </h3>
-              <div className={`flex-shrink-0 ml-2 ${iconColor}`}>
-                {icon}
-              </div>
+              {icon && (
+                <div className={`flex-shrink-0 ml-2 ${iconColor}`}>
+                  {icon}
+                </div>
+              )}
             </div>
             <div className="space-y-1.5">
-              {backItems.map((item, index) => {
+              {backDescription ? (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={isFlipped ? { opacity: 1 } : { opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-sm text-black leading-relaxed"
+                  style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}
+                >
+                  {backDescription}
+                </motion.div>
+              ) : (
+                backItems?.map((item, index) => {
                 const itemText = typeof item === "string" ? item : item.text;
                 const isBold = typeof item === "object" && item.bold;
                 
@@ -190,7 +215,8 @@ export function FlipCard({
                     </span>
                   </motion.div>
                 );
-              })}
+              })
+              )}
             </div>
           </div>
         </motion.div>
