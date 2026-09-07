@@ -573,6 +573,7 @@ function Hero() {
                       backItems={card.backItems}
                       icon={card.icon}
                       gradientIndex={card.gradientIndex}
+                      isLastCard={i === 3}
                     />
                   </motion.div>
                 ))}
@@ -831,21 +832,21 @@ function About() {
   );
 }
 
-// ─── SKILLS SECTION ───────────────────────────────────────────────────────
+// ─── SKILLS ───────────────────────────────────────────────────────────────────
 
 function Skills() {
   return (
-    <section className="py-16 px-6">
+    <section id="skills" className="py-16 px-6">
       <div className="max-w-6xl mx-auto">
-        <div id="skills">
-          <h3 className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-6">
-            Skills
-          </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <SectionLabel>Skills</SectionLabel>
+        <h2 className="text-4xl font-semibold tracking-tight text-foreground mb-12">
+          Core strengths
+        </h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {CORE_STRENGTHS.map((s, i) => (
               <div
                 key={s.label}
-                className="relative overflow-hidden p-5 bg-card/75 backdrop-blur-sm border border-border rounded-xl hover:border-primary/30 hover:shadow-md transition-all duration-200 group"
+                className="relative overflow-hidden p-4 bg-card/75 backdrop-blur-sm border border-border rounded-xl hover:border-primary/30 hover:shadow-md transition-all duration-200 group"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${[
                   "from-cyan-400/22 via-cyan-200/8 to-transparent",
@@ -855,10 +856,10 @@ function Skills() {
                 ][i % 4]} opacity-70`} />
                 <div className="absolute -top-8 -right-8 w-20 h-20 rounded-full bg-white/35 blur-2xl" />
                 <div className="relative">
-                  <div className="w-8 h-8 rounded-lg bg-white/65 border border-white/60 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                  <div className="w-8 h-8 rounded-lg bg-white/65 border border-white/60 flex items-center justify-center text-primary mb-3 group-hover:bg-primary group-hover:text-white transition-colors">
                     {s.icon}
                   </div>
-                  <h4 className="text-sm font-semibold text-foreground mb-2">
+                  <h4 className="text-sm font-semibold text-foreground mb-1.5">
                     {s.label}
                   </h4>
                   <p className="text-xs text-muted-foreground leading-relaxed">
@@ -868,7 +869,6 @@ function Skills() {
               </div>
             ))}
           </div>
-        </div>
       </div>
     </section>
   );
@@ -1738,10 +1738,10 @@ A production healthcare application that helps call-center teams find clinic ser
                               />
                             ))}
                           </div>
-                          <div className="mt-2.5 text-center text-[11px] sm:text-[12px] font-medium tracking-normal text-muted-foreground leading-[1.15] whitespace-nowrap">
+                          <div className="hidden sm:block mt-2.5 text-center text-[11px] sm:text-[12px] font-medium tracking-normal text-muted-foreground leading-[1.15] whitespace-nowrap">
                             faster workflow
                           </div>
-                          <div className="mt-1 text-center text-[10px] italic tracking-normal text-primary/70 leading-[1.15] whitespace-nowrap">
+                          <div className="mt-1 text-center text-[10px] italic tracking-normal text-primary/70 leading-[1.15] whitespace-nowrap hidden sm:block">
                             time saved per search
                           </div>
                         </div>

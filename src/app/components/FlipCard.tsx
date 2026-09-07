@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "motion/react";
 
 interface FlipCardProps {
@@ -9,6 +9,7 @@ interface FlipCardProps {
   backDescription?: string;
   icon?: React.ReactNode;
   gradientIndex?: number;
+  isLastCard?: boolean;
 }
 
 export function FlipCard({
@@ -19,15 +20,16 @@ export function FlipCard({
   backDescription,
   icon,
   gradientIndex = 0,
+  isLastCard = false,
 }: FlipCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
-  const [touchStart, setTouchStart] = useState({ x: 0, y: 0 });
+  const touchStartRef = useRef({ x: 0, y: 0 });
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart({
+    touchStartRef.current = {
       x: e.touches[0].clientX,
       y: e.touches[0].clientY,
-    });
+    };
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
@@ -35,11 +37,11 @@ export function FlipCard({
       x: e.changedTouches[0].clientX,
       y: e.changedTouches[0].clientY,
     };
-    const diffX = Math.abs(touchEnd.x - touchStart.x);
-    const diffY = Math.abs(touchEnd.y - touchStart.y);
+    const diffX = Math.abs(touchEnd.x - touchStartRef.current.x);
+    const diffY = Math.abs(touchEnd.y - touchStartRef.current.y);
     // If movement is minimal in both directions, treat as a tap
-    if (diffX < 20 && diffY < 20) {
-      setIsFlipped(!isFlipped);
+    if (diffX < 25 && diffY < 25) {
+      setIsFlipped((prev) => !prev);
     }
   };
 
@@ -176,7 +178,7 @@ export function FlipCard({
                       initial={{ opacity: 0 }}
                       animate={isFlipped ? { opacity: 1 } : { opacity: 0 }}
                       transition={{ delay: index * 0.05 }}
-                      className="flex justify-center py-2"
+                      className={`flex justify-center py-2 ${isLastCard ? "hidden sm:flex" : ""}`}
                     >
                       <span className="text-base text-black font-light" style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale", letterSpacing: "-0.5px"}}>↓</span>
                     </motion.div>
@@ -185,6 +187,23 @@ export function FlipCard({
                 
                 // Render without bullet point for special items or continuation items
                 if (itemText.startsWith("Happier") || itemText.startsWith("Better") || itemText.startsWith("and ")) {
+                  // Hide "Better..." items on mobile, show only on sm and up
+                  if (itemText.startsWith("Better") && isLastCard) {
+                    return (
+                      <motion.div
+                        key={itemText}
+                        initial={{ opacity: 0, x: -8 }}
+                        animate={isFlipped ? { opacity: 1, x: 0 } : { opacity: 0, x: -8 }}
+                        transition={{ delay: index * 0.05 }}
+                        className="hidden sm:flex items-start"
+                      >
+                        <span className="text-sm italic text-black leading-tight" style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>
+                          {itemText}
+                        </span>
+                      </motion.div>
+                    );
+                  }
+                  
                   return (
                     <motion.div
                       key={itemText}
