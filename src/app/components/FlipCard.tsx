@@ -24,8 +24,10 @@ export function FlipCard({
 }: FlipCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const touchStartRef = useRef({ x: 0, y: 0 });
+  const isTouchRef = useRef(false);
 
   const handleTouchStart = (e: React.TouchEvent) => {
+    isTouchRef.current = true;
     touchStartRef.current = {
       x: e.touches[0].clientX,
       y: e.touches[0].clientY,
@@ -41,8 +43,18 @@ export function FlipCard({
     const diffY = Math.abs(touchEnd.y - touchStartRef.current.y);
     // If movement is minimal in both directions, treat as a tap
     if (diffX < 25 && diffY < 25) {
+      e.preventDefault();
       setIsFlipped((prev) => !prev);
     }
+  };
+
+  const handleClick = () => {
+    // Skip click handling if it was already handled by touch (avoids double-toggle on mobile)
+    if (isTouchRef.current) {
+      isTouchRef.current = false;
+      return;
+    }
+    setIsFlipped((prev) => !prev);
   };
 
   const gradients = [
@@ -75,7 +87,7 @@ export function FlipCard({
       className="h-full w-full cursor-pointer"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
-      onClick={() => setIsFlipped(!isFlipped)}
+      onClick={handleClick}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       style={{
