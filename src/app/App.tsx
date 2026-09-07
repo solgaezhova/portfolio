@@ -30,8 +30,166 @@ import {
   Clock3,
   Palette,
   Search,
+  Building2,
+  TrendingUp,
 } from "lucide-react";
+
+// Component for per-letter hover gradient effect
+const GradientHoverText = ({ text }: { text: string }) => {
+  const words = text.split(" ");
+  return (
+    <span>
+      {words.map((word, wordIndex) => (
+        <span key={wordIndex}>
+          {word.split("").map((letter, letterIndex) => (
+            <span
+              key={letterIndex}
+              className="inline-block hover:bg-gradient-to-r hover:from-cyan-600 hover:via-blue-600 hover:to-teal-600 hover:bg-clip-text hover:text-transparent transition-all cursor-pointer"
+            >
+              {letter}
+            </span>
+          ))}
+          {wordIndex < words.length - 1 && <span> </span>}
+        </span>
+      ))}
+    </span>
+  );
+};
+
+// Product Lifecycle Stages component with continuous path and progress indicator
+const ProductLifecycleStages = ({ reduceMotion }: { reduceMotion: boolean }) => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [animationComplete, setAnimationComplete] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const stages = [
+    { step: "01", label: "Research", phrase: "Understand users & workflows" },
+    { step: "02", label: "Design", phrase: "Shape intuitive experiences" },
+    { step: "03", label: "Code", phrase: "Build production-ready interfaces" },
+    { step: "04", label: "Test", phrase: "Validate & refine" },
+    { step: "05", label: "Ship", phrase: "Deliver & iterate" },
+  ];
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setAnimationComplete(true);
+      setActiveIndex(4);
+      return;
+    }
+
+    const timings = [0, 1000, 2000, 3000, 4000];
+    const timeouts = timings.map((timing, index) =>
+      setTimeout(() => setActiveIndex(index), timing)
+    );
+
+    setTimeout(() => {
+      setAnimationComplete(true);
+      setActiveIndex(4);
+    }, 5000);
+
+    return () => timeouts.forEach(clearTimeout);
+  }, [reduceMotion]);
+
+  const handleStageClick = (index: number) => {
+    setActiveIndex(index);
+  };
+
+  // Calculate progress position (0 to 100%)
+  const progressPercent = activeIndex !== null ? (activeIndex / (stages.length - 1)) * 100 : 0;
+
+  return (
+    <div className="space-y-8">
+      {/* Timeline container */}
+      <div className="relative pt-2">
+        {/* Mobile: Vertical connector line */}
+        <div className="sm:hidden absolute left-1.5 top-0 bottom-0 w-px bg-gray-300/40" />
+
+        {/* Mobile: Vertical progress indicator */}
+        <motion.div
+          className="sm:hidden absolute left-1.5 top-0 w-px bg-blue-600 origin-top"
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: progressPercent / 100 }}
+          transition={{ duration: reduceMotion ? 0 : 0.95, ease: "easeOut" }}
+          style={{ height: "100%" }}
+        />
+
+        {/* Desktop: Horizontal connector line */}
+        <div className="hidden sm:block absolute top-2 left-0 right-0 h-px bg-gray-300/40" />
+
+        {/* Desktop: Horizontal progress indicator */}
+        <motion.div
+          className="hidden sm:block absolute top-2 left-0 h-px bg-blue-600 origin-left"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: progressPercent / 100 }}
+          transition={{ duration: reduceMotion ? 0 : 0.95, ease: "easeOut" }}
+          style={{ width: "100%" }}
+        />
+
+        {/* Stages row */}
+        <div ref={containerRef} className="flex flex-col sm:flex-row justify-between items-start gap-4 sm:gap-0 text-sm relative z-10 pl-3 sm:pl-0">
+          {stages.map((item, index) => (
+            <div key={item.step} className="flex-1 relative">
+              <motion.button
+                onClick={() => handleStageClick(index)}
+                className="relative flex flex-col items-center w-full"
+                initial={reduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.5,
+                  ease: "easeOut",
+                  delay: reduceMotion ? 0 : index * 0.25,
+                }}
+              >
+                {/* Pill */}
+                <div className="relative py-2 px-3 rounded-full bg-card/75">
+                  {/* Active state background and border */}
+                  <motion.div
+                    className="absolute inset-0 rounded-full"
+                    animate={{
+                      backgroundColor: activeIndex === index ? "rgba(59, 130, 246, 0.08)" : "transparent",
+                      borderColor: activeIndex === index ? "rgba(59, 130, 246, 0.4)" : "var(--border)",
+                      borderWidth: activeIndex === index ? 1 : 1,
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+
+                  {/* Border for all states */}
+                  <motion.div
+                    className="absolute inset-0 rounded-full pointer-events-none"
+                    animate={{
+                      borderColor: activeIndex === index ? "rgba(59, 130, 246, 0.4)" : "var(--border)",
+                      borderWidth: "1px",
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+
+                  {/* Content */}
+                  <div className="relative flex items-center gap-1.5 z-10">
+                    <motion.span
+                      className="text-[10px] font-mono font-semibold"
+                      animate={{
+                        color: activeIndex === index ? "hsl(var(--primary))" : "hsl(var(--primary))",
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {item.step}
+                    </motion.span>
+                    <span className="text-sm font-medium text-foreground">
+                      {item.label}
+                    </span>
+                  </div>
+                </div>
+              </motion.button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
+import { FlipCard } from "@/app/components/FlipCard";
 import ss1 from "@/imports/screenshots/project1-screenshot1-overview.png";
 import ss2 from "@/imports/screenshots/project1-screenshot2-search-results.png";
 import ss3 from "@/imports/screenshots/project1-screenshot3-nearby-clinics.png";
@@ -62,10 +220,9 @@ import certHumanCenteredAi from "@/imports/certificates/certificate-human-center
 
 const NAV_LINKS = [
   { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
   { label: "Articles", href: "#articles" },
-  { label: "Certificates", href: "#certificates" },
+  // { label: "Certificates", href: "#certificates" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
@@ -107,7 +264,7 @@ function Nav() {
     >
       <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
         <span className="text-sm font-semibold tracking-tight text-foreground">
-          Olya Ezhova
+          <GradientHoverText text="Olya Ezhova" />
         </span>
 
         <nav className="hidden md:flex items-center gap-1">
@@ -299,7 +456,6 @@ function Hero() {
               transition={{ duration: 0.32, delay: 0.04 }}
               className="text-xs font-semibold tracking-widest uppercase text-primary mb-8"
             >
-              Available for new opportunities
             </motion.p>
             <motion.h1
               initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
@@ -307,7 +463,7 @@ function Hero() {
               transition={{ duration: 0.34, delay: 0.08 }}
               className="text-[clamp(2.8rem,8vw,6rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-black mb-0 md:mb-8"
             >
-              Olya Ezhova
+              <GradientHoverText text="Olya Ezhova" />
             </motion.h1>
             <motion.p
               initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
@@ -315,15 +471,15 @@ function Hero() {
               transition={{ duration: 0.32, delay: 0.12 }}
               className="text-xl font-medium text-muted-foreground mt-3 mb-5 md:mt-0 md:mb-5 tracking-tight flex flex-wrap items-center gap-y-3 gap-x-2 sm:gap-x-0"
             >
-              <span className="inline-flex w-full sm:w-auto h-10 justify-start items-center px-3.5 rounded-full bg-slate-100 border border-slate-200 text-slate-800 leading-none">
+              <span className="hidden sm:inline-flex w-full sm:w-auto h-10 justify-start items-center px-3.5 rounded-full bg-slate-100 border border-slate-200 text-slate-800 leading-none">
                 Design Engineer
               </span>
               <span className="mx-2 text-muted-foreground/60 hidden sm:inline">·</span>
-              <span className="text-teal-700 inline-flex">UI/UX Design</span>
+              <span className="hidden sm:inline-flex text-teal-700"><GradientHoverText text="Product Design" /></span>
+              <span className="hidden sm:inline mx-0.5 sm:mx-2 text-muted-foreground/60">·</span>
+              <span className="text-sky-700 inline-flex"><GradientHoverText text="Healthcare" /></span>
               <span className="mx-0.5 sm:mx-2 text-muted-foreground/60 inline">·</span>
-              <span className="text-sky-700 inline-flex">Healthcare</span>
-              <span className="mx-0.5 sm:mx-2 text-muted-foreground/60 inline">·</span>
-              <span className="text-cyan-700 inline-flex">SaaS</span>
+              <span className="text-cyan-700 inline-flex"><GradientHoverText text="Digital Products" /></span>
             </motion.p>
             <motion.p
               initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
@@ -398,64 +554,30 @@ function Hero() {
               transition={{ duration: 5, ease: "linear", repeat: Infinity }}
             />
           </div>
-          <div className="pt-6 pl-[max(1.5rem,calc((100vw-72rem)/2))] pr-6">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
-          {[
-            {
-              number: "20+",
-              label: "Large-scale applications",
-              glow: "from-teal-400/28 via-teal-300/10 to-transparent",
-              accent: "bg-teal-500/65",
-              ring: "group-hover:border-teal-400/40",
-              numberTone: "group-hover:text-teal-700",
-            },
-            {
-              number: "5,000+",
-              label: "Daily users",
-              glow: "from-sky-400/28 via-sky-300/10 to-transparent",
-              accent: "bg-sky-500/65",
-              ring: "group-hover:border-sky-400/40",
-              numberTone: "group-hover:text-sky-700",
-            },
-            {
-              number: "330+",
-              label: "Healthcare clinics supported",
-              glow: "from-blue-400/28 via-blue-300/10 to-transparent",
-              accent: "bg-blue-500/65",
-              ring: "group-hover:border-blue-400/40",
-              numberTone: "group-hover:text-blue-700",
-            },
-            {
-              number: "30%",
-              label: "Processing time reduced",
-              glow: "from-emerald-400/26 via-emerald-300/10 to-transparent",
-              accent: "bg-emerald-500/65",
-              ring: "group-hover:border-emerald-400/40",
-              numberTone: "group-hover:text-emerald-700",
-            },
-          ].map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
-              whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.35 }}
-              transition={{ duration: 0.28, delay: 0.035 * i }}
-              className="group"
-            >
-              <div className={`relative overflow-hidden rounded-2xl border border-border/80 bg-card/70 backdrop-blur-sm px-5 py-6 md:px-6 md:py-7 min-h-[160px] md:min-h-[176px] shadow-[0_1px_0_rgba(0,0,0,0.03)] hover:shadow-md transition-all duration-200 h-full ${stat.ring}`}>
-                <div className={`absolute inset-0 bg-gradient-to-br ${stat.glow} opacity-60`} />
-                <div className="absolute -top-10 -right-8 w-24 h-24 rounded-full bg-white/30 blur-2xl" />
-                <div className="relative">
-                <div className={`h-1.5 w-11 rounded-full mb-3 ${stat.accent}`} />
-                <div className={`text-3xl font-semibold tracking-tight text-foreground mb-1 transition-colors ${stat.numberTone}`}>
-                  {stat.number}
-                </div>
-                <div className="text-sm text-muted-foreground leading-snug">{stat.label}</div>
-                </div>
+          <div className="pt-6">
+            <div className="max-w-6xl mx-auto px-3 sm:px-0">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                {FLIP_CARDS.map((card, i) => (
+                  <motion.div
+                    key={card.frontMetric}
+                    initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+                    whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.35 }}
+                    transition={{ duration: 0.28, delay: 0.035 * i }}
+                    className="h-56"
+                  >
+                    <FlipCard
+                      frontMetric={card.frontMetric}
+                      frontLabel={card.frontLabel}
+                      backTitle={card.backTitle}
+                      backItems={card.backItems}
+                      icon={card.icon}
+                      gradientIndex={card.gradientIndex}
+                    />
+                  </motion.div>
+                ))}
               </div>
-            </motion.div>
-          ))}
-          </div>
+            </div>
           </div>
         </div>
       </div>
@@ -583,6 +705,7 @@ const WHAT_I_BUILD = [
 ];
 
 function About() {
+  const reduceMotion = useReducedMotion() ?? false;
   return (
     <section id="about" className="py-16 px-6 bg-secondary/40">
       <div className="max-w-6xl mx-auto space-y-16">
@@ -610,60 +733,16 @@ function About() {
               </div>
 
               <div className="mt-8 pt-6 border-t border-border max-w-2xl">
-                <p className="mb-3 text-base font-medium text-foreground">
-                  From idea <span className="text-muted-foreground">→</span> shipped product
+                <p className="mb-5 text-base font-medium text-foreground">
+                  From Idea <span className="text-muted-foreground">→</span> Shipped Product
                 </p>
-                <div className="flex flex-wrap items-center gap-1.5 md:gap-2 text-sm text-muted-foreground">
-                  {[
-                    { step: "01", label: "Research" },
-                    { step: "02", label: "Design" },
-                    { step: "03", label: "Code" },
-                    { step: "04", label: "Test" },
-                    { step: "05", label: "Ship" },
-                  ].map((item, index, array) => (
-                    <div key={item.step} className="flex items-center gap-1.5 md:gap-2">
-                      <div className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/75 px-2.5 py-1.5 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
-                        <span className="text-[10px] font-mono font-semibold text-primary">{item.step}</span>
-                        <span className="text-sm font-medium text-foreground">{item.label}</span>
-                      </div>
-                      {index < array.length - 1 && (
-                        <ArrowRight size={12} className="text-muted-foreground/70 shrink-0" />
-                      )}
-                    </div>
-                  ))}
-                </div>
-                <p className="mt-4 text-sm text-muted-foreground">
-                  I work across the entire product lifecycle.
-                </p>
+                <ProductLifecycleStages reduceMotion={reduceMotion} />
               </div>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-6 hidden sm:block">
               <div>
-                <h3 className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-3">
-                  Industries
-                </h3>
-                {[
-                  {
-                    label: "Healthcare",
-                    tone: "text-sky-800",
-                  },
-                  {
-                    label: "SaaS",
-                    tone: "text-teal-800",
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className={`py-3.5 border-b border-border text-lg font-semibold tracking-tight ${item.tone}`}
-                  >
-                    {item.label}
-                  </div>
-                ))}
-              </div>
-
-              <div>
-                <h3 className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-3">
+                <h3 className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-3">
                   What I enjoy building
                 </h3>
                 {WHAT_I_BUILD.map((v) => (
@@ -682,7 +761,7 @@ function About() {
 
         {/* Core strengths */}
         <div>
-          <h3 className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-6">
+          <h3 className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-6">
             Core Strengths
           </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -721,7 +800,7 @@ function About() {
               <CheckCircle2 size={18} />
             </div>
             <div>
-              <div className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-1">
+              <div className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-1">
                 Recognition
               </div>
               <p className="text-sm text-foreground leading-relaxed">
@@ -739,7 +818,7 @@ function About() {
               <Layers size={18} />
             </div>
             <div>
-              <div className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-1">
+              <div className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-1">
                 Membership
               </div>
               <p className="text-sm text-foreground leading-relaxed">
@@ -757,7 +836,7 @@ function About() {
               <Globe size={18} />
             </div>
             <div>
-              <div className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-1">
+              <div className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-1">
                 Background
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
@@ -773,7 +852,7 @@ function About() {
               <Lightbulb size={18} />
             </div>
             <div>
-              <div className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-1">
+              <div className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-1">
                 Fun Fact
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
@@ -793,7 +872,7 @@ function About() {
             <Quote size={18} />
           </div>
           <div className="relative">
-            <h3 className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-3">
+            <h3 className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-3">
               Personal Philosophy
             </h3>
             <TypewriterPhilosophy
@@ -810,149 +889,67 @@ function About() {
   );
 }
 
-// ─── SKILLS ───────────────────────────────────────────────────────────────────
+// ─── FLIP CARDS DATA ──────────────────────────────────────────────────────
 
-const SKILL_CATEGORIES = [
+const FLIP_CARDS = [
   {
-    icon: <Code2 size={18} />,
-    label: "Frontend Development",
-    skills: [
-      "React",
-      "TypeScript",
-      "JavaScript",
-      "HTML5",
-      "CSS3",
-      "Vite",
-      "Next.js",
-      "REST APIs",
-      "Shadcn/ui"
+    frontMetric: "20+",
+    frontLabel: "Large-scale Applications",
+    backTitle: "Selected Applications",
+    backItems: [
+      "Healthcare Intelliboard",
+      "Scheduling System",
+      "Mobile Operations App",
+      "Urgent Care Services Dashboard",
+      "Electronic Logs",
+      "Telehealth Dashboard",
     ],
+    icon: <Monitor size={28} />,
+    gradientIndex: 0,
   },
   {
-    icon: <Layers size={18} />,
-    label: "UI Engineering",
-    skills: [
-      "Tailwind CSS",
-      "Bootstrap",
-      "Responsive layout",
-      "Animation",
-      "Design System Integration",
+    frontMetric: "5,000+",
+    frontLabel: "Daily Users",
+    backTitle: "Who Users Them",
+    backItems: [
+      "Patients",
+      "Providers",
+      "Clinic Staff",
+      "Operational Leaders",
+      "Quality Managers",
     ],
+    icon: <Users size={28} />,
+    gradientIndex: 1,
   },
   {
-    icon: <Lightbulb size={18} />,
-    label: "UX Design",
-    skills: [
-      "Figma",
-      "User research",
-      "Wireframing",
-      "Prototyping",
+    frontMetric: "330+",
+    frontLabel: "Healthcare Clinics",
+    backTitle: "Multi-site Healthcare",
+    backItems: [
+      {
+        text: "Deployed across 12 states",
+      },
+      "Supported diverse clinical environments",
+      "Designed for consistent workflows across mulpiple locations",
     ],
+    icon: <Building2 size={28} />,
+    gradientIndex: 2,
   },
   {
-    icon: <BarChart3 size={18} />,
-    label: "Data Visualization",
-    skills: ["Plotly", "D3.js", "Recharts", "Dashboard design", "Charting", "DataTables", "Chart.js"],
-  },
-  {
-    icon: <Accessibility size={18} />,
-    label: "Accessibility",
-    skills: [
-      "WCAG 2.1 AA",
-      "ARIA",
-      "Keyboard navigation",
-      "Screen reader testing",
-      "Color contrast",
+    frontMetric: "~30%",
+    frontLabel: "Processing Time Reduced",
+    backTitle: "Key Improvements",
+    backItems: [
+      "Improved Efficiency",
+      "Reduced Support Requests",
+      "Increased Task Completion Rates",
+      "",
+      "Better user & operational outcomes",
     ],
-  },
-  {
-    icon: <Bot size={18} />,
-    label: "AI Tools",
-    skills: [
-      "GitHub Copilot",
-      "ChatGPT",
-      "Figma Make",
-      "Cursor",
-      "Claude",
-      "AI-assisted prototyping",
-    ],
-  },
-  {
-    icon: <Users size={18} />,
-    label: "Collaboration",
-    skills: [
-      "Git / GitHub",
-      "Agile / Scrum",
-      "Cross-functional teams",
-      "Design handoff",
-      "Code review",
-    ],
-  },
-  {
-    icon: <Zap size={18} />,
-    label: "Product Thinking",
-    skills: [
-      "Requirements analysis",
-      "User story mapping",
-      "Stakeholder collaboration",
-      "Workflow optimization"
-    ],
+    icon: <TrendingUp size={28} />,
+    gradientIndex: 3,
   },
 ];
-
-function Skills() {
-  return (
-    <section id="skills" className="py-16 px-6">
-      <div className="max-w-6xl mx-auto">
-        <SectionLabel>Skills</SectionLabel>
-        <h2 className="text-4xl font-semibold tracking-tight text-foreground mb-12">
-          What I bring to the table
-        </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {SKILL_CATEGORIES.map((cat, i) => (
-            <div
-              key={cat.label}
-              className="relative overflow-hidden p-5 border border-border rounded-xl bg-card hover:border-primary/30 hover:shadow-md transition-all duration-200 group"
-            >
-              <div
-                className={`absolute inset-0 opacity-40 pointer-events-none bg-gradient-to-br ${[
-                  "from-cyan-200/45 via-transparent to-transparent",
-                  "from-sky-200/45 via-transparent to-transparent",
-                  "from-teal-200/45 via-transparent to-transparent",
-                  "from-blue-200/45 via-transparent to-transparent",
-                ][i % 4]}`}
-              />
-              <div
-                className={`relative mb-3 h-1.5 w-11 rounded-full ${[
-                  "bg-cyan-500/65",
-                  "bg-sky-500/65",
-                  "bg-teal-500/65",
-                  "bg-blue-500/65",
-                ][i % 4]}`}
-              />
-              <div className="w-9 h-9 rounded-lg bg-accent flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-                {cat.icon}
-              </div>
-              <h3 className="text-sm font-semibold text-foreground mb-3">
-                {cat.label}
-              </h3>
-              <div className="relative flex flex-wrap gap-1.5">
-                {cat.skills.map((s) => (
-                  <span
-                    key={s}
-                    className="text-xs px-2 py-0.5 bg-secondary/90 border border-border/60 text-muted-foreground rounded-full"
-                  >
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 // ─── TECH BADGE ───────────────────────────────────────────────────────────────
 
@@ -2059,6 +2056,9 @@ function Articles() {
   const [expanded, setExpanded] = useState<number | null>(null);
   const [showAllArticles, setShowAllArticles] = useState(false);
 
+  // Show 2 on desktop, 1 on mobile
+  const itemsToShow = showAllArticles ? ARTICLES.length : undefined;
+
   return (
     <section id="articles" className="py-16 px-6">
       <div className="max-w-6xl mx-auto">
@@ -2073,12 +2073,26 @@ function Articles() {
         <div className="space-y-4">
           {ARTICLES.map((article, index) => {
             const isOpen = expanded === article.id;
+            
+            // Determine visibility based on index, screen size, and expanded state
+            let hiddenClass = "";
+            
+            if (!showAllArticles) {
+              if (index >= 2) {
+                // Article 3 and beyond: hidden on all screens initially
+                hiddenClass = "hidden";
+              } else if (index === 1) {
+                // Article 2: hidden on mobile, visible on desktop
+                hiddenClass = "hidden sm:block";
+              }
+              // Article 1 (index 0): always visible
+            }
+            // If showAllArticles is true, all articles are shown
+            
             return (
               <article
                 key={article.id}
-                className={`bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/20 transition-colors ${
-                  !showAllArticles && index >= 2 ? "hidden sm:block" : ""
-                }`}
+                className={`bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/20 transition-colors ${hiddenClass}`}
               >
                 <button
                   className="w-full text-left p-7 flex items-start justify-between gap-6"
@@ -2141,15 +2155,25 @@ function Articles() {
           })}
         </div>
 
-        {!showAllArticles && ARTICLES.length > 2 && (
-          <div className="sm:hidden mt-6 flex justify-center">
+        {/* Show More / Show Less Button */}
+        {ARTICLES.length > 2 && (
+          <div className="mt-6 flex justify-center">
             <button
               type="button"
-              onClick={() => setShowAllArticles(true)}
+              onClick={() => setShowAllArticles(!showAllArticles)}
               className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-foreground text-sm font-medium rounded-full hover:bg-secondary transition-colors"
             >
-              View more articles
-              <ChevronDown size={14} />
+              {showAllArticles ? (
+                <>
+                  Show less
+                  <ChevronUp size={14} />
+                </>
+              ) : (
+                <>
+                  View more articles
+                  <ChevronDown size={14} />
+                </>
+              )}
             </button>
           </div>
         )}
@@ -2499,14 +2523,11 @@ export default function App() {
         <Projects />
       </Reveal>
       <Reveal>
-        <Skills />
-      </Reveal>
-      <Reveal>
         <Articles />
       </Reveal>
-      <Reveal>
+      {/* <Reveal>
         <Certificates />
-      </Reveal>
+      </Reveal> */}
       <Reveal>
         <Testimonials />
       </Reveal>
