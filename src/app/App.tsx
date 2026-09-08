@@ -785,7 +785,7 @@ function About() {
 
         {/* Award + background row */}
         <div className="grid md:grid-cols-3 gap-4 md:auto-rows-fr">
-          <div className="p-6 bg-card border border-border rounded-2xl flex items-start gap-4 md:h-full">
+          <div className="p-6 bg-card border border-border rounded-2xl flex items-start gap-4 md:h-full md:min-h-[180px]">
             <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-100 dark:border-amber-900/50 flex items-center justify-center shrink-0 text-amber-500 dark:text-amber-400">
               <CheckCircle2 size={18} />
             </div>
@@ -803,7 +803,7 @@ function About() {
             </div>
           </div>
 
-          <div className="p-6 bg-card border border-border rounded-2xl flex items-start gap-4 md:h-full">
+          <div className="p-6 bg-card border border-border rounded-2xl flex items-start gap-4 md:h-full md:min-h-[180px]">
             <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-primary shrink-0">
               <Layers size={18} />
             </div>
