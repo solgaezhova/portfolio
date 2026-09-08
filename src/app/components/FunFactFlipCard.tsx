@@ -40,7 +40,7 @@ export function FunFactFlipCard() {
 
   return (
     <div
-      className="bg-card border border-border rounded-2xl cursor-pointer h-full relative overflow-hidden min-h-[160px] md:min-h-[200px]"
+      className="bg-card border border-border rounded-2xl cursor-pointer h-full relative overflow-hidden min-h-[160px] md:min-h-[px]"
       onClick={handleClick}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
@@ -101,14 +101,14 @@ export function FunFactFlipCard() {
             <div className="text-xs font-semibold tracking-widest uppercase text-blue-600 dark:text-blue-400 mb-1">
               Fun Fact
             </div>
-            <motion.p
+            <motion.div
               initial={{ opacity: 0 }}
               animate={isFlipped ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.3, delay: 0.2 }}
               className="text-sm text-foreground leading-relaxed break-words"
             >
-              Before software, I worked in law. I've also lived and worked across multiple countries and cultures. This experience helps me bring adaptability, curiosity, and diverse perspectives to teams.
-            </motion.p>
+              Before software, I worked in law. I've also lived and worked across multiple countries and cultures. <span className="hidden md:inline">This experience helps me bring adaptability, curiosity, and diverse perspectives to teams.</span>
+            </motion.div>
           </div>
         </motion.div>
       </motion.div>
