@@ -32,6 +32,8 @@ import {
   Search,
   Building2,
   TrendingUp,
+  Moon,
+  Sun,
 } from "lucide-react";
 
 // Component for per-letter hover gradient effect
@@ -190,6 +192,7 @@ const ProductLifecycleStages = ({ reduceMotion }: { reduceMotion: boolean }) => 
 
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import { FlipCard } from "@/app/components/FlipCard";
+import { useTheme } from "@/app/hooks/useTheme";
 import ss1 from "@/imports/screenshots/project1-screenshot1-overview.png";
 import ss2 from "@/imports/screenshots/project1-screenshot2-search-results.png";
 import ss3 from "@/imports/screenshots/project1-screenshot3-nearby-clinics.png";
@@ -227,7 +230,7 @@ const NAV_LINKS = [
   { label: "Contact", href: "#contact" },
 ];
 
-function Nav() {
+function Nav({ theme, toggleTheme, mounted }: { theme: string; toggleTheme: () => void; mounted: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#projects");
@@ -258,7 +261,7 @@ function Nav() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/90 backdrop-blur-md border-b border-border"
+          ? "bg-white/90 dark:bg-[#0a0a0f]/90 backdrop-blur-md border-b border-border"
           : "bg-transparent"
       }`}
     >
@@ -289,18 +292,32 @@ function Nav() {
               </a>
             );
           })}
+
         </nav>
 
-        <button
-          className="md:hidden p-2 text-muted-foreground"
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
-          {mobileOpen ? <X size={18} /> : <Menu size={18} />}
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            className="hidden sm:flex p-2 text-foreground bg-secondary/60 hover:bg-secondary rounded-lg transition-colors items-center justify-center relative group"
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          >
+            {mounted && (theme === "dark" ? <Sun size={18} /> : <Moon size={18} />)}
+            <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-foreground text-background text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+              {theme === "dark" ? "Light mode" : "Dark mode"}
+            </span>
+          </button>
+          <button
+            className="md:hidden p-2 text-muted-foreground"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </div>
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-white border-b border-border px-6 pb-4">
+        <div className="md:hidden bg-white dark:bg-[#1a1a25] border-b border-border px-6 pb-4">
           {NAV_LINKS.map((link) => {
             const isActive = activeSection === link.href;
 
@@ -438,7 +455,7 @@ function TypewriterPhilosophy({
 
 // ─── HERO ─────────────────────────────────────────────────────────────────────
 
-function Hero() {
+function Hero({ theme, toggleTheme, mounted }: { theme: string; toggleTheme: () => void; mounted: boolean }) {
   const reduceMotion = useReducedMotion();
 
   return (
@@ -461,7 +478,7 @@ function Hero() {
               initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
               animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
               transition={{ duration: 0.34, delay: 0.08 }}
-              className="text-[clamp(2.8rem,8vw,6rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-black mb-0 md:mb-8"
+              className="text-[clamp(2.8rem,8vw,6rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground mb-0 md:mb-8"
             >
               <GradientHoverText text="Olya Ezhova" />
             </motion.h1>
@@ -471,15 +488,15 @@ function Hero() {
               transition={{ duration: 0.32, delay: 0.12 }}
               className="text-xl font-medium text-muted-foreground mt-3 mb-5 md:mt-0 md:mb-5 tracking-tight flex flex-wrap items-center gap-y-3 gap-x-2 sm:gap-x-0"
             >
-              <span className="inline-flex w-full sm:w-auto h-10 justify-start items-center px-3.5 rounded-full bg-slate-100 border border-slate-200 text-slate-800 leading-none">
+              <span className="inline-flex w-full sm:w-auto h-10 justify-start items-center px-3.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 leading-none">
                 Design Engineer
               </span>
               <span className="mx-2 text-muted-foreground/60 hidden sm:inline">·</span>
-              <span className="hidden sm:inline-flex text-teal-700"><GradientHoverText text="Product Design" /></span>
+              <span className="hidden sm:inline-flex text-teal-700 dark:text-teal-300"><GradientHoverText text="Product Design" /></span>
               <span className="hidden sm:inline mx-0.5 sm:mx-2 text-muted-foreground/60">·</span>
-              <span className="text-sky-700 inline-flex"><GradientHoverText text="Healthcare" /></span>
+              <span className="text-sky-700 dark:text-sky-300 inline-flex"><GradientHoverText text="Healthcare" /></span>
               <span className="mx-0.5 sm:mx-2 text-muted-foreground/60 inline">·</span>
-              <span className="text-cyan-700 inline-flex"><GradientHoverText text="Digital Products" /></span>
+              <span className="text-cyan-700 dark:text-cyan-300 inline-flex"><GradientHoverText text="Digital Products" /></span>
             </motion.p>
             <motion.p
               initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
@@ -495,7 +512,7 @@ function Hero() {
               initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 8 }}
               animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
               transition={{ duration: 0.32, delay: 0.2 }}
-              className="flex flex-wrap gap-3"
+              className="flex flex-wrap gap-3 items-center"
             >
               <a
                 href="#projects"
@@ -504,12 +521,23 @@ function Hero() {
                 View my work
                 <ArrowRight size={14} />
               </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-foreground text-sm font-medium rounded-full hover:bg-secondary transition-colors"
+              <button
+                onClick={toggleTheme}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 border border-border text-foreground text-sm font-medium rounded-full hover:bg-secondary/30 dark:hover:bg-secondary/50 transition-all duration-300"
+                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
               >
-                Get in touch
-              </a>
+                {mounted && (theme === "dark" ? (
+                  <>
+                    <Sun size={14} />
+                    <span>Light mode</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon size={14} />
+                    <span>Dark mode</span>
+                  </>
+                ))}
+              </button>
             </motion.div>
           </motion.div>
 
@@ -737,7 +765,7 @@ function About() {
 
             <div className="space-y-6 hidden sm:block">
               <div>
-                <h3 className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-3">
+                <h3 className="text-xs font-semibold tracking-widest uppercase text-blue-600 dark:text-blue-400 mb-3">
                   What I enjoy building
                 </h3>
                 {WHAT_I_BUILD.map((v) => (
@@ -757,11 +785,11 @@ function About() {
         {/* Award + background row */}
         <div className="grid md:grid-cols-3 gap-4">
           <div className="p-6 bg-card border border-border rounded-2xl flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0 text-amber-500">
+            <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-100 dark:border-amber-900/50 flex items-center justify-center shrink-0 text-amber-500 dark:text-amber-400">
               <CheckCircle2 size={18} />
             </div>
             <div>
-              <div className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-1">
+              <div className="text-xs font-semibold tracking-widest uppercase text-blue-600 dark:text-blue-400 mb-1">
                 Recognition
               </div>
               <p className="text-sm text-foreground leading-relaxed">
@@ -779,7 +807,7 @@ function About() {
               <Layers size={18} />
             </div>
             <div>
-              <div className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-1">
+              <div className="text-xs font-semibold tracking-widest uppercase text-blue-600 dark:text-blue-400 mb-1">
                 Membership
               </div>
               <p className="text-sm text-foreground leading-relaxed">
@@ -793,29 +821,29 @@ function About() {
           </div>
 
           <div className="p-6 bg-card border border-border rounded-2xl flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center shrink-0 text-amber-500">
+            <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-100 dark:border-amber-900/50 flex items-center justify-center shrink-0 text-amber-500 dark:text-amber-400">
               <Lightbulb size={18} />
             </div>
             <div>
-              <div className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-1">
+              <div className="text-xs font-semibold tracking-widest uppercase text-blue-600 dark:text-blue-400 mb-1">
                 Fun Fact
               </div>
               <p className="text-sm text-foreground leading-relaxed">
-                Before software, I worked in law. And I've lived and worked across multiple countries and cultures. This experience helps me bring adaptability, curiosity, and diverse perspectives to teams.
+                Before software, I worked in law. I've also lived and worked across multiple countries and cultures. This experience helps me bring adaptability, curiosity, and diverse perspectives to teams.
               </p>
             </div>
           </div>
         </div>
 
         {/* Philosophy */}
-        <div className="relative overflow-hidden p-8 bg-card border border-cyan-200/70 rounded-2xl grid lg:grid-cols-[auto_1fr] gap-6 items-start shadow-[0_10px_30px_-18px_rgba(8,145,178,0.45)]">
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/14 via-sky-300/8 to-transparent" />
-          <div className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-cyan-200/25 blur-3xl" />
-          <div className="relative w-10 h-10 rounded-xl bg-white/80 border border-cyan-100 flex items-center justify-center text-cyan-700 shrink-0">
+        <div className="relative overflow-hidden p-8 bg-card border border-cyan-200/70 dark:border-cyan-900/50 rounded-2xl grid lg:grid-cols-[auto_1fr] gap-6 items-start shadow-[0_10px_30px_-18px_rgba(8,145,178,0.45)] dark:shadow-none">
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/14 via-sky-300/8 to-transparent dark:from-cyan-400/10 dark:via-sky-300/5" />
+          <div className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-cyan-200/25 dark:bg-cyan-500/10 blur-3xl" />
+          <div className="relative w-10 h-10 rounded-xl bg-white/80 dark:bg-cyan-950/50 border border-cyan-100 dark:border-cyan-800/50 flex items-center justify-center text-cyan-700 dark:text-cyan-300 shrink-0">
             <Quote size={18} />
           </div>
           <div className="relative">
-            <h3 className="text-xs font-semibold tracking-widest uppercase text-blue-600 mb-3">
+            <h3 className="text-xs font-semibold tracking-widest uppercase text-blue-600 dark:text-blue-400 mb-3">
               Personal Philosophy
             </h3>
             <TypewriterPhilosophy
@@ -854,9 +882,9 @@ function Skills() {
                   "from-sky-400/22 via-sky-200/8 to-transparent",
                   "from-emerald-400/22 via-emerald-200/8 to-transparent",
                 ][i % 4]} opacity-70`} />
-                <div className="absolute -top-8 -right-8 w-20 h-20 rounded-full bg-white/35 blur-2xl" />
+                <div className="absolute -top-8 -right-8 w-20 h-20 rounded-full bg-white/35 dark:bg-white/10 blur-2xl" />
                 <div className="relative">
-                  <div className="w-8 h-8 rounded-lg bg-white/65 border border-white/60 flex items-center justify-center text-primary mb-3 group-hover:bg-primary group-hover:text-white transition-colors">
+                  <div className="w-8 h-8 rounded-lg bg-white/65 dark:bg-white/10 border border-white/60 dark:border-white/15 flex items-center justify-center text-primary mb-3 group-hover:bg-primary group-hover:text-white transition-colors">
                     {s.icon}
                   </div>
                   <h4 className="text-sm font-semibold text-foreground mb-1.5">
@@ -1582,7 +1610,7 @@ A production healthcare application that helps call-center teams find clinic ser
                               const Icon = step.icon;
                               return (
                                 <div key={step.label} className="flex items-center gap-1.5 md:gap-2">
-                                  <div className="flex min-w-0 items-center gap-1.5 rounded-full border border-border bg-white px-2.5 py-1.5 text-[9px] font-medium text-foreground shadow-sm">
+                                  <div className="flex min-w-0 items-center gap-1.5 rounded-full border border-border bg-white dark:bg-card px-2.5 py-1.5 text-[9px] font-medium text-foreground shadow-sm">
                                     <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full border ${step.badge}`}>
                                       <Icon size={11} />
                                     </span>
@@ -1620,7 +1648,7 @@ A production healthcare application that helps call-center teams find clinic ser
                           "Repeats as needed",
                         ].map((step, index, arr) => (
                           <div key={step} className="flex items-center gap-2.5">
-                            <div className="rounded-full border border-border bg-white px-2.5 py-2 text-[12px] font-medium text-foreground shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+                            <div className="rounded-full border border-border bg-white dark:bg-card px-2.5 py-2 text-[12px] font-medium text-foreground shadow-[0_1px_0_rgba(15,23,42,0.02)]">
                               {step}
                             </div>
                             {index < arr.length - 1 && <ChevronRight size={12} className="text-muted-foreground/80" />}
@@ -1648,15 +1676,15 @@ A production healthcare application that helps call-center teams find clinic ser
 
                       <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 xl:grid-cols-5">
                         {[
-                          { label: "Find a clinic", detail: "Autocomplete search", icon: Monitor, badge: "bg-gradient-to-br from-sky-100 to-blue-100 text-sky-700 border-sky-200" },
-                          { label: "Select a service", detail: "Dropdown selection", icon: CheckCircle2, badge: "bg-gradient-to-br from-emerald-100 to-green-100 text-emerald-700 border-emerald-200" },
-                          { label: "Check availability", detail: "Today / tomorrow hours", icon: Clock3, badge: "bg-gradient-to-br from-violet-100 to-indigo-100 text-violet-700 border-violet-200" },
-                          { label: "Find nearby options", detail: "Distance-sorted alternatives", icon: MapPin, badge: "bg-gradient-to-br from-cyan-100 to-blue-100 text-cyan-700 border-cyan-200" },
-                          { label: "View on map", detail: "Interactive map location", icon: Globe, badge: "bg-gradient-to-br from-pink-100 to-rose-100 text-pink-700 border-pink-200" },
+                          { label: "Find a clinic", detail: "Autocomplete search", icon: Monitor, badge: "bg-gradient-to-br from-sky-100 to-blue-100 text-sky-700 border-sky-200 dark:from-sky-900/40 dark:to-blue-900/40 dark:text-sky-300 dark:border-sky-800/60" },
+                          { label: "Select a service", detail: "Dropdown selection", icon: CheckCircle2, badge: "bg-gradient-to-br from-emerald-100 to-green-100 text-emerald-700 border-emerald-200 dark:from-emerald-900/40 dark:to-green-900/40 dark:text-emerald-300 dark:border-emerald-800/60" },
+                          { label: "Check availability", detail: "Today / tomorrow hours", icon: Clock3, badge: "bg-gradient-to-br from-violet-100 to-indigo-100 text-violet-700 border-violet-200 dark:from-violet-900/40 dark:to-indigo-900/40 dark:text-violet-300 dark:border-violet-800/60" },
+                          { label: "Find nearby options", detail: "Distance-sorted alternatives", icon: MapPin, badge: "bg-gradient-to-br from-cyan-100 to-blue-100 text-cyan-700 border-cyan-200 dark:from-cyan-900/40 dark:to-blue-900/40 dark:text-cyan-300 dark:border-cyan-800/60" },
+                          { label: "View on map", detail: "Interactive map location", icon: Globe, badge: "bg-gradient-to-br from-pink-100 to-rose-100 text-pink-700 border-pink-200 dark:from-pink-900/40 dark:to-rose-900/40 dark:text-pink-300 dark:border-pink-800/60" },
                         ].map((step, index) => {
                           const Icon = step.icon;
                           return (
-                            <div key={step.label} className="rounded-xl border border-border bg-white p-3 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+                            <div key={step.label} className="rounded-xl border border-border bg-white dark:bg-card p-3 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
                               <div className="mb-3 flex items-center justify-between gap-2">
                                 <span className={`inline-flex h-11 w-11 items-center justify-center rounded-lg border ${step.badge}`}>
                                   <Icon size={16} />
@@ -1679,7 +1707,7 @@ A production healthcare application that helps call-center teams find clinic ser
                     VIDEO + SCREENSHOTS
                   </div>
                   <div className="flex justify-center w-full">
-                    <div className="w-full max-w-4xl rounded-[1.5rem] border border-border bg-white/80 p-2.5 shadow-[0_16px_35px_rgba(15,23,42,0.08)]">
+                    <div className="w-full max-w-4xl rounded-[1.5rem] border border-border bg-white/80 dark:bg-card/80 p-2.5 shadow-[0_16px_35px_rgba(15,23,42,0.08)]">
                       <ScreenshotGallery key={project.number} screenshots={project.screenshots} title={project.title} />
                     </div>
                   </div>
@@ -1692,15 +1720,15 @@ A production healthcare application that helps call-center teams find clinic ser
                     </div>
                     <div className="grid h-full grid-cols-2 gap-3">
                       {[
-                        { title: "Progressive disclosure", text: "Show relevant information only when needed to keep the experience focused.", icon: Layers, badge: "bg-gradient-to-br from-sky-100 to-indigo-100 text-indigo-700 border-indigo-200" },
-                        { title: "Proximity-based results", text: "Nearby clinics are sorted by distance so operators can quickly find the closest option.", icon: MapPin, badge: "bg-gradient-to-br from-cyan-100 to-blue-100 text-cyan-700 border-cyan-200" },
-                        { title: "List + Map", text: "The list is great for comparison; the map adds geographic context.", icon: Monitor, badge: "bg-gradient-to-br from-emerald-100 to-teal-100 text-emerald-700 border-emerald-200" },
-                        { title: "Responsive & accessible", text: "Built for desktop and mobile with accessible interactions and touch-friendly controls.", icon: Accessibility, badge: "bg-gradient-to-br from-violet-100 to-purple-100 text-violet-700 border-violet-200" },
+                        { title: "Progressive disclosure", text: "Show relevant information only when needed to keep the experience focused.", icon: Layers, badge: "bg-gradient-to-br from-sky-100 to-indigo-100 text-indigo-700 border-indigo-200 dark:from-sky-900/40 dark:to-indigo-900/40 dark:text-indigo-300 dark:border-indigo-800/60" },
+                        { title: "Proximity-based results", text: "Nearby clinics are sorted by distance so operators can quickly find the closest option.", icon: MapPin, badge: "bg-gradient-to-br from-cyan-100 to-blue-100 text-cyan-700 border-cyan-200 dark:from-cyan-900/40 dark:to-blue-900/40 dark:text-cyan-300 dark:border-cyan-800/60" },
+                        { title: "List + Map", text: "The list is great for comparison; the map adds geographic context.", icon: Monitor, badge: "bg-gradient-to-br from-emerald-100 to-teal-100 text-emerald-700 border-emerald-200 dark:from-emerald-900/40 dark:to-teal-900/40 dark:text-emerald-300 dark:border-emerald-800/60" },
+                        { title: "Responsive & accessible", text: "Built for desktop and mobile with accessible interactions and touch-friendly controls.", icon: Accessibility, badge: "bg-gradient-to-br from-violet-100 to-purple-100 text-violet-700 border-violet-200 dark:from-violet-900/40 dark:to-purple-900/40 dark:text-violet-300 dark:border-violet-800/60" },
                       ].map((item) => {
                         const Icon = item.icon;
 
                         return (
-                          <div key={item.title} className="h-full rounded-xl border border-border bg-white p-3.5 min-h-[140px] shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+                          <div key={item.title} className="h-full rounded-xl border border-border bg-white dark:bg-card p-3.5 min-h-[140px] shadow-[0_1px_0_rgba(15,23,42,0.02)]">
                             <div className="mb-2 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">
                               <span className={`inline-flex h-7 w-7 items-center justify-center rounded-md border ${item.badge}`}>
                                 <Icon size={12} />
@@ -1722,7 +1750,7 @@ A production healthcare application that helps call-center teams find clinic ser
                       <p className="mb-4 text-[1.05rem] sm:text-[1.3rem] font-medium leading-snug tracking-[-0.03em] text-foreground">
                         Replaced a manual clinic-availability workflow with a guided search experience used across 330+ locations.
                       </p>
-                      <div className="mx-auto mt-6 flex w-full max-w-[260px] items-center justify-center rounded-xl border border-primary/15 bg-[#f2f6ff] p-4 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
+                      <div className="mx-auto mt-6 flex w-full max-w-[260px] items-center justify-center rounded-xl border border-primary/15 bg-[#f2f6ff] dark:bg-[#12213a] p-4 shadow-[0_1px_0_rgba(15,23,42,0.02)]">
                         <div className="w-full">
                           <div className="flex items-end justify-between gap-3 mb-3">
                             <div className="text-[1.8rem] sm:text-[2rem] font-semibold tracking-[-0.05em] text-primary">~30%</div>
@@ -2467,7 +2495,7 @@ function Testimonials() {
 
 function Contact() {
   return (
-    <section id="contact" className="py-16 px-6 bg-foreground">
+    <section id="contact" className="py-16 px-6 bg-[#0a0a0f]">
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-[1fr_auto] gap-16 items-start">
           <div>
@@ -2564,14 +2592,16 @@ function Contact() {
 // ─── APP ─────────────────────────────────────────────────────────────────────
 
 export default function App() {
+  const { theme, toggleTheme, mounted } = useTheme();
+
   return (
     <div
       id="top"
       className="min-h-screen bg-background text-foreground"
       style={{ fontFamily: "var(--font-sans)" }}
     >
-      <Nav />
-      <Hero />
+      <Nav theme={theme} toggleTheme={toggleTheme} mounted={mounted} />
+      <Hero theme={theme} toggleTheme={toggleTheme} mounted={mounted} />
       <Reveal>
         <About />
       </Reveal>

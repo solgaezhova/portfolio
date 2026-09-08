@@ -124,10 +124,10 @@ export function FlipCard({
             <div className="flex items-start justify-between flex-1">
               <div className="flex-1">
                 <div className={`h-1.5 w-11 rounded-full mb-3 ${accentBar}`} />
-                <div className={`text-4xl md:text-5xl font-normal text-black mb-1`} style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>
+                <div className={`text-4xl md:text-5xl font-normal text-foreground mb-1`} style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>
                   {frontMetric}
                 </div>
-                <div className="text-sm font-normal text-black leading-tight mb-2" style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>{frontLabel}</div>
+                <div className="text-sm font-normal text-foreground leading-tight mb-2" style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>{frontLabel}</div>
               </div>
               {icon && (
                 <div className={`flex-shrink-0 ml-2 ${iconColor}`}>
@@ -136,7 +136,7 @@ export function FlipCard({
               )}
             </div>
             
-            <div className="absolute bottom-4 right-4 text-xs text-gray-500 whitespace-nowrap" style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>
+            <div className="absolute bottom-4 right-4 text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap" style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>
               Hover/tap to reveal
             </div>
           </div>
@@ -157,7 +157,7 @@ export function FlipCard({
 
           <div className="relative z-10">
             <div className="flex items-start justify-between mb-3">
-              <h3 className="text-sm md:text-base font-semibold text-black flex-1" style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>
+              <h3 className="text-sm md:text-base font-semibold text-foreground flex-1" style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>
                 {backTitle}
               </h3>
               {icon && (
@@ -172,7 +172,7 @@ export function FlipCard({
                   initial={{ opacity: 0 }}
                   animate={isFlipped ? { opacity: 1 } : { opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="text-sm text-black leading-relaxed"
+                  className="text-sm text-foreground leading-relaxed"
                   style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}
                 >
                   {backDescription}
@@ -192,7 +192,7 @@ export function FlipCard({
                       transition={{ delay: index * 0.05 }}
                       className={`flex justify-center py-2 ${isLastCard ? "hidden sm:flex" : ""}`}
                     >
-                      <span className="text-base text-black font-light" style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale", letterSpacing: "-0.5px"}}>↓</span>
+                      <span className="text-base text-foreground font-light" style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale", letterSpacing: "-0.5px"}}>↓</span>
                     </motion.div>
                   );
                 }
@@ -209,7 +209,7 @@ export function FlipCard({
                         transition={{ delay: index * 0.05 }}
                         className="hidden sm:flex items-start"
                       >
-                        <span className="text-sm italic text-black leading-tight" style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>
+                        <span className="text-sm italic text-foreground leading-tight" style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>
                           {itemText}
                         </span>
                       </motion.div>
@@ -224,7 +224,7 @@ export function FlipCard({
                       transition={{ delay: index * 0.05 }}
                       className="flex items-start"
                     >
-                      <span className={`${itemText.startsWith("Better") ? "text-sm italic" : `text-xs ${isBold ? "font-semibold" : "font-normal"}`} text-black leading-tight`} style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>
+                      <span className={`${itemText.startsWith("Better") ? "text-sm italic" : `text-xs ${isBold ? "font-semibold" : "font-normal"}`} text-foreground leading-tight`} style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>
                         {itemText}
                       </span>
                     </motion.div>
@@ -241,7 +241,7 @@ export function FlipCard({
                     className="flex items-start gap-2"
                   >
                     <div className={`w-1 h-1 rounded-full flex-shrink-0 mt-1 bg-primary opacity-60`} />
-                    <span className={`text-xs text-black leading-tight ${isBold ? "font-semibold" : "font-normal"}`} style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>
+                    <span className={`text-xs text-foreground leading-tight ${isBold ? "font-semibold" : "font-normal"}`} style={{WebkitFontSmoothing: "antialiased", MozOsxFontSmoothing: "grayscale"}}>
                       {itemText}
                     </span>
                   </motion.div>
