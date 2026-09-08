@@ -40,7 +40,7 @@ export function FunFactFlipCard() {
 
   return (
     <div
-      className="bg-card border border-border rounded-2xl cursor-pointer h-full relative overflow-hidden min-h-[160px] md:min-h-[180px]"
+      className="bg-card border border-border rounded-2xl cursor-pointer h-full relative overflow-hidden min-h-[160px] md:min-h-[200px]"
       onClick={handleClick}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
