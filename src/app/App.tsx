@@ -192,6 +192,7 @@ const ProductLifecycleStages = ({ reduceMotion }: { reduceMotion: boolean }) => 
 
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import { FlipCard } from "@/app/components/FlipCard";
+import { FunFactFlipCard } from "@/app/components/FunFactFlipCard";
 import { useTheme } from "@/app/hooks/useTheme";
 import ss1 from "@/imports/screenshots/project1-screenshot1-overview.png";
 import ss2 from "@/imports/screenshots/project1-screenshot2-search-results.png";
@@ -783,8 +784,8 @@ function About() {
         </div>
 
         {/* Award + background row */}
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="p-6 bg-card border border-border rounded-2xl flex items-start gap-4">
+        <div className="grid md:grid-cols-3 gap-4 md:auto-rows-fr">
+          <div className="p-6 bg-card border border-border rounded-2xl flex items-start gap-4 md:h-full">
             <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-100 dark:border-amber-900/50 flex items-center justify-center shrink-0 text-amber-500 dark:text-amber-400">
               <CheckCircle2 size={18} />
             </div>
@@ -802,7 +803,7 @@ function About() {
             </div>
           </div>
 
-          <div className="p-6 bg-card border border-border rounded-2xl flex items-start gap-4">
+          <div className="p-6 bg-card border border-border rounded-2xl flex items-start gap-4 md:h-full">
             <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-primary shrink-0">
               <Layers size={18} />
             </div>
@@ -820,19 +821,7 @@ function About() {
             </div>
           </div>
 
-          <div className="p-6 bg-card border border-border rounded-2xl flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-100 dark:border-amber-900/50 flex items-center justify-center shrink-0 text-amber-500 dark:text-amber-400">
-              <Lightbulb size={18} />
-            </div>
-            <div>
-              <div className="text-xs font-semibold tracking-widest uppercase text-blue-600 dark:text-blue-400 mb-1">
-                Fun Fact
-              </div>
-              <p className="text-sm text-foreground leading-relaxed">
-                Before software, I worked in law. I've also lived and worked across multiple countries and cultures. This experience helps me bring adaptability, curiosity, and diverse perspectives to teams.
-              </p>
-            </div>
-          </div>
+          <FunFactFlipCard />
         </div>
 
         {/* Philosophy */}
