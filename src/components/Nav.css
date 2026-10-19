@@ -1,0 +1,16 @@
+.nav { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); background: oklch(0.985 0.004 200 / .78); border-bottom: 1px solid oklch(0.92 0.01 220); }
+.nav-bar { max-width: 1240px; margin: 0 auto; padding: 14px var(--gutter); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.nav-brand { display: flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 600; font-size: 15px; }
+.nav-logo { width: 28px; height: 28px; border-radius: 8px; background: var(--brand-gradient); color: oklch(0.99 0 0); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 14px; }
+
+.nav-links { display: flex; gap: 4px; flex-wrap: wrap; font-size: 14px; }
+.nav-link { padding: 7px 12px; border-radius: 999px; color: var(--muted); }
+.nav-link:hover { background: oklch(0.94 0.02 210); color: var(--ink); }
+.nav-contact { padding: 7px 14px; border-radius: 999px; background: var(--ink); color: var(--on-dark); }
+.nav-contact:hover { background: var(--teal); color: var(--on-dark); }
+
+.nav-menu-btn { min-width: 44px; height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid oklch(0.88 0.02 220); background: var(--white); color: var(--ink); font-size: 14px; font-weight: 500; }
+
+.nav-drawer { display: flex; flex-direction: column; padding: 4px var(--gutter) 20px; background: var(--bg); }
+.nav-drawer-link { padding: 14px 4px; border-bottom: 1px solid oklch(0.92 0.01 220); color: var(--ink); font-size: 17px; font-weight: 500; }
+.nav-drawer-contact { margin-top: 14px; padding: 14px; border-radius: 999px; background: var(--ink); color: var(--on-dark); text-align: center; font-weight: 500; }
