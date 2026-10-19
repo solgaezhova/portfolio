@@ -1,0 +1,51 @@
+:root {
+  --bg: oklch(0.985 0.004 200);
+  --ink: oklch(0.22 0.025 245);
+  --white: oklch(0.995 0 0);
+  --on-dark: oklch(0.98 0 0);
+  --teal: oklch(0.42 0.08 195);
+  --blue: oklch(0.52 0.19 258);
+  --body: oklch(0.35 0.02 245);
+  --muted: oklch(0.4 0.02 245);
+  --brand-gradient: linear-gradient(135deg, oklch(0.68 0.12 185), oklch(0.52 0.19 258));
+  --display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --mono: 'Geist Mono', ui-monospace, monospace;
+  --gutter: clamp(20px, 4vw, 48px);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Geist', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+/* Every link sets its own colour (and hover colour) in its component styles. */
+a { color: oklch(0.45 0.16 258); text-decoration: none; }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+button { font: inherit; cursor: pointer; }
+
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 oklch(0.7 0.15 160 / .6); } 100% { box-shadow: 0 0 0 10px oklch(0.7 0.15 160 / 0); } }
+
+.page { min-height: 100vh; overflow-x: clip; }
+.container { max-width: 1240px; margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); }
+
+/* Shared type */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; color: var(--teal); }
+.label { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: oklch(0.45 0.02 245); }
+.section-title { margin: 0; font-family: var(--display); font-weight: 600; font-size: clamp(44px, 6vw, 80px); line-height: .95; letter-spacing: -.04em; }
+.stack-16 { display: flex; flex-direction: column; gap: 16px; }
+.gradient-text { -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* Shared buttons */
+.btn { display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 999px; font-size: 14px; font-weight: 500; }
+.btn-outline { border: 1px solid var(--ink); background: transparent; color: var(--ink); }
+.btn-outline:hover { background: var(--ink); color: var(--on-dark); }
+.btn-dark { border: none; background: var(--ink); color: var(--on-dark); }
+.btn-dark:hover { background: var(--teal); color: var(--on-dark); }
+
+/* Tech stack chips */
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { padding: 6px 12px; border-radius: 999px; background: var(--white); font-family: var(--mono); font-size: 12px; color: var(--body); }

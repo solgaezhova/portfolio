@@ -1,0 +1,16 @@
+.skills { max-width: 1240px; margin: 0 auto; padding: clamp(56px, 9vw, 120px) var(--gutter); display: flex; flex-direction: column; gap: 40px; }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; }
+.skill { position: relative; padding: 28px; min-height: 260px; border-radius: 22px; background: var(--white); border: 1px solid oklch(0.92 0.01 220); display: flex; flex-direction: column; justify-content: flex-start; gap: 28px; overflow: hidden; transition: transform .3s, box-shadow .3s, border-color .3s; }
+.skill:hover { transform: translateY(-6px); border-color: oklch(0.75 0.09 195); box-shadow: 0 24px 50px -24px oklch(0.4 0.1 220 / .4); }
+.skill-n { font-family: var(--display); font-size: 72px; font-weight: 600; line-height: .8; letter-spacing: -.05em; color: oklch(0.93 0.03 200); }
+.skill-body { display: flex; flex-direction: column; gap: 10px; }
+/* Titles reserve two lines so they align across cards on desktop. */
+.skill-title { font-family: var(--display); font-size: 24px; font-weight: 600; letter-spacing: -.02em; line-height: 1.2; min-height: 2.4em; display: flex; align-items: flex-end; }
+.skill-text { font-size: 15px; line-height: 1.6; color: oklch(0.42 0.02 245); }
+
+/* Phones: tighter cards, no reserved title height. */
+.skills.is-compact { gap: 24px; }
+.skills.is-compact .skills-grid { gap: 10px; }
+.skills.is-compact .skill { padding: 20px 22px; min-height: 0; gap: 12px; }
+.skills.is-compact .skill-n { font-size: 44px; }
+.skills.is-compact .skill-title { min-height: 0; }
