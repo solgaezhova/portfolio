@@ -60,6 +60,10 @@ Projects with a `biz` statement (projects 1 and 2) show a Business Impact card i
 | < 860px | Articles heading stops being sticky |
 | ≥ 1100px | Metric cards sit four across (two by two from 560px) |
 
+## Claude skills
+
+The `skills/` folder holds free Claude skills for healthcare UX work, such as a patient questionnaire review. It isn't part of the website build. See [skills/README.md](skills/README.md) for what each skill does and how to install it.
+
 ## Push to GitHub
 
 If you are creating a new repository:
