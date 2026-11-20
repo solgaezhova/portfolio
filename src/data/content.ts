@@ -16,6 +16,7 @@ import type { Article, Project, Quote, StatCard } from './types';
 
 export const ROLES = [
   "Healthcare",
+  "B2B Products",
   "Digital Products"
 ];
 
@@ -77,8 +78,8 @@ export const PROJECTS: Project[] = [
     "kicker": "HCA HEALTHCARE · PRODUCT DESIGN · DESIGN ENGINEERING · FRONTEND",
     "desc": "A production healthcare application that helps call-center teams find clinic services and availability faster.",
     "role": "Product Designer & Frontend Engineer",
-    "live": "https://ucservices.cnw.hcahealthcare.cloud/",
-    "liveLabel": "Live application",
+    // "live": "https://ucservices.cnw.hcahealthcare.cloud/",
+    // "liveLabel": "Live application",
     "challenge": "When a patient called the call center, operators needed to find a clinic that could provide the requested service. Previously, operators had to contact clinics individually to find availability.",
     "stack": [
       "React",
@@ -164,8 +165,8 @@ export const PROJECTS: Project[] = [
     "kicker": "HCA HEALTHCARE · RE-DESIGN",
     "desc": "A UX redesign that makes provider and practice information faster to find, easier to scan, and more accessible.",
     "role": "UX Researcher & UI/UX Designer",
-    "live": "https://practice-info-card.figma.site/",
-    "liveLabel": "Interactive prototype",
+    // "live": "https://practice-info-card.figma.site/",
+    // "liveLabel": "Interactive prototype",
     "challenge": "Call center teams needed a faster way to find providers, services, and practice details. The existing experience was difficult to scan and slowed access to critical information.",
     "stack": [
       "Figma Make",

@@ -32,7 +32,7 @@ export function Hero({ wide }: { wide: boolean }) {
           <span className="hero-role">{ROLES[roleIdx]}</span>
         </div>
         <p className="hero-lede">
-          Designing and building intuitive healthcare products through the intersection of engineering, UX, and AI.
+          Designing and building intuitive healthcare and B2B products through the intersection of engineering, UX, and AI.
         </p>
         <div className="hero-ctas">
           <a href="#projects" className="hero-cta-primary">View my work →</a>

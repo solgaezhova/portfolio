@@ -42,7 +42,7 @@ export function About({ wide }: { wide: boolean }) {
               <span>Building the technology.</span>
             </h2>
             <p className="about-p">
-              I'm a Product Designer with <b>5+ years</b> of experience designing and building healthcare and SaaS applications.
+              I'm a Product Designer with <b>5+ years</b> of experience designing and building healthcare and B2B applications.
             </p>
             <p className="about-p">
               My strength is <b>end-to-end ownership</b> - understanding the problem, designing the experience, building the
